@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ExpedienteController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -27,6 +29,20 @@ Route::middleware('auth')->group(function () {
     Route::get('/usuarios/{usuarios}/edit', [UsuariosController::class, 'edit'])->name('usuarios.edit');
     Route::put('/usuarios/{usuarios}', [UsuariosController::class, 'update'])->name('usuarios.update');
     Route::delete('/usuarios/{usuarios}', [UsuariosController::class, 'destroy'])->name('usuarios.destroy');
+});
+
+
+
+Route::middleware('auth')->group(function () {
+
+    Route::get('/expediente', [ExpedienteController::class, 'index'])->name('expediente.index');
+    Route::get('/expediente/create', [ExpedienteController::class, 'create'])->name('expediente.create');
+    Route::post('/expediente', [ExpedienteController::class, 'store'])->name('expediente.store');
+    Route::get('/expediente/{expediente}', [ExpedienteController::class, 'show'])->name('expediente.show');
+    Route::get('/expediente/{expediente}/edit', [ExpedienteController::class, 'edit'])->name('expediente.edit');
+    Route::put('/expediente/{expediente}', [ExpedienteController::class, 'update'])->name('expediente.update');
+    Route::delete('/expediente/{expediente}', [ExpedienteController::class, 'destroy'])->name('expediente.destroy');
+
 });
 
 
