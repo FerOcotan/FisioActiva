@@ -3,7 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ExpedienteController;
-
+use App\Http\Controllers\CitaController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -42,6 +42,18 @@ Route::middleware('auth')->group(function () {
     Route::get('/expediente/{expediente}/edit', [ExpedienteController::class, 'edit'])->name('expediente.edit');
     Route::put('/expediente/{expediente}', [ExpedienteController::class, 'update'])->name('expediente.update');
     Route::delete('/expediente/{expediente}', [ExpedienteController::class, 'destroy'])->name('expediente.destroy');
+
+});
+
+Route::middleware('auth')->group(function () {
+
+    Route::get('/cita', [CitaController::class, 'index'])->name('cita.index');
+    Route::get('/cita/create', [CitaController::class, 'create'])->name('cita.create');
+    Route::post('/cita', [CitaController::class, 'store'])->name('cita.store');
+    Route::get('/cita/{cita}', [CitaController::class, 'show'])->name('cita.show');
+    Route::get('/cita/{cita}/edit', [CitaController::class, 'edit'])->name('cita.edit');
+    Route::put('/cita/{cita}', [CitaController::class, 'update'])->name('cita.update');
+    Route::delete('/cita/{cita}', [CitaController::class, 'destroy'])->name('cita.destroy');
 
 });
 
