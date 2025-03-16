@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ExpedienteController;
 use App\Http\Controllers\CitaController;
@@ -8,9 +9,24 @@ use App\Http\Controllers\EconomicoController;
 use App\Http\Controllers\UsuariosController;
 use App\Http\Controllers\DashboardpacienteController;
 
+
+
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::fallback(function () {
+    if (Auth::check()) {
+        // Redirigir según el rol del usuario autenticado
+        return Auth::user()->role === 'administrador'
+            ? redirect()->route('dashboard') 
+            : redirect()->route('dashboardpaciente.index');
+    }
+
+    // Si no está autenticado, redirigir a la página de inicio o login
+    return redirect('/');
+});
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified', 'role:administrador'])->name('dashboard');
