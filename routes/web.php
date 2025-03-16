@@ -11,10 +11,9 @@ use App\Http\Controllers\DashboardpacienteController;
 Route::get('/', function () {
     return view('welcome');
 });
-
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified', 'role:admin'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -24,7 +23,7 @@ Route::middleware('auth')->group(function () {
 
 
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/usuarios', [UsuariosController::class, 'index'])->name('usuarios.index');
     Route::get('/usuarios/create', [UsuariosController::class, 'create'])->name('usuarios.create');
     Route::post('/usuarios', [UsuariosController::class, 'store'])->name('usuarios.store');
@@ -36,7 +35,7 @@ Route::middleware('auth')->group(function () {
 
 
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'role:admin'])->group(function () {
 
     Route::get('/expediente', [ExpedienteController::class, 'index'])->name('expediente.index');
     Route::get('/expediente/create', [ExpedienteController::class, 'create'])->name('expediente.create');
@@ -48,7 +47,7 @@ Route::middleware('auth')->group(function () {
 
 });
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'role:admin'])->group(function () {
 
     Route::get('/cita', [CitaController::class, 'index'])->name('cita.index');
     Route::get('/cita/create', [CitaController::class, 'create'])->name('cita.create');
@@ -60,7 +59,7 @@ Route::middleware('auth')->group(function () {
 
 });
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'role:admin'])->group(function () {
 
     Route::get('/economico', [EconomicoController::class, 'index'])->name('economico.index');
     Route::get('/economico/create', [EconomicoController::class, 'create'])->name('economico.create');
@@ -73,8 +72,7 @@ Route::middleware('auth')->group(function () {
 });
 
 
-Route::middleware('auth')->group(function () {
-
+Route::middleware(['auth', 'role:cliente'])->group(function () {
   
     Route::get('/dashboardpaciente', [DashboardpacienteController::class, 'index'])->name('dashboardpaciente.index');
     Route::get('/dashboardpaciente/create', [DashboardpacienteController::class, 'create'])->name('dashboardpaciente.create');
