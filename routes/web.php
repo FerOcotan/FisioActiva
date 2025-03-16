@@ -6,6 +6,7 @@ use App\Http\Controllers\ExpedienteController;
 use App\Http\Controllers\CitaController;
 use App\Http\Controllers\EconomicoController;
 use App\Http\Controllers\UsuariosController;
+use App\Http\Controllers\DashboardpacienteController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -68,6 +69,20 @@ Route::middleware('auth')->group(function () {
     Route::get('/economico/{economico}/edit', [EconomicoController::class, 'edit'])->name('economico.edit');
     Route::put('/economico/{economico}', [EconomicoController::class, 'update'])->name('economico.update');
     Route::delete('/economico/{economico}', [EconomicoController::class, 'destroy'])->name('economico.destroy');
+
+});
+
+
+Route::middleware('auth')->group(function () {
+
+  
+    Route::get('/dashboardpaciente', [DashboardpacienteController::class, 'index'])->name('dashboardpaciente.index');
+    Route::get('/dashboardpaciente/create', [DashboardpacienteController::class, 'create'])->name('dashboardpaciente.create');
+    Route::post('/dashboardpaciente', [DashboardpacienteController::class, 'store'])->name('dashboardpaciente.store');
+    Route::get('/dashboardpaciente/{dashboardpaciente}', [DashboardpacienteController::class, 'show'])->name('dashboardpaciente.show');
+    Route::get('/dashboardpaciente/{dashboardpaciente}/edit', [DashboardpacienteController::class, 'edit'])->name('dashboardpaciente.edit');
+    Route::put('/dashboardpaciente/{dashboardpaciente}', [DashboardpacienteController::class, 'update'])->name('dashboardpaciente.update');
+    Route::delete('/dashboardpaciente/{dashboardpaciente}', [DashboardpacienteController::class, 'destroy'])->name('dashboardpaciente.destroy');
 
 });
 
