@@ -4,6 +4,8 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ExpedienteController;
 use App\Http\Controllers\CitaController;
+use App\Http\Controllers\EconomicoController;
+use App\Http\Controllers\UsuariosController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -19,7 +21,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-use App\Http\Controllers\UsuariosController;
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/usuarios', [UsuariosController::class, 'index'])->name('usuarios.index');
@@ -56,6 +58,19 @@ Route::middleware('auth')->group(function () {
     Route::delete('/cita/{cita}', [CitaController::class, 'destroy'])->name('cita.destroy');
 
 });
+
+Route::middleware('auth')->group(function () {
+
+    Route::get('/economico', [EconomicoController::class, 'index'])->name('economico.index');
+    Route::get('/economico/create', [EconomicoController::class, 'create'])->name('economico.create');
+    Route::post('/economico', [EconomicoController::class, 'store'])->name('economico.store');
+    Route::get('/economico/{economico}', [EconomicoController::class, 'show'])->name('economico.show');
+    Route::get('/economico/{economico}/edit', [EconomicoController::class, 'edit'])->name('economico.edit');
+    Route::put('/economico/{economico}', [EconomicoController::class, 'update'])->name('economico.update');
+    Route::delete('/economico/{economico}', [EconomicoController::class, 'destroy'])->name('economico.destroy');
+
+});
+
 
 
 require __DIR__.'/auth.php';
