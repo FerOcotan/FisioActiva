@@ -11,9 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('economicos', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::create('economicos', function (Blueprint $table) 
+        {
+            $table->id(); // Clave primaria autoincremental
+            $table->integer('yearr')->nullable(); // Año de los datos económicos
+            $table->integer('mes')->nullable(); // Mes de los datos económicos
+            $table->integer('numcitas')->nullable(); // Número de citas
+            $table->float('ingresos')->nullable(); // Ingresos generados
+
+            $table->timestamps(); // Agrega `created_at` y `updated_at` automáticamente
         });
     }
 
