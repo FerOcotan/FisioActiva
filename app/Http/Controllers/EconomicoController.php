@@ -13,7 +13,8 @@ class EconomicoController extends Controller
      */
     public function index()
     {
-        return view('economico.index');
+        $datos = economico::all();
+        return view('economico.index', compact('datos'));
     }
 
     /**
@@ -21,7 +22,7 @@ class EconomicoController extends Controller
      */
     public function create()
     {
-        //
+        return view('economico.create');
     }
 
     /**
@@ -29,7 +30,15 @@ class EconomicoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'yearr'=>'required|integer',
+            'mes'=>'required|integer|min:1|max:12',
+            'numcitas'=>'required|integer',
+            'ingresos'=>'required|numeric',
+        ]);
+
+        economico::create($request->all());
+        return redirect()->route('economico.index')->with('success', 'Registro creado exitosamente');
     }
 
     /**
@@ -37,7 +46,7 @@ class EconomicoController extends Controller
      */
     public function show(economico $economico)
     {
-        //
+        return view('economico.show', compact('economico'));
     }
 
     /**
@@ -45,7 +54,8 @@ class EconomicoController extends Controller
      */
     public function edit(economico $economico)
     {
-        //
+        return view('economico.edit', compact('economico'));
+
     }
 
     /**
@@ -53,7 +63,15 @@ class EconomicoController extends Controller
      */
     public function update(Request $request, economico $economico)
     {
-        //
+        $request->validate([
+            'yearr'=>'required|integer',
+            'mes'=>'required|integer|min:1|max:12',
+            'numcitas'=>'required|integer',
+            'ingresos'=>'required|numeric',
+        ]);
+
+        $economico->update($request->all());
+        return redirect()->route('economico.index')->with('success', 'Registro actualizado exitosamente');
     }
 
     /**
@@ -61,6 +79,7 @@ class EconomicoController extends Controller
      */
     public function destroy(economico $economico)
     {
-        //
+        $economico->delete();
+        return redirect()->route('economico.index')->with('success', 'Registro eliminado exitosamente');
     }
 }
