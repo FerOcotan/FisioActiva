@@ -13,6 +13,18 @@ return new class extends Migration
     {
         Schema::create('usuarios', function (Blueprint $table) {
             $table->id();
+            $table->string('nombre', 50);
+            $table->string('apellido', 50);
+            $table->string('edad', 3)->nullable();
+            $table->enum('genero', ['Masculino', 'Femenino'])->nullable();
+            $table->string('direccion', 50)->nullable();
+            $table->float('latitud')->nullable();
+            $table->float('longitud')->nullable();
+            $table->string('telefono', 12)->nullable();
+            $table->string('correo', 25)->unique(); 
+            $table->string('contrasena', 255); 
+            $table->enum('rol', ['Administrador', 'Cliente'])->default('Cliente');
+            $table->enum('estado', ['Activo', 'Desactivado'])->default('Activo');
             $table->timestamps();
         });
     }
