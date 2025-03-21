@@ -10,7 +10,7 @@ class usuarios extends Model
     use HasFactory;
 
     protected $table = 'usuarios';
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'idusuario';
     protected $perPage = 20;
 
 

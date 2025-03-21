@@ -94,7 +94,7 @@ class UsuariosController extends Controller
             'latitud' => 'nullable|numeric',
             'longitud' => 'nullable|numeric',
             'telefono' => 'nullable|string|max:12',
-            'correo' => 'required|string|email|max:255|unique:usuarios,correo,' . $usuarios->id,
+            'correo' => 'required|string|email|max:255|unique:usuarios,correo,' . $usuarios->idusuario . ',idusuario',
             'contrasena' => 'required|string|min:3',
             'rol' => 'nullable|in:Administrador,Cliente',
             'estado' => 'nullable|in:Activo,Desactivado',

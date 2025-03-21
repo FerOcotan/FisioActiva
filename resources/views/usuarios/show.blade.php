@@ -11,7 +11,7 @@
                 <div class="p-6 text-gray-900">
                     <h3 class="text-xl font-semibold mb-4">Información del Usuario</h3>
 
-                    <div class="mb-2"><strong>ID:</strong> {{ $usuarios->id }}</div>
+                    <div class="mb-2"><strong>ID:</strong> {{ $usuarios->idusuario }}</div>
                     <div class="mb-2"><strong>Nombre:</strong> {{ $usuarios->nombre }} {{ $usuarios->apellido }}</div>
                     <div class="mb-2"><strong>Apellido:</strong> {{ $usuarios->apellido }}</div>
                     <div class="mb-2"><strong>Edad:</strong> {{ $usuarios->edad ?? 'No especificado' }}</div>
