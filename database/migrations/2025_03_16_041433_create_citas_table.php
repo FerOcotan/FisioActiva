@@ -11,10 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('citas', function (Blueprint $table) {
-            $table->id();
+        Schema::create('citas', function (Blueprint $table) 
+        {
+            $table->bigIncrements('numerocita'); // Clave primaria
+            $table->unsignedBigInteger('numeroexpediente'); // Clave foránea
+            $table->timestamp('fechahora')->default(now())->useCurrentOnUpdate();
+            $table->enum('modalidad', ['Local', 'Visita'])->nullable();
+            $table->float('cargo')->nullable();
+            $table->enum('estado', ['Pendiente', 'Finalizada', 'Cancelada'])->nullable();
             $table->timestamps();
+
+            // Relación con la tabla expedientes
+            $table->foreign('numeroexpediente')->references('numeroexpediente')->on('expedientes')->onDelete('cascade'); 
+           
         });
+    
     }
 
     /**
