@@ -20,7 +20,7 @@
                             <input type="text" value="{{ $expedientes->usuario->nombre }} {{ $expedientes->usuario->apellido }}" class="border rounded w-full px-3 py-2" disabled>
                         </div>
 
-                        <div class="mb-2"
+                        <div class="mb-2">
                             <label class="block">Fecha de Creacion:</label>
                             <input type="date" name="fechacreacion" value="{{ $expedientes->fechacreacion }}" class="border rounded w-full px-3 py-2">
                         </div>
