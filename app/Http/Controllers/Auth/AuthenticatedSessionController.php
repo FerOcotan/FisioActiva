@@ -28,6 +28,13 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+          // Verificar el rol del usuario autenticado
+    $user = Auth::user();
+    
+        if ($user->role === 'cliente') {
+            return redirect()->intended(route('dashboardpaciente.index', absolute: false));
+        }
+    
         return redirect()->intended(route('dashboard', absolute: false));
     }
 

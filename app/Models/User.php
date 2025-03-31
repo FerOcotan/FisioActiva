@@ -21,7 +21,10 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role', // Agregar el campo role a la lista de atributos asignables
     ];
+
+   
 
     /**
      * The attributes that should be hidden for serialization.
