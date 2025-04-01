@@ -9,15 +9,16 @@ class="flex h-screen bg-white">
      class="bg-white h-screen transition-all duration-300 ease-in-out shadow-lg relative border-r border-gray-200">
     <!-- Botón de toggle -->
     <div class="flex justify-end p-3">
-        <button @click="open = !open"
-                class="bg-[#05487d] text-white rounded-full p-2 hover:bg-gray-200 transition-colors duration-200"
-                :title="open ? 'Contraer menú' : 'Expandir menú'">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                 stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      :d="open ? 'M15 19l-7-7 7-7' : 'M9 5l7 7-7 7'" />
-            </svg>
-        </button>
+     <!-- Botón de toggle - Posicionado en el borde derecho del sidebar -->
+<button @click="open = !open"
+class="absolute top-1/2 right-[-15px] -translate-y-1/2 bg-white text-blue rounded-full p-2 shadow-md border-2 border-[#05487d] hover:bg-blue-100 hover:text-[#05487d] transition-colors duration-200"
+       hover:bg-blue-200 hover:text-[#05487d] transition-colors duration-200"
+:title="open ? 'Contraer menú' : 'Expandir menú'">
+<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+      :d="open ? 'M15 19l-7-7 7-7' : 'M9 5l7 7-7 7'" />
+</svg>
+</button>
     </div>
 
    <!-- Área de Usuario con foto y nombre centrados -->
@@ -83,22 +84,24 @@ class="flex h-screen bg-white">
             label="Finanzas" 
     icon='<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>' />
              <!-- Logout -->
-        <li class="mt-8 p-5" >
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
-                <button type="submit"
-                    class="flex items-center justify-center w-full p-3 rounded-lg transition-all duration-200 group">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 group-hover:text-red-600" fill="none"
-                        viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                    </svg>
-                    <span x-show="open" class="ml-3 whitespace-nowrap group-hover:text-red-600">
-                        Cerrar Sesión
-                    </span>
-                </button>
-            </form>
-        </li>
+     <!-- Logout -->
+<li class="mt-8 p-5" x-show="open">
+    <form method="POST" action="{{ route('logout') }}">
+        @csrf
+        <button type="submit"
+            class="flex items-center justify-center w-full p-3 rounded-lg transition-all duration-200 group">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 group-hover:text-red-600" fill="none"
+                viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+            </svg>
+            <span class="ml-3 whitespace-nowrap group-hover:text-red-600">
+                Cerrar Sesión
+            </span>
+        </button>
+    </form>
+</li>
+
     </ul>
     
 </nav>
