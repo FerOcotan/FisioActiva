@@ -25,12 +25,13 @@ return new class extends Migration
             $table->timestamps();
 
             // Agregar el campo para almacenar la relación con la tabla genero
-            $table->unsignedBigInteger('id_genero')->nullable();  // Relación con genero
-
+            $table->unsignedBigInteger('id_genero');  // Relación con genero
+            $table->unsignedBigInteger('id_rol');  // Relación con rol
             // Agregar el campo para almacenar la relación con la tabla estado
-            $table->unsignedBigInteger('id_estado')->nullable();  // Relación con estado
+            $table->unsignedBigInteger('id_estado');  // Relación con estado
 
             // Definir las claves foráneas
+            $table->foreign('id_rol')->references('id')->on('rol')->onDelete('cascade');
             $table->foreign('id_genero')->references('id')->on('genero')->onDelete('cascade');
             $table->foreign('id_estado')->references('id')->on('estado')->onDelete('cascade');
         });
