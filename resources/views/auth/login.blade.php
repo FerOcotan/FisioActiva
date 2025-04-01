@@ -43,12 +43,11 @@
         
         <div class="flex items-center justify-end mt-4">
             @if (Route::has('password.request'))
-                <a class=" text-sm text-gray-500 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" href="{{ route('password.request') }}">
+                <a class="text-sm text-gray-500 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" href="{{ route('password.request') }}">
                     {{ __('Forgot your password?') }}
+                    <span class="text-blue-600 hover:text-blue-800  ml-1">{{ __('Here') }}</span>
                 </a>
             @endif
-
-        
         </div>
     </form>
 </x-guest-layout>
