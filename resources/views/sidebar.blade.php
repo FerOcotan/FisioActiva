@@ -20,31 +20,43 @@ class="flex h-screen bg-white">
         </button>
     </div>
 
-    <!-- Área de Usuario con foto y nombre centrados -->
-    <div class="flex flex-col items-center justify-center py-4">
-        <div class="relative group">
-            <!-- Foto de usuario -->
-            <img class="w-20 h-20 rounded-full object-cover border-2 border-[#05487d]"
-                 src="{{ Auth::user()->profile_photo_url ?? asset('build/assets/images/default-user.png') }}"
-                 alt="Foto de usuario">
-            <!-- Ícono de lápiz -->
-            <a href="{{ route('profile.edit') }}"
-               class="absolute bottom-0 right-0 bg-[#05487d] text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
-               title="Editar perfil">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
-                     stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                          d="M15.232 5.232l3.536 3.536m-2.036-1.5a2.5 2.5 0 11-3.536-3.536 2.5 2.5 0 013.536 3.536zM4 13.5v4.5h4.5L17.5 7.5l-4.5-4.5L4 13.5z" />
-                </svg>
-            </a>
-        </div>
-        <!-- Nombre del usuario -->
-        <span x-show="open" class="text-[#05487d] font-semibold mt-2 text-lg whitespace-nowrap">
-            {{ Auth::user()->name }}
-        </span>
+   <!-- Área de Usuario con foto y nombre centrados -->
+<div class="flex flex-col items-center justify-center py-4">
+    <div class="relative group">
+        <!-- Foto de usuario - Cambia tamaño según estado del sidebar -->
+        <img class="rounded-full object-cover border-2 border-[#05487d] transition-all duration-300"
+             :class="open ? 'w-20 h-20' : 'w-12 h-12'"
+             src="{{ Auth::user()->profile_photo_url ?? asset('build/assets/images/default-user.png') }}"
+             alt="Foto de usuario">
+             
+        <!-- Ícono de lápiz - Cambia tamaño según estado del sidebar -->
+        <a href="{{ route('profile.edit') }}"
+           class="absolute bottom-0 right-0 bg-[#05487d] text-white rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300"
+           :class="open ? 'p-1' : 'p-0.5'"
+           :title="open ? 'Editar perfil' : ''">
+            <svg xmlns="http://www.w3.org/2000/svg" 
+                 class="transition-all duration-300" 
+                 :class="open ? 'h-4 w-4' : 'h-3 w-3'"
+                 fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M15.232 5.232l3.536 3.536m-2.036-1.5a2.5 2.5 0 11-3.536-3.536 2.5 2.5 0 013.536 3.536zM4 13.5v4.5h4.5L17.5 7.5l-4.5-4.5L4 13.5z" />
+            </svg>
+        </a>
     </div>
+    <!-- Nombre del usuario -->
+    <span x-show="open" 
+          x-transition:enter="transition ease-out duration-300"
+          x-transition:enter-start="opacity-0 scale-95"
+          x-transition:enter-end="opacity-100 scale-100"
+          x-transition:leave="transition ease-in duration-200"
+          x-transition:leave-start="opacity-100 scale-100"
+          x-transition:leave-end="opacity-0 scale-95"
+          class="text-[#05487d] font-semibold mt-2 text-lg whitespace-nowrap">
+        {{ Auth::user()->name }}
+    </span>
+</div>
 
-    <!-- Menú de navegación -->
+
    <!-- Menú de navegación -->
 <nav class="mt-6">
     <ul class="space-y-2 px-2">
