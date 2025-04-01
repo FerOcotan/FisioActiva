@@ -6,11 +6,14 @@ use App\Models\usuarios;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use App\Models\Genero;
+use App\Models\Rol;
+use App\Models\Estado;
 
 class UsuariosController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Muestra la lista de usuarios.
      */
     public function index()
     {
@@ -19,53 +22,60 @@ class UsuariosController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Muestra el formulario para crear un nuevo usuario.
      */
     public function create()
     {
+        $generos = Genero::all();  // Corrección: usar $generos en lugar de $genero
+    $roles = Rol::all();
+    $estados = Estado::all();
+    
+    return view('usuarios.create', compact('generos', 'roles', 'estados'));
+
         return view('usuarios.create');
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Almacena un nuevo usuario en la base de datos.
      */
     public function store(Request $request)
     {
-        $request->validate(([
+        $request->validate([
             'nombre' => 'required|string|max:50',
             'apellido' => 'required|string|max:50',
             'edad' => 'nullable|integer|min:1|max:110',
-            'genero' => 'nullable|in:Masculino,Femenino',
+            'genero' => 'nullable|exists:genero,id',
             'direccion' => 'nullable|string|max:50',
             'latitud' => 'nullable|numeric',
             'longitud' => 'nullable|numeric',
             'telefono' => 'nullable|string|max:12',
             'correo' => 'required|string|email|max:25|unique:usuarios,correo',
             'contrasena' => 'required|string|min:3',
-            'rol' => 'nullable|in:Administrador,Cliente',
-            'estado' => 'nullable|in:Activo,Desactivado',
-        ]));
+         'rol' => 'nullable|exists:rol,id',
+            'estado' => 'nullable|exists:estado,id',
+            
+        ]);
 
         usuarios::create([
             'nombre' => $request->nombre,
             'apellido' => $request->apellido,
             'edad' => $request->edad,
-            'genero' => $request->genero,
+            'id_genero' => $request->genero, 
             'direccion' => $request->direccion,
             'latitud' => $request->latitud,
             'longitud' => $request->longitud,
             'telefono' => $request->telefono,
             'correo' => $request->correo,
             'contrasena' => Hash::make($request->contrasena),
-            'rol' => $request->rol ?? 'Cliente',
-            'estado' => $request->estado ?? 'Activo',
+            'id_rol' => $request->rol,
+            'id_estado' => $request->estado,
         ]);
 
         return redirect()->route('usuarios.index')->with('success', 'Usuario creado exitosamente');
     }
 
     /**
-     * Display the specified resource.
+     * Muestra un usuario específico.
      */
     public function show(usuarios $usuarios)
     {
@@ -73,54 +83,57 @@ class UsuariosController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Muestra el formulario de edición de un usuario.
      */
     public function edit(usuarios $usuarios)
     {
-        return view('usuarios.edit', compact('usuarios'));
+        $generos = Genero::all();  // Corrección: usar $generos
+        $roles = Rol::all();
+        $estados = Estado::all();
+        
+        return view('usuarios.edit', compact('usuarios', 'generos', 'roles', 'estados'));
     }
-
     /**
-     * Update the specified resource in storage.
+     * Actualiza un usuario en la base de datos.
      */
     public function update(Request $request, usuarios $usuarios)
     {
-        $request->validate(([
+        $request->validate([
             'nombre' => 'required|string|max:50',
             'apellido' => 'required|string|max:50',
             'edad' => 'nullable|integer|min:1|max:110',
-            'genero' => 'nullable|in:Masculino,Femenino',
+            'genero' => 'nullable|exists:genero,id',
             'direccion' => 'nullable|string|max:50',
             'latitud' => 'nullable|numeric',
             'longitud' => 'nullable|numeric',
             'telefono' => 'nullable|string|max:12',
-            'correo' => 'required|string|email|max:255|unique:usuarios,correo,' . $usuarios->idusuario . ',idusuario',
-            'contrasena' => 'required|string|min:3',
-            'rol' => 'nullable|in:Administrador,Cliente',
-            'estado' => 'nullable|in:Activo,Desactivado',
-        ]));
+          'correo' => 'required|string|email|max:255|unique:usuarios,correo,' . $usuarios->idusuario . ',idusuario',
+
+            'contrasena' => 'nullable|string|min:3', // Ahora es opcional
+             'rol' => 'nullable|exists:rol,id',
+         'estado' => 'nullable|exists:estado,id',
+        ]);
 
         $usuarios->update([
             'nombre' => $request->nombre,
             'apellido' => $request->apellido,
             'edad' => $request->edad,
-            'genero' => $request->genero,
+            'id_genero' => $request->genero, // Almacenando el ID
             'direccion' => $request->direccion,
             'latitud' => $request->latitud,
             'longitud' => $request->longitud,
             'telefono' => $request->telefono,
             'correo' => $request->correo,
-            'contrasena' => $request->contrasena ? Hash::make($request->contrasena) : $usuarios->contrasena,
-            'rol' => $request->rol ?? 'Cliente',
-            'estado' => $request->estado ?? 'Activo',
+            'contrasena' => $request->filled('contrasena') ? Hash::make($request->contrasena) : $usuarios->contrasena,
+            'id_rol' => $request->rol, // Almacenando el ID
+            'id_estado' => $request->estado, // Almacenando el ID
         ]);
 
         return redirect()->route('usuarios.index')->with('success', 'Usuario actualizado exitosamente');
-
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Elimina un usuario de la base de datos.
      */
     public function destroy(usuarios $usuarios)
     {

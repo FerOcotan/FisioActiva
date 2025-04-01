@@ -15,14 +15,15 @@
                     <div class="mb-2"><strong>Nombre:</strong> {{ $usuarios->nombre }} {{ $usuarios->apellido }}</div>
                     <div class="mb-2"><strong>Apellido:</strong> {{ $usuarios->apellido }}</div>
                     <div class="mb-2"><strong>Edad:</strong> {{ $usuarios->edad ?? 'No especificado' }}</div>
-                    <div class="mb-2"><strong>Género:</strong> {{ $usuarios->genero ?? 'No especificado' }}</div>
+                    <div class="mb-2"><strong>Género:</strong> {{ $usuarios->genero->nombre ?? 'No especificado' }}</div>
+
                     <div class="mb-2"><strong>Dirección:</strong> {{ $usuarios->direccion ?? 'No especificado' }}</div>
                     <div class="mb-2"><strong>latitud:</strong> {{ $usuarios->latitud ?? 'No especificado' }}</div>
                     <div class="mb-2"><strong>longitud:</strong> {{ $usuarios->longitud?? 'No especificado' }}</div>
                     <div class="mb-2"><strong>Teléfono:</strong> {{ $usuarios->telefono ?? 'No especificado' }}</div>
                     <div class="mb-2"><strong>Correo:</strong> {{ $usuarios->correo }}</div>
-                    <div class="mb-2"><strong>Rol:</strong> {{ $usuarios->rol }}</div>
-                    <div class="mb-2"><strong>Estado:</strong> {{ $usuarios->estado }}</div>
+                    <div class="mb-2"><strong>Rol:</strong> {{ $usuarios->rol->titulo ?? 'No especificado' }}</div>
+                    <div class="mb-2"><strong>Estado:</strong> {{ $usuarios->estado->titulo ?? 'No especificado' }}</div>
 
                     <div class="mt-4">
                         <a href="{{ route('usuarios.index') }}" class="bg-gray-500 text-white px-4 py-2 rounded">Volver</a>

@@ -20,10 +20,11 @@
                         <label>Edad:</label>
                         <input type="number" name="edad" class="border p-2 w-full" required>
 
-                        <label>Genero:</label>
+                        <label>Género:</label>
                         <select name="genero" class="border p-2 w-full">
-                            <option value="Masculino">Masculino</option>
-                            <option value="Femenino">Femenino</option>
+                            @foreach ($generos as $genero)
+                                <option value="{{ $genero->id }}">{{ $genero->nombre }}</option>
+                            @endforeach
                         </select>
 
                         <label>Direccion:</label>
@@ -46,15 +47,18 @@
 
                         <label>Rol:</label>
                         <select name="rol" class="border p-2 w-full">
-                            <option value="Cliente">Cliente</option>
-                            <option value="Administrador">Administrador</option>
+                            @foreach ($roles as $rol)
+                                <option value="{{ $rol->id }}">{{ $rol->titulo }}</option>
+                            @endforeach
                         </select>
 
                         <label>Estado:</label>
                         <select name="estado" class="border p-2 w-full">
-                            <option value="Activo">Activo</option>
-                            <option value="Desactivado">Desactivado</option>
+                            @foreach ($estados as $estado)
+                                <option value="{{ $estado->id }}">{{ $estado->titulo }}</option>
+                            @endforeach
                         </select>
+                        
 
                         <button type="submit" class="bg-blue-500 text-white px-4 py-2 mt-4 rounded">Guardar</button>
                         <a href="{{ route('usuarios.index') }}" class="bg-gray-500 text-white px-4 py-2 mt-4 rounded">Cancelar</a>

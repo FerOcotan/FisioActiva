@@ -32,8 +32,10 @@
                                     <td class="border px-4 py-2">{{ $usuario->idusuario }}</td>
                                     <td class="border px-4 py-2">{{ $usuario->nombre }} {{ $usuario->apellido }}</td>
                                     <td class="border px-4 py-2">{{ $usuario->correo }}</td>
-                                    <td class="border px-4 py-2">{{ $usuario->rol }}</td>
-                                    <td class="border px-4 py-2">{{ $usuario->estado }}</td>
+                                    <td class="border px-4 py-2">{{ $usuario->rol->titulo ?? 'No especificado' }}</td>
+
+                                    <td class="border px-4 py-2">{{ $usuario->estado->titulo ?? 'No especificado' }}</td>
+
                                     <td class="border px-4 py-2">
                                         <a href="{{ route('usuarios.edit', $usuario) }}" class="text-blue-500">Editar</a>
                                         <a href="{{ route('usuarios.show', $usuario) }}" class="text-green-500">Ver</a>
