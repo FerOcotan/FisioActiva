@@ -30,11 +30,14 @@ return new class extends Migration
             $table->mediumText('postura')->nullable();
             $table->string('nombrefisioterapeuta', 50)->default('Licda. Xiomara Meza');
             $table->longText('notasevolutivas')->nullable();
-            $table->enum('estado', ['Abierto', 'Cerrado'])->nullable();
 
-            
-            // Definir clave foránea
+            // Agregar la columna id_estado
+    
+            $table->unsignedBigInteger('id_estado')->nullable();  // Relación con estado
+
+            // Definir las claves foráneas
             $table->foreign('idusuario')->references('idusuario')->on('usuarios')->onDelete('cascade');
+            $table->foreign('id_estado')->references('id')->on('estado')->onDelete('cascade');
         });
         
     }

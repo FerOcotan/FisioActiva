@@ -16,16 +16,23 @@ return new class extends Migration
             $table->string('nombre', 50);
             $table->string('apellido', 50);
             $table->string('edad', 3)->nullable();
-            $table->enum('genero', ['Masculino', 'Femenino'])->nullable();
             $table->string('direccion', 50)->nullable();
             $table->float('latitud')->nullable();
             $table->float('longitud')->nullable();
             $table->string('telefono', 12)->nullable();
             $table->string('correo', 25)->unique(); 
             $table->string('contrasena', 255); 
-            $table->enum('rol', ['Administrador', 'Cliente'])->default('Cliente');
-            $table->enum('estado', ['Activo', 'Desactivado'])->default('Activo');
             $table->timestamps();
+
+            // Agregar el campo para almacenar la relación con la tabla genero
+            $table->unsignedBigInteger('id_genero')->nullable();  // Relación con genero
+
+            // Agregar el campo para almacenar la relación con la tabla estado
+            $table->unsignedBigInteger('id_estado')->nullable();  // Relación con estado
+
+            // Definir las claves foráneas
+            $table->foreign('id_genero')->references('id')->on('genero')->onDelete('cascade');
+            $table->foreign('id_estado')->references('id')->on('estado')->onDelete('cascade');
         });
     }
 
