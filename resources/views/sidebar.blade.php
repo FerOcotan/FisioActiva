@@ -1,6 +1,6 @@
 <div x-data="{ 
     open: JSON.parse(localStorage.getItem('sidebarOpen')) || false,
-    currentRoute: window.location.pathname
+    currentRoute: window.location.href
 }" 
 x-init="$watch('open', value => localStorage.setItem('sidebarOpen', JSON.stringify(value)))"
 class="flex h-screen bg-white">
@@ -45,115 +45,47 @@ class="flex h-screen bg-white">
     </div>
 
     <!-- Menú de navegación -->
-    <nav class="mt-6">
-        <ul class="space-y-2 px-2">
-            <!-- Ítem: Inicio -->
-            <li>
-                <a href="{{ route('dashboard') }}"
-                   class="flex flex-col items-center p-3 rounded-lg transition-all duration-200 group"
-                   :class="{
-                       'bg-[#05487d] text-white shadow-md': currentRoute === '/dashboard',
-                       'text-gray-700 hover:bg-blue-50': currentRoute !== '/dashboard'
-                   }">
-                    <div class="relative">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                             stroke="currentColor"
-                             :class="{
-                                'text-white': currentRoute === '/dashboard',
-                                'text-gray-600 group-hover:text-[#05487d]': currentRoute !== '/dashboard'
-                             }">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                  d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                        </svg>
-                        <!-- Indicador si está activo -->
-                        <span x-show="currentRoute === '/dashboard' && !open"
-                              class="absolute -right-1 -top-1 h-3 w-3">
-                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
-                            <span class="relative inline-flex rounded-full h-3 w-3 bg-white"></span>
-                        </span>
-                    </div>
-                    <span x-show="open" class="mt-1 whitespace-nowrap">
-                        Inicio
+   <!-- Menú de navegación -->
+<nav class="mt-6">
+    <ul class="space-y-2 px-2">
+        <x-sidebar-item 
+            route="dashboard" 
+            label="Inicio" 
+            icon='<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>' />
+
+        <x-sidebar-item 
+            route="cita.index" 
+            label="Doctores" 
+            icon='<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>' />
+
+        <x-sidebar-item 
+            route="usuarios.index" 
+            label="Pacientes" 
+            icon='<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>' />
+
+
+             <!-- Logout -->
+        <li class="mt-8">
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button type="submit"
+                    class="flex items-center justify-center w-full p-3 rounded-lg transition-all duration-200 group">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 group-hover:text-red-600" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                    </svg>
+                    <span x-show="open" class="ml-3 whitespace-nowrap group-hover:text-red-600">
+                        Cerrar Sesión
                     </span>
-                </a>
-            </li>
-            <!-- Ítem: Doctores -->
-            <li>
-                <a href="{{ route('cita.index') }}"
-                   class="flex flex-col items-center p-3 rounded-lg transition-all duration-200 group"
-                   :class="{
-                       'bg-[#05487d] text-white shadow-md': currentRoute === '/cita',
-                       'text-gray-700 hover:bg-blue-50': currentRoute !== '/cita'
-                   }">
-                    <div class="relative">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                             stroke="currentColor"
-                             :class="{
-                                'text-white': currentRoute === '/cita',
-                                'text-gray-600 group-hover:text-[#05487d]': currentRoute !== '/cita'
-                             }">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                  d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0z" />
-                        </svg>
-                        <span x-show="currentRoute === '/cita' && !open"
-                              class="absolute -right-1 -top-1 h-3 w-3">
-                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
-                            <span class="relative inline-flex rounded-full h-3 w-3 bg-white"></span>
-                        </span>
-                    </div>
-                    <span x-show="open" class="mt-1 whitespace-nowrap">
-                        Doctores
-                    </span>
-                </a>
-            </li>
-            <!-- Ítem: Pacientes -->
-            <li>
-                <a href="{{ route('usuarios.index') }}"
-                   class="flex flex-col items-center p-3 rounded-lg transition-all duration-200 group"
-                   :class="{
-                       'bg-[#05487d] text-white shadow-md': currentRoute === '/usuarios',
-                       'text-gray-700 hover:bg-blue-50': currentRoute !== '/usuarios'
-                   }">
-                    <div class="relative">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                             stroke="currentColor"
-                             :class="{
-                                'text-white': currentRoute === '/usuarios',
-                                'text-gray-600 group-hover:text-[#05487d]': currentRoute !== '/usuarios'
-                             }">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                  d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
-                        </svg>
-                        <span x-show="currentRoute === '/usuarios' && !open"
-                              class="absolute -right-1 -top-1 h-3 w-3">
-                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
-                            <span class="relative inline-flex rounded-full h-3 w-3 bg-white"></span>
-                        </span>
-                    </div>
-                    <span x-show="open" class="mt-1 whitespace-nowrap">
-                        Pacientes
-                    </span>
-                </a>
-            </li>
-            <!-- Logout -->
-            <li class="mt-8">
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-                    <button type="submit"
-                            class="flex flex-col items-center w-full p-3 text-gray-700 hover:bg-red-50 rounded-lg transition-all duration-200 group">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 group-hover:text-red-600" fill="none"
-                             viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                  d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                        </svg>
-                        <span x-show="open" class="mt-1 whitespace-nowrap group-hover:text-red-600">
-                            Cerrar Sesión
-                        </span>
-                    </button>
-                </form>
-            </li>
-        </ul>
-    </nav>
+                </button>
+            </form>
+        </li>
+    </ul>
+    
+</nav>
+
+
 </div>
 
 <!-- Contenido principal -->
