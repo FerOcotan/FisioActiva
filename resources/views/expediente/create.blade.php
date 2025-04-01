@@ -103,13 +103,13 @@
                             <textarea name="notasevolutivas" class="border rounded w-full px-3 py-2"></textarea>
                         </div>
 
-                        <div class="mb-2">
-                            <label class="block">Estado:</label>
-                            <select name="estado" class="border rounded w-full px-3 py-2">
-                                <option value="Abierto">Abierto</option>
-                                <option value="Cerrado">Cerrado</option>
-                            </select>
-                        </div>
+                        <select name="id_estado" class="border p-2 w-full">
+                            @foreach ($estados as $estado)
+                                <option value="{{ $estado->id }}">
+                                    {{ $estado->titulo }}
+                                </option>
+                            @endforeach
+                        </select>
 
                         <div class="mt-4">
                             <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Guardar</button>

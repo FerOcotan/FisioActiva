@@ -32,11 +32,15 @@ class expediente extends Model
         'postura',  
         'nombrefisioterapeuta',
         'notasevolutivas',
-        'estado',
+        'id_estado', // Cambio 
     ];
 
     public function usuario()
     {
         return $this->belongsTo(usuarios::class, 'idusuario', 'idusuario');
+    }
+    public function estado()
+    {
+        return $this->belongsTo(Estado::class, 'id_estado');
     }
 }

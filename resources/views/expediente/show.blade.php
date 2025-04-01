@@ -29,7 +29,7 @@
                     <div class="mb-2"><strong>Postura:</strong> {{ $expedientes->postura }}</div>
                     <div class="mb-2"><strong>Nombre del Fisioterapeuta:</strong> {{ $expedientes->nombrefisioterapeuta }}</div>
                     <div class="mb-2"><strong>Notas Evolutivas:</strong> {{ $expedientes->notasevolutivas }}</div>
-                    <div class="mb-2"><strong>Estado:</strong> {{ $expedientes->estado }}</div>
+                    <div class="mb-2"><strong>Estado:</strong> {{ $expedientes->estado->titulo }}</div>
 
                     <div class="mt-4">
                         <a href="{{ route('expediente.index') }}" class="bg-gray-500 text-white px-4 py-2 rounded">Volver</a>

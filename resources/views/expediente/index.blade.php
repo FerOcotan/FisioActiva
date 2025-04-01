@@ -31,7 +31,8 @@
                                     <td class="border px-4 py-2">{{ $expediente->numeroexpediente }}</td>
                                     <td class="border px-4 py-2">{{ $expediente->usuario->nombre }} {{ $expediente->usuario->apellido }}</td>
                                     <td class="border px-4 py-2">{{ $expediente->fechacreacion }}</td>
-                                    <td class="border px-4 py-2">{{ $expediente->estado }}</td>
+                                    <td class="border px-4 py-2">{{ $expediente->estado->titulo }}</td>
+
                                     <td class="border px-4 py-2">
                                         <a href="{{ route('expediente.show', $expediente) }}" class="text-green-500">Ver</a>
                                         <a href="{{ route('expediente.edit', $expediente) }}" class="text-blue-500">Editar</a>
