@@ -21,40 +21,28 @@
                             <div class="space-y-4">
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700 mb-1">Paciente</label>
-                                    <input type="text" value="{{ $expedientes->usuario->nombre }} {{ $expedientes->usuario->apellido }}" 
-                                           class="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-100" disabled>
+                                    <input type="text" 
+                                           value="{{ $expedientes->user?->name }} {{ $expedientes->user?->apellido ?? 'No asignado' }}" 
+                                           class="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-100" 
+                                           disabled>
                                 </div>
 
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">Fecha de Creación</label>
-                                    <input type="date" name="fechacreacion" value="{{ $expedientes->fechacreacion }}" 
-                                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200">
-                                </div>
-
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">Número de Citas</label>
-                                    <input type="number" name="numcitas" value="{{ $expedientes->numcitas }}" 
-                                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200">
-                                </div>
-
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">Diagnóstico</label>
-                                    <input type="text" name="diagnostico" value="{{ $expedientes->diagnostico }}" 
-                                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200">
-                                </div>
-
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">Fecha de Evaluación</label>
-                                    <input type="date" name="fechaevaluacion" value="{{ $expedientes->fechaevaluacion }}" 
-                                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200">
-                                </div>
+                                @foreach (['fechacreacion', 'numcitas', 'diagnostico', 'fechaevaluacion'] as $field)
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">{{ ucfirst(str_replace('_', ' ', $field)) }}</label>
+                                        <input type="{{ $field == 'numcitas' ? 'number' : 'date' }}" 
+                                               name="{{ $field }}" 
+                                               value="{{ old($field, $expedientes->$field) }}" 
+                                               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200">
+                                    </div>
+                                @endforeach
                             </div>
 
                             <!-- Columna 2 -->
                             <div class="space-y-4">
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700 mb-1">Nombre del Fisioterapeuta</label>
-                                    <input type="text" name="nombrefisioterapeuta" value="{{ $expedientes->nombrefisioterapeuta }}" 
+                                    <input type="text" name="nombrefisioterapeuta" value="{{ old('nombrefisioterapeuta', $expedientes->nombrefisioterapeuta) }}" 
                                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200">
                                 </div>
 
@@ -62,7 +50,7 @@
                                     <label class="block text-sm font-medium text-gray-700 mb-1">Estado</label>
                                     <select name="id_estado" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200">
                                         @foreach ($estados as $estado)
-                                            <option value="{{ $estado->id }}" {{ $expedientes->id_estado == $estado->id ? 'selected' : '' }}>
+                                            <option value="{{ $estado->id }}" {{ old('id_estado', $expedientes->id_estado) == $estado->id ? 'selected' : '' }}>
                                                 {{ $estado->titulo }}
                                             </option>
                                         @endforeach
@@ -73,63 +61,22 @@
 
                         <!-- Campos de texto largos (full width) -->
                         <div class="space-y-4">
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Historia Clínica</label>
-                                <textarea name="historiaclinica" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200">{{ $expedientes->historiaclinica }}</textarea>
-                            </div>
-
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Observaciones</label>
-                                <textarea name="observacion" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200">{{ $expedientes->observacion }}</textarea>
-                            </div>
-
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Notas Evolutivas</label>
-                                <textarea name="notasevolutivas" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200">{{ $expedientes->notasevolutivas }}</textarea>
-                            </div>
+                            @foreach (['historiaclinica', 'observacion', 'notasevolutivas'] as $field)
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">{{ ucfirst(str_replace('_', ' ', $field)) }}</label>
+                                    <textarea name="{{ $field }}" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200">{{ old($field, $expedientes->$field) }}</textarea>
+                                </div>
+                            @endforeach
                         </div>
 
-                        <!-- Campos de evaluación (full width) -->
+                        <!-- Campos de evaluación -->
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Palpación</label>
-                                <textarea name="palpacion" rows="2" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200">{{ $expedientes->palpacion }}</textarea>
-                            </div>
-
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Sensibilidad</label>
-                                <textarea name="sensibilidad" rows="2" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200">{{ $expedientes->sensibilidad }}</textarea>
-                            </div>
-
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Arcos de Movimiento</label>
-                                <textarea name="arcosdemovimiento" rows="2" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200">{{ $expedientes->arcosdemovimiento }}</textarea>
-                            </div>
-
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Fuerza Muscular</label>
-                                <textarea name="fuerzamuscular" rows="2" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200">{{ $expedientes->fuerzamuscular }}</textarea>
-                            </div>
-
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Perimetría</label>
-                                <textarea name="perimetria" rows="2" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200">{{ $expedientes->perimetria }}</textarea>
-                            </div>
-
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Longitud de Miembros Inferiores</label>
-                                <textarea name="longitudmiembrosinf" rows="2" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200">{{ $expedientes->longitudmiembrosinf }}</textarea>
-                            </div>
-
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Marcha</label>
-                                <textarea name="marcha" rows="2" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200">{{ $expedientes->marcha }}</textarea>
-                            </div>
-
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Postura</label>
-                                <textarea name="postura" rows="2" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200">{{ $expedientes->postura }}</textarea>
-                            </div>
+                            @foreach (['palpacion', 'sensibilidad', 'arcosdemovimiento', 'fuerzamuscular', 'perimetria', 'longitudmiembrosinf', 'marcha', 'postura'] as $field)
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">{{ ucfirst(str_replace('_', ' ', $field)) }}</label>
+                                    <textarea name="{{ $field }}" rows="2" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200">{{ old($field, $expedientes->$field) }}</textarea>
+                                </div>
+                            @endforeach
                         </div>
 
                         <!-- Botones de acción -->

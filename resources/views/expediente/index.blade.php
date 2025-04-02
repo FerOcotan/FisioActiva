@@ -35,7 +35,10 @@
                                 @foreach ($expedientes as $expediente)
                                     <tr class="hover:bg-gray-50 transition duration-150">
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ $expediente->numeroexpediente }}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $expediente->usuario->nombre }} {{ $expediente->usuario->apellido }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                            {{ $expediente->user?->name ?? 'Sin asignar' }} 
+                                            {{ $expediente->user?->apellido ?? '' }}
+                                        </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ \Carbon\Carbon::parse($expediente->fechacreacion)->format('d/m/Y') }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                             <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 

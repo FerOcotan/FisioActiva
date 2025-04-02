@@ -35,10 +35,9 @@ class expediente extends Model
         'id_estado', // Cambio 
     ];
 
-    public function usuario()
+    public function user()
     {
         return $this->belongsTo(User::class, 'id_usuario');
-        // Cambiado de usuarios::class a User::class
     }
     public function estado()
     {

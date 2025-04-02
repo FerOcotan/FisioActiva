@@ -12,8 +12,10 @@
                     <h3 class="text-xl font-semibold mb-4">Información del Expediente</h3>
 
                     <div class="mb-2"><strong>#Expediente:</strong> {{ $expedientes->numeroexpediente }}</div>
-                    <div class="mb-2"><strong>Paciente:</strong> {{ $expedientes->usuario->nombre }} {{ $expedientes->usuario->apellido }}</div>
-                    <div class="mb-2"><strong>Fecha de Creación:</strong> {{ $expedientes->fechacreacion}}</div>
+                    <div class="mb-2"><strong>Paciente:</strong> 
+                        {{ $expedientes->usuario ? $expedientes->usuario->nombre . ' ' . $expedientes->usuario->apellido : 'No asignado' }}
+                    </div>
+                    <div class="mb-2"><strong>Fecha de Creación:</strong> {{ $expedientes->fechacreacion }}</div>
                     <div class="mb-2"><strong>Numcitas:</strong> {{ $expedientes->numcitas }}</div>
                     <div class="mb-2"><strong>Diagnóstico:</strong> {{ $expedientes->diagnostico }}</div>
                     <div class="mb-2"><strong>Fecha de Evaluación:</strong> {{ $expedientes->fechaevaluacion }}</div>
@@ -23,7 +25,7 @@
                     <div class="mb-2"><strong>Sensibilidad:</strong> {{ $expedientes->sensibilidad }}</div>
                     <div class="mb-2"><strong>Arcos de Movimiento:</strong> {{ $expedientes->arcosdemovimiento }}</div>
                     <div class="mb-2"><strong>Fuerza Muscular:</strong> {{ $expedientes->fuerzamuscular }}</div>
-                    <div class="mb-2"><strong>Perimetria:</strong> {{ $expedientes->perimetria }}</div>
+                    <div class="mb-2"><strong>Perimetría:</strong> {{ $expedientes->perimetria }}</div>
                     <div class="mb-2"><strong>Longitud de Miembros Inferiores:</strong> {{ $expedientes->longitudmiembrosinf }}</div>
                     <div class="mb-2"><strong>Marcha:</strong> {{ $expedientes->marcha }}</div>
                     <div class="mb-2"><strong>Postura:</strong> {{ $expedientes->postura }}</div>
@@ -36,7 +38,7 @@
                         <a href="{{ route('expediente.edit', $expedientes) }}" class="bg-blue-500 text-white px-4 py-2 rounded">Editar</a>
                         <form action="{{ route('expediente.destroy', $expedientes) }}" method="POST" class="inline-block">
                             @csrf @method('DELETE')
-                            <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded" onclick="return confirm('¿Eliminar este usuario?')">Eliminar</button>
+                            <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded" onclick="return confirm('¿Eliminar este expediente?')">Eliminar</button>
                         </form>
                     </div>
 

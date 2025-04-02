@@ -21,6 +21,18 @@ class ExpedienteController extends Controller
         return view('expediente.index', compact('expedientes'));
     }
 
+    public function dash(Request $request)
+    {
+        $search = $request->input('search');
+    
+        $expedientes = Expediente::with('user')->when($search, function ($query, $search) {
+            return $query->whereHas('user', function ($userQuery) use ($search) {
+                $userQuery->where('name', 'LIKE', "%$search%");
+            });
+        })->get();
+    
+        return view('expediente.dash', compact('expedientes'));
+    }
     /**
      * Show the form for creating a new resource.
      */
@@ -74,7 +86,7 @@ class ExpedienteController extends Controller
             'postura' => $request->postura,
             'nombrefisioterapeuta' => $request->nombrefisioterapeuta,
             'notasevolutivas' => $request->notasevolutivas,
-            'id_estado' => $request->id_estado, 
+            'id_estado' => $request->id_estado,
         ]);
 
         return redirect()->route('expediente.index')->with('success', 'Expediente creado exitosamente.');
@@ -86,9 +98,8 @@ class ExpedienteController extends Controller
     public function show($id)
     {
         $estados = Estado::all();
-        $expedientes = expediente::with('usuario')->findOrFail($id);
-        return view('expediente.show', compact('expedientes','estados'));
-
+        $expedientes = expediente::with('user')->findOrFail($id);
+        return view('expediente.show', compact('expedientes', 'estados'));
     }
 
     /**
@@ -123,7 +134,7 @@ class ExpedienteController extends Controller
             'postura' => 'nullable|string',
             'nombrefisioterapeuta' => 'required|string|max:50',
             'notasevolutivas' => 'nullable|string',
-             'id_estado' => 'required|exists:estado,id'
+            'id_estado' => 'required|exists:estado,id'
         ]);
 
         $expedientes = expediente::findOrFail($id);

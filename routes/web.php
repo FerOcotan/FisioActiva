@@ -50,6 +50,8 @@ Route::middleware(['auth', 'role:1'])->group(function () {
 
 Route::middleware(['auth', 'role:1'])->group(function () {
 
+    Route::get('/dash-expediente', [ExpedienteController::class, 'dash'])->name('expediente.dash');
+
     Route::get('/expediente', [ExpedienteController::class, 'index'])->name('expediente.index');
     Route::get('/expediente/create', [ExpedienteController::class, 'create'])->name('expediente.create');
     Route::post('/expediente', [ExpedienteController::class, 'store'])->name('expediente.store');
