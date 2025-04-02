@@ -3,6 +3,7 @@
     currentRoute: window.location.href
 }" 
 x-init="$watch('open', value => localStorage.setItem('sidebarOpen', JSON.stringify(value)))"
+x-cloak
 class="flex h-screen bg-white">
 <!-- Sidebar -->
 <div :class="open ? 'w-60' : 'w-20'"

@@ -11,9 +11,14 @@ use App\Models\Estado;
 
 class UsuariosController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $usuarios = User::all();
+        $search = $request->input('search');
+    
+        $usuarios = User::when($search, function ($query, $search) {
+            return $query->where('name', 'LIKE', "%$search%");
+        })->get();
+    
         return view('usuarios.index', compact('usuarios'));
     }
 

@@ -9,46 +9,100 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    <a href="{{ route('usuarios.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded">Nuevo Usuario</a>
+                   <!-- Header with button and search -->
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
+                        <a href="{{ route('usuarios.create') }}" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition duration-200 flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd" />
+                            </svg>
+                            Nuevo Usuario
+                        </a>
+                        
+                        @if(session('success'))
+                            <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 w-full md:w-auto">
+                                <p>{{ session('success') }}</p>
+                            </div>
+                        @endif
+                    </div>
 
-                    @if(session('success'))
-                        <div class="bg-green-500 text-white p-2 mt-2">{{ session('success') }}</div>
-                    @endif
+                    <!-- Search form -->
+                    <form method="GET" action="{{ route('usuarios.index') }}" class="mb-6">
+                        <div class="flex gap-2 w-full">
+                            <input type="text" name="search" placeholder="Buscar por nombre, correo o apellido..." 
+                                value="{{ request('search') }}" 
+                                class="flex-grow border border-gray-300 focus:border-green-600 focus:ring-1 focus:ring-green-600 rounded-lg px-4 py-2 transition duration-200 outline-none">
+                            <button type="submit" class="bg-lime-600 hover:bg-lime-700 text-white px-6 py-2 rounded-lg transition duration-200 flex items-center gap-2 whitespace-nowrap">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+                                </svg>
+                                Buscar
+                            </button>
+                        </div>
+                    </form>
 
-                    <table class="min-w-full bg-white border mt-4">
-                        <thead>
-                            <tr>
-                                <th class="border px-4 py-2">ID</th>
-                                <th class="border px-4 py-2">Nombre</th>
-                                <th class="border px-4 py-2">Correo</th>
-                                <th class="border px-4 py-2">Rol</th>
-                                <th class="border px-4 py-2">Estado</th>
-                                <th class="border px-4 py-2">Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($usuarios as $usuario)
+                    <!-- Table -->
+                    <div class="overflow-x-auto rounded-lg border border-gray-200 shadow-sm">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
                                 <tr>
-                                    <td class="border px-4 py-2">{{ $usuario->id }}</td>
-                                    <td class="border px-4 py-2">{{ $usuario->name }} {{ $usuario->apellido }}</td>
-                                    <td class="border px-4 py-2">{{ $usuario->email }}</td>
-                                    <td class="border px-4 py-2">{{ $usuario->rol->titulo ?? 'No especificado' }}</td>
-
-                                    <td class="border px-4 py-2">{{ $usuario->estado->titulo ?? 'No especificado' }}</td>
-
-                                    <td class="border px-4 py-2">
-                                        <a href="{{ route('usuarios.edit', $usuario) }}" class="text-blue-500">Editar</a>
-                                        <a href="{{ route('usuarios.show', $usuario) }}" class="text-green-500">Ver</a>
-                                        <form action="{{ route('usuarios.destroy', $usuario) }}" method="POST" class="inline-block">
-                                            @csrf @method('DELETE')
-                                            <button type="submit" class="text-red-500" onclick="return confirm('¿Eliminar este usuario?')">Eliminar</button>
-                                        </form>
-                                    </td>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nombre</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Correo</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Rol</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Estado</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Acciones</th>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                @foreach ($usuarios as $usuario)
+                                    <tr class="hover:bg-gray-50 transition duration-150">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ $usuario->id }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $usuario->name }} {{ $usuario->apellido }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $usuario->email }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
+                                                {{ $usuario->rol->titulo == 'Administrador' ? 'bg-purple-100 text-purple-800' : 
+                                                   ($usuario->rol->titulo == 'Paciente' ? 'bg-blue-100 text-blue-800' : 
+                                                   'bg-green-100 text-green-800') }}">
+                                                {{ $usuario->rol->titulo ?? 'No especificado' }}
+                                            </span>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
+                                                {{ $usuario->estado->titulo == 'Activo' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
+                                                {{ $usuario->estado->titulo ?? 'No especificado' }}
+                                            </span>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                            <div class="flex space-x-2">
+                                                <a href="{{ route('usuarios.show', $usuario) }}" class="text-blue-600 hover:text-blue-900" title="Ver">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                                        <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+                                                        <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" />
+                                                    </svg>
+                                                </a>
+                                                <a href="{{ route('usuarios.edit', $usuario) }}" class="text-indigo-600 hover:text-indigo-900" title="Editar">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                                        <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                                                    </svg>
+                                                </a>
+                                                <form action="{{ route('usuarios.destroy', $usuario) }}" method="POST" class="inline-block">
+                                                    @csrf @method('DELETE')
+                                                    <button type="submit" class="text-red-600 hover:text-red-900" title="Eliminar" onclick="return confirm('¿Estás seguro de eliminar este usuario?')">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                                            <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
+                                                        </svg>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
 
+             
                 </div>
             </div>
         </div>
