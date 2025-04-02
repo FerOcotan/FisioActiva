@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             RolSeeder::class,     // Después RolSeeder
             EstadoSeeder::class,  // Luego EstadoSeeder
             UserSeeder::class,    // Finalmente UserSeeder
+            ModalidadSeeder::class, // Después ModalidadSeeder
         ]);
     }
 }
