@@ -14,9 +14,9 @@
                     <div class="mb-2"><strong>ID:</strong> {{ $citas->numerocita }}</div>
                     <div class="mb-2"><strong>Paciente:</strong> {{ $citas->expediente->numeroexpediente }} {{ $citas->expediente->usuario->nombre }}</div>
                     <div class="mb-2"><strong>Fecha:</strong> {{ $citas->fechahora }}</div>
-                    <div class="mb-2"><strong>Modalidad:</strong> {{ $citas->modalidad }}</div>
+                    <div class="mb-2"><strong>Modalidad:</strong> {{ $citas->modalidad->titulo }}</div>
                     <div class="mb-2"><strong>Cargo:</strong> {{ $citas->cargo }}</div>
-                    <div class="mb-2"><strong>Estado:</strong> {{ $citas->estado }}</div>
+                    <div class="mb-2"><strong>Estado:</strong> {{ $citas->estado->titulo }}</div>
 
                     <div class="mt-4">
                         <a href="{{ route('cita.index') }}" class="bg-gray-500 text-white px-4 py-2 rounded">Volver</a>

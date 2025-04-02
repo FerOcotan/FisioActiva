@@ -31,8 +31,9 @@
                                         {{ $cita->expediente->usuario->nombre ?? 'Sin usuario' }}
                                     </td>                                    
                                     <td class="border border-gray-300 px-4 py-2">{{ $cita->fechahora }}</td>
-                                    <td class="border border-gray-300 px-4 py-2">{{ $cita->modalidad }}</td>
-                                    <td class="border border-gray-300 px-4 py-2">{{ $cita->estado }}</td>
+                                    <td class="border border-gray-300 px-4 py-2">{{ $cita->modalidad->titulo }}</td>
+                                    <td class="border border-gray-300 px-4 py-2">{{ $cita->estado->titulo }}</td>
+                                    
                                     <td class="border border-gray-300 px-4 py-2">
                                         <a href="{{ route('cita.edit', $cita) }}" class="bg-blue-500 text-white px-2 py-1 rounded">Editar</a>
                                         <a href="{{ route('cita.show', $cita) }}" class="bg-gray-500 text-white px-2 py-1 rounded">Ver</a>

@@ -33,9 +33,10 @@
 
                         <div class="mb-4">
                             <label class="block">Modalidad:</label>
-                            <select name="modalidad" class="w-full border rounded p-2">
-                                <option value="Local" {{ $citas->modalidad == 'Local' ? 'selected' : '' }}>Local</option>
-                                <option value="Visita" {{ $citas->modalidad == 'Visita' ? 'selected' : '' }}>Visita</option>
+                            <select name="id_modalidad" class="w-full border rounded p-2">
+                                @foreach($modalidades as $modalidad)
+                                    <option value="{{ $modalidad->id }}">{{ $modalidad->titulo }}</option>
+                                @endforeach
                             </select>
                         </div>
 
@@ -46,10 +47,10 @@
 
                         <div class="mb-4">
                             <label class="block">Estado:</label>
-                            <select name="estado" class="w-full border rounded p-2">
-                                <option value="Pendiente" {{ $citas->estado == 'Pendiente' ? 'selected' : '' }}>Pendiente</option>
-                                <option value="Finalizada" {{ $citas->estado == 'Finalizada' ? 'selected' : '' }}>Finalizada</option>
-                                <option value="Cancelada" {{ $citas->estado == 'Cancelada' ? 'selected' : '' }}>Cancelada</option>
+                            <select name="id_estado" class="w-full border rounded p-2">
+                                @foreach($estados as $estado)
+                                    <option value="{{ $estado->id }}">{{ $estado->titulo }}</option>
+                                @endforeach
                             </select>
                         </div>
 

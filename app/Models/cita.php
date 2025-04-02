@@ -19,6 +19,8 @@ class cita extends Model
     [
         'numeroexpediente',  
         'fechahora',
+        'id_modalidad', // Asegúrate de que está aquí
+        'id_estado',
         'modalidad', 
         'cargo',
         'estado',
@@ -32,6 +34,14 @@ class cita extends Model
     public function usuario()
 {
     return $this->belongsTo(usuarios::class, 'idusuario'); 
+}
+public function estado()
+{
+    return $this->belongsTo(Estado::class, 'id_estado');
+}
+public function modalidad()
+{
+    return $this->belongsTo(Modalidad::class, 'id_modalidad');
 }
 
 }

@@ -27,15 +27,14 @@
                             <label class="block">Fecha y Hora:</label>
                             <input type="datetime-local" name="fechahora" class="w-full border rounded p-2" required>
                         </div>
-
                         <div class="mb-4">
                             <label class="block">Modalidad:</label>
-                            <select name="modalidad" class="w-full border rounded p-2">
-                                <option value="Local">Local</option>
-                                <option value="Visita">Visita</option>
+                            <select name="id_modalidad" class="w-full border rounded p-2">
+                                @foreach($modalidades as $modalidad)
+                                    <option value="{{ $modalidad->id }}">{{ $modalidad->titulo }}</option>
+                                @endforeach
                             </select>
                         </div>
-
                         <div class="mb-4">
                             <label class="block">Cargo ($):</label>
                             <input type="number" step="0.01" name="cargo" class="w-full border rounded p-2">
@@ -43,10 +42,10 @@
 
                         <div class="mb-4">
                             <label class="block">Estado:</label>
-                            <select name="estado" class="w-full border rounded p-2">
-                                <option value="Pendiente">Pendiente</option>
-                                <option value="Finalizada">Finalizada</option>
-                                <option value="Cancelada">Cancelada</option>
+                            <select name="id_estado" class="w-full border rounded p-2">
+                                @foreach($estados as $estado)
+                                    <option value="{{ $estado->id }}">{{ $estado->titulo }}</option>
+                                @endforeach
                             </select>
                         </div>
 
