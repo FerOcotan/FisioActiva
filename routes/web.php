@@ -17,19 +17,18 @@ Route::get('/', function () {
 
 Route::fallback(function () {
     if (Auth::check()) {
-        // Redirigir según el rol del usuario autenticado
-        return Auth::user()->role === 'administrador'
-            ? redirect()->route('dashboard') 
+        return Auth::user()->id_rol === 1
+            ? redirect()->route('dashboard')
             : redirect()->route('dashboardpaciente.index');
     }
-
-    // Si no está autenticado, redirigir a la página de inicio o login
     return redirect('/');
 });
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified', 'role:administrador'])->name('dashboard');
+})->middleware(['auth', 'verified', 'role:1'])->name('dashboard');
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -37,9 +36,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-
-
-Route::middleware(['auth', 'role:administrador'])->group(function () {
+Route::middleware(['auth', 'role:1'])->group(function () {
     Route::get('/usuarios', [UsuariosController::class, 'index'])->name('usuarios.index');
     Route::get('/usuarios/create', [UsuariosController::class, 'create'])->name('usuarios.create');
     Route::post('/usuarios', [UsuariosController::class, 'store'])->name('usuarios.store');
@@ -51,7 +48,7 @@ Route::middleware(['auth', 'role:administrador'])->group(function () {
 
 
 
-Route::middleware(['auth', 'role:administrador'])->group(function () {
+Route::middleware(['auth', 'role:1'])->group(function () {
 
     Route::get('/expediente', [ExpedienteController::class, 'index'])->name('expediente.index');
     Route::get('/expediente/create', [ExpedienteController::class, 'create'])->name('expediente.create');
@@ -63,7 +60,7 @@ Route::middleware(['auth', 'role:administrador'])->group(function () {
 
 });
 
-Route::middleware(['auth', 'role:administrador'])->group(function () {
+Route::middleware(['auth', 'role:1'])->group(function () {
 
     Route::get('/cita', [CitaController::class, 'index'])->name('cita.index');
     Route::get('/cita/create', [CitaController::class, 'create'])->name('cita.create');
@@ -75,7 +72,7 @@ Route::middleware(['auth', 'role:administrador'])->group(function () {
 
 });
 
-Route::middleware(['auth', 'role:administrador'])->group(function () {
+Route::middleware(['auth', 'role:1'])->group(function () {
 
     Route::get('/economico', [EconomicoController::class, 'index'])->name('economico.index');
     Route::get('/economico/create', [EconomicoController::class, 'create'])->name('economico.create');
@@ -88,7 +85,7 @@ Route::middleware(['auth', 'role:administrador'])->group(function () {
 });
 
 
-Route::middleware(['auth', 'role:cliente'])->group(function () {
+Route::middleware(['auth', 'role:1'])->group(function () {
   
     Route::get('/dashboardpaciente', [DashboardpacienteController::class, 'index'])->name('dashboardpaciente.index');
     Route::get('/dashboardpaciente/create', [DashboardpacienteController::class, 'create'])->name('dashboardpaciente.create');
