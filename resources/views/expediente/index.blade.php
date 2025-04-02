@@ -34,11 +34,37 @@
                                     <td class="border px-4 py-2">
                                         <a href="{{ route('expediente.show', $expediente) }}" class="text-green-500">Ver</a>
                                         <a href="{{ route('expediente.edit', $expediente) }}" class="text-blue-500">Editar</a>
-                                        <form action="{{ route('expediente.destroy', $expediente) }}" method="POST" class="inline-block">
+                                        <form action="{{ route('expediente.destroy', $expediente) }}" method="POST" class="inline-block delete-form">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="text-red-500" onclick="return confirm('¿Eliminar expediente?')">Eliminar</button>
+                                            <button type="button" class="text-red-500 delete-btn">Eliminar</button>
                                         </form>
+                                        
+                                        <script>
+                                            document.addEventListener("DOMContentLoaded", function () {
+                                                document.querySelectorAll(".delete-btn").forEach(button => {
+                                                    button.addEventListener("click", function (event) {
+                                                        event.preventDefault(); // Evita que se envíe el formulario inmediatamente
+                                        
+                                                        Swal.fire({
+                                                            title: "¿Estás seguro?",
+                                                            text: "No podrás revertir esta acción.",
+                                                            icon: "warning",
+                                                            showCancelButton: true,
+                                                            confirmButtonColor: "#d33",
+                                                            cancelButtonColor: "#3085d6",
+                                                            confirmButtonText: "Sí, eliminar",
+                                                            cancelButtonText: "Cancelar"
+                                                        }).then((result) => {
+                                                            if (result.isConfirmed) {
+                                                                // Encuentra el formulario más cercano al botón y envíalo
+                                                                this.closest("form").submit();
+                                                            }
+                                                        });
+                                                    });
+                                                });
+                                            });
+                                        </script>
                                     </td>
                                 </tr>
                             @endforeach

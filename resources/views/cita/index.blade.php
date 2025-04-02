@@ -37,10 +37,36 @@
                                     <td class="border border-gray-300 px-4 py-2">
                                         <a href="{{ route('cita.edit', $cita) }}" class="bg-blue-500 text-white px-2 py-1 rounded">Editar</a>
                                         <a href="{{ route('cita.show', $cita) }}" class="bg-gray-500 text-white px-2 py-1 rounded">Ver</a>
-                                        <form action="{{ route('cita.destroy', $cita) }}" method="POST" class="inline-block">
-                                            @csrf @method('DELETE')
-                                            <button type="submit" class="bg-red-500 text-white px-2 py-1 rounded" onclick="return confirm('¿Eliminar esta cita?')">Eliminar</button>
+                                        <form action="{{ route('cita.destroy', $cita) }}" method="POST" class="inline-block delete-form">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="button" class="bg-red-500 text-white px-2 py-1 rounded delete-btn">Eliminar</button>
                                         </form>
+                                        
+                                        <script>
+                                            document.addEventListener("DOMContentLoaded", function () {
+                                                document.querySelectorAll(".delete-btn").forEach(button => {
+                                                    button.addEventListener("click", function (event) {
+                                                        event.preventDefault(); // Evita el envío inmediato del formulario
+                                        
+                                                        Swal.fire({
+                                                            title: "¿Estás seguro?",
+                                                            text: "No podrás deshacer esta acción.",
+                                                            icon: "warning",
+                                                            showCancelButton: true,
+                                                            confirmButtonColor: "#d33",
+                                                            cancelButtonColor: "#3085d6",
+                                                            confirmButtonText: "Sí, eliminar",
+                                                            cancelButtonText: "Cancelar"
+                                                        }).then((result) => {
+                                                            if (result.isConfirmed) {
+                                                                this.closest("form").submit();
+                                                            }
+                                                        });
+                                                    });
+                                                });
+                                            });
+                                        </script>
                                     </td>
                                 </tr>
                             @endforeach
@@ -51,4 +77,20 @@
             </div>
         </div>
     </div>
+
+
+    @if(session('success'))
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            Swal.fire({
+                title: "Éxito",
+                text: "{{ session('success') }}",
+                icon: "success",
+                confirmButtonText: "OK"
+            });
+        });
+    </script>
+@endif
+  
+
 </x-app-layout>

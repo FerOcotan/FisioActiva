@@ -18,18 +18,7 @@
                             Nuevo Usuario
                         </a>
                         
-                        @if(session('success'))
-                        <script>
-                            document.addEventListener("DOMContentLoaded", function() {
-                                Swal.fire({
-                                    title: "Éxito",
-                                    text: "{{ session('success') }}",
-                                    icon: "success",
-                                    confirmButtonText: "OK"
-                                });
-                            });
-                        </script>
-                    @endif
+                      
                     </div>
 
                     <!-- Search form -->
@@ -141,7 +130,19 @@
             </div>
         </div>
     </div>
-
+    
+    @if(session('success'))
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            Swal.fire({
+                title: "Éxito",
+                text: "{{ session('success') }}",
+                icon: "success",
+                confirmButtonText: "OK"
+            });
+        });
+    </script>
+@endif
   
 
 </x-app-layout>
