@@ -21,7 +21,7 @@
                                     <select name="numeroexpediente" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200">
                                         @foreach($expedientes as $expediente)
                                             <option value="{{ $expediente->numeroexpediente }}">
-                                                {{ $expediente->numeroexpediente }} - {{ $expediente->usuario->name ?? 'Sin usuario' }}
+                                                {{ $expediente->numeroexpediente }} - {{ $expediente->user->name ?? 'Sin usuario' }}
                                             </option>
                                         @endforeach
                                     </select>

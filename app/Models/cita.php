@@ -31,10 +31,11 @@ class cita extends Model
         return $this->belongsTo(expediente::class, 'numeroexpediente', 'numeroexpediente');
     }
 
-    public function usuario()
+     public function usuario()
     {
-        return $this->belongsTo(User::class, 'id_usuario');
+        return $this->belongsTo(User::class, 'id_usuario'); // Asegúrate que 'id_usuario' sea la columna correcta
     }
+
     public function estado()
     {
         return $this->belongsTo(Estado::class, 'id_estado');

@@ -53,7 +53,7 @@
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ $cita->numerocita }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                         {{ $cita->expediente->numeroexpediente }} - 
-                                        {{ $cita->expediente->usuario->name ?? 'Sin usuario' }}
+                                        {{ $cita->expediente->user->name ?? 'Sin usuario' }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                         {{ \Carbon\Carbon::parse($cita->fechahora)->format('d/m/Y H:i') }}

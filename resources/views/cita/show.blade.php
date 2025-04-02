@@ -27,7 +27,7 @@
                                 <div class="bg-white p-4 rounded-lg shadow-sm">
                                     <h4 class="text-sm font-medium text-gray-500 mb-1">Paciente</h4>
                                     <p class="text-lg font-semibold">
-                                        {{ $citas->expediente->numeroexpediente }} - {{ $citas->expediente->usuario->name }}
+                                        {{ $citas->expediente->numeroexpediente }} - {{ $citas->expediente->user->name ?? 'Sin usuario' }}
                                     </p>
                                 </div>
 

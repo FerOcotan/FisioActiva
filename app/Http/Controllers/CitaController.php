@@ -28,9 +28,10 @@ class CitaController extends Controller
     public function create()
     {
         $expedientes = expediente::all(); // Obtener expedientes
+        $citas = Cita::with('usuario')->get();
         $estados = Estado::all(); // Obtener los estados
         $modalidades = Modalidad::all(); // Obtener las modalidades
-        return view('cita.create', compact('expedientes', 'estados', 'modalidades'));
+        return view('cita.create', compact('expedientes', 'estados', 'modalidades','citas'));
     }
 
     /**
@@ -56,8 +57,12 @@ class CitaController extends Controller
      */
     public function show($id)
     {
-        $citas = cita::with('estado', 'modalidad', 'expediente')->findOrFail($id);
-        return view('cita.show', compact('citas'));
+        $citas = cita::findOrFail($id);
+        $expedientes = expediente::all();
+        $usuarios = User::all();
+        $estados = Estado::all(); // Obtener los estados
+        $modalidades = Modalidad::all(); // Obtener las modalidades
+        return view('cita.show', compact('citas', 'expedientes', 'usuarios', 'estados', 'modalidades'));
     }
 
     /**
