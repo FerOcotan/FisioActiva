@@ -85,7 +85,7 @@ Route::middleware(['auth', 'role:1'])->group(function () {
 });
 
 
-Route::middleware(['auth', 'role:1'])->group(function () {
+Route::middleware(['auth', 'role:2'])->group(function () {
   
     Route::get('/dashboardpaciente', [DashboardpacienteController::class, 'index'])->name('dashboardpaciente.index');
     Route::get('/dashboardpaciente/create', [DashboardpacienteController::class, 'create'])->name('dashboardpaciente.create');
