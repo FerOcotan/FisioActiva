@@ -63,7 +63,10 @@ class UsuariosController extends Controller
         'id_estado' => $request->id_estado,
     ]);
 
-    return redirect()->route('usuarios.index')->with('success', 'Usuario creado exitosamente');
+    return redirect()->route('usuarios.index')
+    ->with('success', 'Usuario creado correctamente');
+
+
 }
 
 
@@ -130,6 +133,6 @@ class UsuariosController extends Controller
         
         // Eliminar el usuario
         $user->delete();
-        return redirect()->route('usuarios.index')->with('success', 'Usuario eliminado exitosamente');
+        return redirect()->route('usuarios.index')->with('success2', 'Usuario eliminado exitosamente');
     }
 }

@@ -19,10 +19,17 @@
                         </a>
                         
                         @if(session('success'))
-                            <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 w-full md:w-auto">
-                                <p>{{ session('success') }}</p>
-                            </div>
-                        @endif
+                        <script>
+                            document.addEventListener("DOMContentLoaded", function() {
+                                Swal.fire({
+                                    title: "Éxito",
+                                    text: "{{ session('success') }}",
+                                    icon: "success",
+                                    confirmButtonText: "OK"
+                                });
+                            });
+                        </script>
+                    @endif
                     </div>
 
                     <!-- Search form -->
@@ -86,14 +93,41 @@
                                                         <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
                                                     </svg>
                                                 </a>
-                                                <form action="{{ route('usuarios.destroy', $usuario) }}" method="POST" class="inline-block">
-                                                    @csrf @method('DELETE')
-                                                    <button type="submit" class="text-red-600 hover:text-red-900" title="Eliminar" onclick="return confirm('¿Estás seguro de eliminar este usuario?')">
+                                                <form action="{{ route('usuarios.destroy', $usuario) }}" method="POST" class="inline-block delete-form">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="button" class="text-red-600 hover:text-red-900 delete-btn" title="Eliminar">
                                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                                             <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
                                                         </svg>
                                                     </button>
                                                 </form>
+                                                
+                                                <script>
+                                                    document.addEventListener("DOMContentLoaded", function () {
+                                                        document.querySelectorAll(".delete-btn").forEach(button => {
+                                                            button.addEventListener("click", function (event) {
+                                                                event.preventDefault(); // Evita el envío inmediato
+                                                
+                                                                Swal.fire({
+                                                                    title: "¿Estás seguro?",
+                                                                    text: "No podrás revertir esto.",
+                                                                    icon: "warning",
+                                                                    showCancelButton: true,
+                                                                    confirmButtonColor: "#3085d6",
+                                                                    cancelButtonColor: "#d33",
+                                                                    confirmButtonText: "Sí, eliminar",
+                                                                    cancelButtonText: "Cancelar"
+                                                                }).then((result) => {
+                                                                    if (result.isConfirmed) {
+                                                                        // Encuentra el formulario más cercano al botón y envíalo
+                                                                        this.closest("form").submit();
+                                                                    }
+                                                                });
+                                                            });
+                                                        });
+                                                    });
+                                                </script>
                                             </div>
                                         </td>
                                     </tr>
@@ -107,4 +141,7 @@
             </div>
         </div>
     </div>
+
+  
+
 </x-app-layout>

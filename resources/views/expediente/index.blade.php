@@ -11,9 +11,7 @@
                 <div class="p-6 text-gray-900">
                     <a href="{{ route('expediente.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded">Nuevo Expediente</a>
 
-                    @if(session('success'))
-                        <div class="bg-green-500 text-white p-2 mt-2">{{ session('success') }}</div>
-                    @endif
+      
 
                     <table class="min-w-full bg-white border mt-4">
                         <thead>
@@ -51,4 +49,17 @@
             </div>
         </div>
     </div>
+
+    @if(session('success'))
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            Swal.fire({
+                title: "Éxito",
+                text: "{{ session('success') }}",
+                icon: "success",
+                confirmButtonText: "OK"
+            });
+        });
+    </script>
+@endif
 </x-app-layout>
