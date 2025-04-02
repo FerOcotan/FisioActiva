@@ -9,6 +9,7 @@ use App\Models\Modalidad;
 use App\Models\expediente;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\User;
 
 class CitaController extends Controller
 {
@@ -66,7 +67,7 @@ class CitaController extends Controller
     {
         $citas = cita::findOrFail($id);
         $expedientes = expediente::all();
-        $usuarios = usuarios::all();
+        $usuarios = User::all();
         $estados = Estado::all(); // Obtener los estados
         $modalidades = Modalidad::all(); // Obtener las modalidades
         return view('cita.edit', compact('citas', 'expedientes', 'usuarios', 'estados', 'modalidades'));

@@ -20,7 +20,7 @@
                                 @foreach($expedientes as $expediente)
                                     <option value="{{ $expediente->numeroexpediente }}" 
                                         {{ $citas->numeroexpediente == $expediente->numeroexpediente ? 'selected' : '' }}>
-                                        {{ $expediente->numeroexpediente }} - {{ $expediente->usuario->nombre ?? 'Sin usuario' }}
+                                        {{ $expediente->numeroexpediente }} - {{ $expediente->usuario->name ?? 'Sin usuario' }}
                                     </option>
                                 @endforeach
                             </select>

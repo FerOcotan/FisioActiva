@@ -15,13 +15,13 @@ class cita extends Model
     public $timestamps = true;
     protected $perPage = 20;
 
-    protected $fillable = 
+    protected $fillable =
     [
-        'numeroexpediente',  
+        'numeroexpediente',
         'fechahora',
         'id_modalidad', // Asegúrate de que está aquí
         'id_estado',
-        'modalidad', 
+        'modalidad',
         'cargo',
         'estado',
     ];
@@ -32,16 +32,15 @@ class cita extends Model
     }
 
     public function usuario()
-{
-    return $this->belongsTo(User::class, 'id_usuario'); 
-}
-public function estado()
-{
-    return $this->belongsTo(Estado::class, 'id_estado');
-}
-public function modalidad()
-{
-    return $this->belongsTo(Modalidad::class, 'id_modalidad');
-}
-
+    {
+        return $this->belongsTo(User::class, 'id_usuario');
+    }
+    public function estado()
+    {
+        return $this->belongsTo(Estado::class, 'id_estado');
+    }
+    public function modalidad()
+    {
+        return $this->belongsTo(Modalidad::class, 'id_modalidad');
+    }
 }

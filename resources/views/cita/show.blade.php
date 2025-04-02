@@ -12,7 +12,7 @@
                     <h3 class="text-xl font-semibold mb-4">Información de Cita</h3>
                     
                     <div class="mb-2"><strong>ID:</strong> {{ $citas->numerocita }}</div>
-                    <div class="mb-2"><strong>Paciente:</strong> {{ $citas->expediente->numeroexpediente }} {{ $citas->expediente->usuario->nombre }}</div>
+                    <div class="mb-2"><strong>Paciente:</strong> {{ $citas->expediente->numeroexpediente }} {{ $citas->expediente->usuario->name }}</div>
                     <div class="mb-2"><strong>Fecha:</strong> {{ $citas->fechahora }}</div>
                     <div class="mb-2"><strong>Modalidad:</strong> {{ $citas->modalidad->titulo }}</div>
                     <div class="mb-2"><strong>Cargo:</strong> {{ $citas->cargo }}</div>

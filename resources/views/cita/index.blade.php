@@ -28,7 +28,7 @@
                                     <td class="border border-gray-300 px-4 py-2">{{ $cita->numerocita }}</td>
                                     <td class="border border-gray-300 px-4 py-2">
                                         {{ $cita->expediente->numeroexpediente }} - 
-                                        {{ $cita->expediente->usuario->nombre ?? 'Sin usuario' }}
+                                        {{ $cita->expediente->usuario->name ?? 'Sin usuario' }}
                                     </td>                                    
                                     <td class="border border-gray-300 px-4 py-2">{{ $cita->fechahora }}</td>
                                     <td class="border border-gray-300 px-4 py-2">{{ $cita->modalidad->titulo }}</td>
