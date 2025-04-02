@@ -9,8 +9,6 @@
         <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    <h3 class="text-2xl font-bold text-gray-800 mb-6">Editar Expediente</h3>
-
                     <form action="{{ route('expediente.update', $expedientes) }}" method="POST" class="space-y-6">
                         @csrf
                         @method('PUT')
@@ -27,9 +25,18 @@
                                            disabled>
                                 </div>
 
-                                @foreach (['fechacreacion', 'numcitas', 'diagnostico', 'fechaevaluacion'] as $field)
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Diagnóstico:</label>
+                                    <input type="text" name="diagnostico" 
+                                                value="{{ old('diagnostico', $expedientes->diagnostico) }}"
+                                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200">
+                                </div>
+
+                                @foreach (['fechacreacion', 'numcitas', 'fechaevaluacion'] as $field)
                                     <div>
-                                        <label class="block text-sm font-medium text-gray-700 mb-1">{{ ucfirst(str_replace('_', ' ', $field)) }}</label>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">
+                                            {{ ucfirst(str_replace('_', ' ', $field)) }}
+                                        </label>
                                         <input type="{{ $field == 'numcitas' ? 'number' : 'date' }}" 
                                                name="{{ $field }}" 
                                                value="{{ old($field, $expedientes->$field) }}" 
@@ -42,7 +49,9 @@
                             <div class="space-y-4">
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700 mb-1">Nombre del Fisioterapeuta</label>
-                                    <input type="text" name="nombrefisioterapeuta" value="{{ old('nombrefisioterapeuta', $expedientes->nombrefisioterapeuta) }}" 
+                                    <input type="text" 
+                                           name="nombrefisioterapeuta" 
+                                           value="{{ old('nombrefisioterapeuta', $expedientes->nombrefisioterapeuta) }}" 
                                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200">
                                 </div>
 
@@ -59,22 +68,28 @@
                             </div>
                         </div>
 
-                        <!-- Campos de texto largos (full width) -->
+                        <!-- Sección de textareas principales -->
                         <div class="space-y-4">
                             @foreach (['historiaclinica', 'observacion', 'notasevolutivas'] as $field)
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">{{ ucfirst(str_replace('_', ' ', $field)) }}</label>
-                                    <textarea name="{{ $field }}" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200">{{ old($field, $expedientes->$field) }}</textarea>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">
+                                        {{ ucfirst(str_replace('_', ' ', $field)) }}
+                                    </label>
+                                    <textarea name="{{ $field }}" rows="3" 
+                                              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200">{{ old($field, $expedientes->$field) }}</textarea>
                                 </div>
                             @endforeach
                         </div>
 
-                        <!-- Campos de evaluación -->
+                        <!-- Campos de evaluación en grid de 2 columnas -->
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             @foreach (['palpacion', 'sensibilidad', 'arcosdemovimiento', 'fuerzamuscular', 'perimetria', 'longitudmiembrosinf', 'marcha', 'postura'] as $field)
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">{{ ucfirst(str_replace('_', ' ', $field)) }}</label>
-                                    <textarea name="{{ $field }}" rows="2" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200">{{ old($field, $expedientes->$field) }}</textarea>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">
+                                        {{ ucfirst(str_replace('_', ' ', $field)) }}
+                                    </label>
+                                    <textarea name="{{ $field }}" rows="2" 
+                                              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200">{{ old($field, $expedientes->$field) }}</textarea>
                                 </div>
                             @endforeach
                         </div>
