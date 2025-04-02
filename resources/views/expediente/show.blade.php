@@ -14,7 +14,7 @@
                     <div class="mb-2"><strong>#Expediente:</strong> {{ $expedientes->numeroexpediente }}</div>
                     <div class="mb-2"><strong>Paciente:</strong> {{ $expedientes->usuario->nombre }} {{ $expedientes->usuario->apellido }}</div>
                     <div class="mb-2"><strong>Fecha de Creación:</strong> {{ $expedientes->fechacreacion}}</div>
-                    <div class="mb-2"><strong>Numcitas:</strong> {{ $expedientes->Numcitas }}</div>
+                    <div class="mb-2"><strong>Numcitas:</strong> {{ $expedientes->numcitas }}</div>
                     <div class="mb-2"><strong>Diagnóstico:</strong> {{ $expedientes->diagnostico }}</div>
                     <div class="mb-2"><strong>Fecha de Evaluación:</strong> {{ $expedientes->fechaevaluacion }}</div>
                     <div class="mb-2"><strong>Historia Clínica:</strong> {{ $expedientes->historiaclinica }}</div>

@@ -16,9 +16,9 @@
 
                         <div class="mb-2">
                             <label class="block">Paciente:</label>
-                            <select name="idusuario" class="border rounded w-full px-3 py-2">
+                            <select name="id_usuario" class="border rounded w-full px-3 py-2">
                                 @foreach ($usuarios as $usuario)
-                                    <option value="{{ $usuario->idusuario }}">{{ $usuario->nombre }} {{ $usuario->apellido }}</option>
+                                    <option value="{{ $usuario->id }}">{{ $usuario->name }} {{ $usuario->apellido }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -30,7 +30,7 @@
 
                         <div class="mb-2">
                             <label class="block">Número de Citas:</label>
-                            <input type="number" name="Numcitas" class="border rounded w-full px-3 py-2">
+                            <input type="number" name="numcitas" class="border rounded w-full px-3 py-2">
                         </div>
 
                         <div class="mb-2">

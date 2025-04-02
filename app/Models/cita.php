@@ -33,7 +33,7 @@ class cita extends Model
 
     public function usuario()
 {
-    return $this->belongsTo(usuarios::class, 'idusuario'); 
+    return $this->belongsTo(User::class, 'id_usuario'); 
 }
 public function estado()
 {

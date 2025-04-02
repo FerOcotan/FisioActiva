@@ -15,7 +15,7 @@ class expediente extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'idusuario',
+        'id_usuario',
         'fechacreacion',
         'numcitas',
         'diagnostico',
@@ -37,7 +37,8 @@ class expediente extends Model
 
     public function usuario()
     {
-        return $this->belongsTo(usuarios::class, 'idusuario', 'idusuario');
+        return $this->belongsTo(User::class, 'id_usuario');
+        // Cambiado de usuarios::class a User::class
     }
     public function estado()
     {

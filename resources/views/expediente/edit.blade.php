@@ -27,7 +27,7 @@
 
                         <div class="mb-2">
                             <label class="block">Número de Citas:</label>
-                            <input type="number" name="Numcitas" value="{{ $expedientes->numcitas }}" class="border rounded w-full px-3 py-2">
+                            <input type="number" name="numcitas" value="{{ $expedientes->numcitas }}" class="border rounded w-full px-3 py-2">
                         </div>
 
                         <div class="mb-2">

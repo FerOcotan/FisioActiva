@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('expedientes', function (Blueprint $table) {
             $table->bigIncrements('numeroexpediente'); // Clave primaria
-            $table->unsignedBigInteger('idusuario'); // Clave foránea
+         
             $table->date('fechacreacion');
             $table->integer('numcitas')->nullable();
             $table->longText('diagnostico')->nullable();
@@ -31,12 +31,17 @@ return new class extends Migration
             $table->string('nombrefisioterapeuta', 50)->default('Licda. Xiomara Meza');
             $table->longText('notasevolutivas')->nullable();
 
+
+
+            $table->unsignedBigInteger('id_usuario'); // Clave foránea
+
+
             // Agregar la columna id_estado
     
             $table->unsignedBigInteger('id_estado')->nullable();  // Relación con estado
 
             // Definir las claves foráneas
-            $table->foreign('idusuario')->references('idusuario')->on('usuarios')->onDelete('cascade');
+            $table->foreign('id_usuario')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('id_estado')->references('id')->on('estado')->onDelete('cascade');
         });
         

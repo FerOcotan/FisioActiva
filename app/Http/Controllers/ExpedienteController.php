@@ -7,6 +7,8 @@ use App\Models\usuarios;
 use App\Models\expediente;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\User;
+use Users;
 
 class ExpedienteController extends Controller
 {
@@ -25,7 +27,7 @@ class ExpedienteController extends Controller
     public function create()
     {
         $estados = Estado::all();
-        $usuarios = usuarios::all();
+        $usuarios = User::all();
         return view('expediente.create', compact('estados', 'usuarios'));
     }
     /**
@@ -34,7 +36,7 @@ class ExpedienteController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'idusuario' => 'required|exists:usuarios,idusuario',
+            'id_usuario' => 'required|exists:users,id',
             'fechacreacion' => 'required|date',
             'numcitas' => 'nullable|integer',
             'diagnostico' => 'nullable|string',
@@ -55,7 +57,7 @@ class ExpedienteController extends Controller
         ]);
 
         expediente::create([
-            'idusuario' => $request->idusuario,
+            'id_usuario' => $request->id_usuario,
             'fechacreacion' => $request->fechacreacion,
             'numcitas' => $request->numcitas,
             'diagnostico' => $request->diagnostico,
@@ -104,7 +106,7 @@ class ExpedienteController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            //'idusuario' => 'required|exists:usuarios,idusuario',
+            //'id_usuario' => 'required|exists:usuarios,id',
             'fechacreacion' => 'required|date',
             'numcitas' => 'nullable|integer',
             'diagnostico' => 'nullable|string',
