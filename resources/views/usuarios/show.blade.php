@@ -21,13 +21,14 @@
                     <div class="mb-2"><strong>latitud:</strong> {{ $usuarios->latitud ?? 'No especificado' }}</div>
                     <div class="mb-2"><strong>longitud:</strong> {{ $usuarios->longitud?? 'No especificado' }}</div>
                     <div class="mb-2"><strong>Teléfono:</strong> {{ $usuarios->telefono ?? 'No especificado' }}</div>
-                    <div class="mb-2"><strong>Correo:</strong> {{ $usuarios->correo }}</div>
-                    <div class="mb-2"><strong>Rol:</strong> {{ $usuarios->rol->titulo ?? 'No especificado' }}</div>
-                    <div class="mb-2"><strong>Estado:</strong> {{ $usuarios->estado->titulo ?? 'No especificado' }}</div>
+                    <div class="mb-2"><strong>Correo:</strong> {{ $usuarios->email }}</div>
+                    <div class="mb-2"><strong>Rol:</strong> {{ $usuarios->rol }}</div>
+                    <div class="mb-2"><strong>Estado:</strong> {{ $usuarios->estado }}</div>
 
                     <div class="mt-4">
-                        <a href="{{ route('usuarios.index') }}" class="bg-gray-500 text-white px-4 py-2 rounded">Volver</a>
-                        <a href="{{ route('usuarios.edit', $usuarios) }}" class="bg-blue-500 text-white px-4 py-2 rounded">Editar</a>
+                        <a href="{{ route('usuarios.edit', $usuarios->id) }}" class="bg-blue-500 text-white px-4 py-2 rounded">Editar</a>
+
+                     <a href="{{ route('usuarios.show', $usuarios) }}" class="text-green-500">Ver</a>
                         <form action="{{ route('usuarios.destroy', $usuarios) }}" method="POST" class="inline-block">
                             @csrf @method('DELETE')
                             <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded" onclick="return confirm('¿Eliminar este usuario?')">Eliminar</button>

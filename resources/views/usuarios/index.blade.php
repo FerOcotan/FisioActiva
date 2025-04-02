@@ -29,9 +29,9 @@
                         <tbody>
                             @foreach ($usuarios as $usuario)
                                 <tr>
-                                    <td class="border px-4 py-2">{{ $usuario->idusuario }}</td>
-                                    <td class="border px-4 py-2">{{ $usuario->nombre }} {{ $usuario->apellido }}</td>
-                                    <td class="border px-4 py-2">{{ $usuario->correo }}</td>
+                                    <td class="border px-4 py-2">{{ $usuario->id }}</td>
+                                    <td class="border px-4 py-2">{{ $usuario->name }} {{ $usuario->apellido }}</td>
+                                    <td class="border px-4 py-2">{{ $usuario->email }}</td>
                                     <td class="border px-4 py-2">{{ $usuario->rol->titulo ?? 'No especificado' }}</td>
 
                                     <td class="border px-4 py-2">{{ $usuario->estado->titulo ?? 'No especificado' }}</td>

@@ -18,12 +18,19 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'role', // Agregar el campo role a la lista de atributos asignables
+        'name',          // Primer nombre
+        'apellido',      // Apellido
+        'email',         // Correo electrónico
+        'password',      // Contraseña
+        'edad',          // Edad
+        'direccion',     // Dirección
+        'latitud',       // Latitud
+        'longitud',      // Longitud
+        'telefono',      // Teléfono
+        'id_genero',     // ID de género
+        'id_rol',        // ID del rol
+        'id_estado',     // ID del estado
     ];
-
    
 
     /**
@@ -47,5 +54,20 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function genero()
+    {
+        return $this->belongsTo(Genero::class, 'id_genero');
+    }
+
+    public function rol()
+    {
+        return $this->belongsTo(Rol::class, 'id_rol');
+    }
+
+    public function estado()
+    {
+        return $this->belongsTo(Estado::class, 'id_estado');
     }
 }
