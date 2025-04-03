@@ -44,4 +44,5 @@ class expediente extends Model
         return $this->belongsTo(Estado::class, 'id_estado');
     }
     
+    
 }

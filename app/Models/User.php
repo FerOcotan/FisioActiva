@@ -70,4 +70,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Estado::class, 'id_estado');
     }
+
+  public function expediente()
+{
+    return $this->hasOne(expediente::class, 'id_usuario'); // Singular, correcto
+}
 }

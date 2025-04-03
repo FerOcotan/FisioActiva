@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Models\dashboardpaciente;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\User;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardpacienteController extends Controller
 {
@@ -16,6 +18,7 @@ class DashboardpacienteController extends Controller
         return view('dashboardpaciente.index');
     }
 
+  
     /**
      * Show the form for creating a new resource.
      */
