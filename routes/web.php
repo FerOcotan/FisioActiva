@@ -64,6 +64,9 @@ Route::middleware(['auth', 'role:1'])->group(function () {
 
 Route::middleware(['auth', 'role:1'])->group(function () {
 
+    //Route::get('/dashboard', [CitaController::class, 'dash'])->name('cita.dash');
+    Route::get('/dashboard', [CitaController::class, 'dashboard'])->name('dashboard');
+    
     Route::get('/cita', [CitaController::class, 'index'])->name('cita.index');
     Route::get('/cita/create', [CitaController::class, 'create'])->name('cita.create');
     Route::post('/cita', [CitaController::class, 'store'])->name('cita.store');

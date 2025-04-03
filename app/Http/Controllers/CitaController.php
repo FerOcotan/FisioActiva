@@ -10,6 +10,7 @@ use App\Models\expediente;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Carbon\Carbon;
 
 class CitaController extends Controller
 {
@@ -20,6 +21,31 @@ class CitaController extends Controller
     {
         $citas = cita::all();
         return view('cita.index', compact('citas'));
+    }
+
+    public function dashboard()
+    {   
+        //$hoy = now()->toDateString();
+        $hoy = now()->format('Y-m-d'); 
+    
+        // Obtener todas las citas
+        //$citas = Cita::with('expediente.user')->get();
+        // Obtener todas las citas activas
+        $citas = Cita::where('id_estado', 1)->with('expediente.user')->get();
+        
+        // Contar todas las citas en la base de datos
+        //$totalCitas = Cita::count();
+        // Contar todas las citas activas
+        $totalCitas = Cita::where('id_estado', 1)->count();
+                
+        // Contar citas del día de hoy
+        //$totalCitasHoy = Cita::whereDate('fechahora', $hoy)->count();
+        // Contar citas activas del día de hoy
+        $totalCitasHoy = Cita::where('id_estado', 1)
+                                ->whereDate('fechahora', $hoy)
+                                ->count();
+
+        return view('dashboard', compact('citas', 'totalCitas', 'totalCitasHoy'));
     }
 
     /**
