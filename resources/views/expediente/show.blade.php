@@ -57,10 +57,10 @@
 
                             <!-- Estado -->
                             <div class="bg-white p-4 rounded-lg shadow-xs border-l-4 
-                                {{ $expedientes->estado->titulo == 'Activo' ? 'border-green-500' : 'border-gray-500' }}">
+                                {{ $expedientes->estado->titulo == 'Abierto' ? 'border-green-500' : 'border-gray-500' }}">
                                 <h4 class="text-xs font-medium text-gray-500 uppercase tracking-wider mb-1">Estado</h4>
                                 <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium 
-                                    {{ $expedientes->estado->titulo == 'Activo' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800' }}">
+                                    {{ $expedientes->estado->titulo == 'Abierto' ? 'bg-green-100 text-green-800' : 'bg-red-200 text-gray-800' }}">
                                     {{ $expedientes->estado->titulo }}
                                 </span>
                             </div>
