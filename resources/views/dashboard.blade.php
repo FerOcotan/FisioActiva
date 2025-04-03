@@ -13,7 +13,7 @@
                     <!-- Resumen de Citas (Diseño Mejorado) -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
                         <!-- Tarjeta Total de Citas -->
-                        <div class="bg-blue-500 text-white p-5 rounded-lg shadow-md flex items-center">
+                        <div class="bg-[#05487d] text-white p-5 rounded-lg shadow-md flex items-center">
                             <div class="flex-shrink-0">
                                 <svg class="w-12 h-12 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m4 4V3m4 4V3m5 4H3m16 0a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V9a2 2 0 012-2h14z"/>

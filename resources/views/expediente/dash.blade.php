@@ -19,7 +19,7 @@
                                 class="flex-1 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
                                 required>
                             
-                            <button type="submit" class="px-6 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition duration-200">
+                            <button type="submit" class="px-6 bg-[#05487d] text-white font-bold rounded-lg hover:bg-blue-700 transition duration-200">
                                 Buscar
                             </button>
 

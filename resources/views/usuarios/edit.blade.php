@@ -112,7 +112,7 @@
                             <a href="{{ route('usuarios.index') }}" class="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600 transition duration-300">
                                 Cancelar
                             </a>
-                            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300">
+                            <button type="submit" class="bg-[#05487d] text-white px-4 py-2 rounded-md hover:bg-[#05487d] transition duration-300">
                                 Actualizar Usuario
                             </button>
                         </div>
