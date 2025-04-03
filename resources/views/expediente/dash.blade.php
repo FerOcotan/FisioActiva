@@ -1,8 +1,9 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard Expedientes') }}
-        </h2>
+        <div class="text-center space-y-0.5">
+            <h2 class="text-3xl font-light text-gray-800 tracking-tighter">{{ __('Buscar') }}</h2>
+            <p class="text-[0.7rem] text-gray-400 tracking-[0.3em] font-extralight">Expediente</p>
+        </div>
     </x-slot>
 
     <div class="py-12">
@@ -32,7 +33,7 @@
                     <!-- Mensajes de estado -->
                     <div class="mb-6 text-center">
                         @if(!request()->has('search'))
-                            <p class="text-lg font-medium text-gray-700">Ingresa un nombre para buscar un expediente.</p>
+                            <p class="text-lg font-light text-gray-400">Ingresa un nombre para buscar un expediente.</p>
                         @elseif($expedientes->isEmpty())
                             <p class="text-red-600 font-medium">No se encontró ningún expediente para "{{ request('search') }}".</p>
                         @endif

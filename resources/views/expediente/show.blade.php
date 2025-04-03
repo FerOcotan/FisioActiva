@@ -1,9 +1,11 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Detalles del Expediente') }}
-        </h2>
+        <div class="text-center space-y-1">
+            <h2 class="text-3xl font-light    text-gray-400 tracking-tight font-sans">{{ __('Detalles') }}</h2>
+            <p class="text-xs text-gray-400 font-light tracking-[0.2em] uppercase">Expediente</p>
+        </div>
     </x-slot>
+
 
     <div class="py-8">
         <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">

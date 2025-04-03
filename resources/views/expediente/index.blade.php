@@ -1,10 +1,13 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Lista de Expedientes') }}
-        </h2>
+        <div class="text-center space-y-2">
+            <h2 class="text-3xl font-normal text-gray-800">{{ __('EXPEDIENTES') }}</h2>
+            <div class="flex justify-center space-x-1">
+                <span class="w-8 h-px bg-gray-300"></span>
+                <span class="w-8 h-px bg-gray-400"></span>
+            </div>
+        </div>
     </x-slot>
-
     <div class="py-8">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
