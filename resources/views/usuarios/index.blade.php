@@ -1,8 +1,12 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Lista de Pacientes') }}
-        </h2>
+        <div class="text-center space-y-2">
+            <h2 class="text-3xl font-normal text-gray-800">{{ __('PACIENTES') }}</h2>
+            <div class="flex justify-center space-x-1">
+                <span class="w-8 h-px bg-gray-300"></span>
+                <span class="w-8 h-px bg-gray-400"></span>
+            </div>
+        </div>
     </x-slot>
 
     <div class="py-12">
@@ -15,7 +19,7 @@
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd" />
                             </svg>
-                            Nuevo Usuario
+                            Nuevo Paciente
                         </a>
                         
                       
@@ -24,7 +28,7 @@
                     <!-- Search form -->
                     <form method="GET" action="{{ route('usuarios.index') }}" class="mb-6">
                         <div class="flex gap-2 w-full">
-                            <input type="text" name="search" placeholder="Buscar por nombre, correo o apellido..." 
+                            <input type="text" name="search" placeholder="Buscar por nombre..." 
                                 value="{{ request('search') }}" 
                                 class="flex-grow border border-gray-300 focus:border-green-600 focus:ring-1 focus:ring-green-600 rounded-lg px-4 py-2 transition duration-200 outline-none">
                             <button type="submit" class="bg-lime-600 hover:bg-lime-700 text-white px-6 py-2 rounded-lg transition duration-200 flex items-center gap-2 whitespace-nowrap">

@@ -1,8 +1,9 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Editar Usuario') }}
-        </h2>
+        <div class="text-center space-y-1">
+            <h2 class="text-3xl font-medium text-gray-800">{{ __('EDITAR') }}</h2>
+            <p class="text-sm text-gray-500 font-light tracking-widest"> Información Paciente</p>
+        </div>
     </x-slot>
 
     <div class="py-12">

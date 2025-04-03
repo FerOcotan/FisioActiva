@@ -1,8 +1,9 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Detalles del Usuario') }}
-        </h2>
+        <div class="text-center space-y-1">
+            <h2 class="text-3xl font-light    text-gray-400 tracking-tight font-sans">{{ __('Detalles') }}</h2>
+            <p class="text-xs text-gray-400 font-light tracking-[0.2em] uppercase">PACIENTES</p>
+        </div>
     </x-slot>
 
     <div class="py-12">
@@ -11,7 +12,7 @@
                 <div class="p-6 text-gray-900">
                     <!-- Header con título y botones -->
                     <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
-                        <h3 class="text-2xl font-bold text-gray-800">Información del Usuario</h3>
+                        <h3 class="text-2xl font-bold text-gray-800">Información del Paciente</h3>
                         <div class="flex space-x-2">
                             <a href="{{ route('usuarios.edit', $usuarios->id) }}" 
                                class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition duration-200 flex items-center gap-2">
