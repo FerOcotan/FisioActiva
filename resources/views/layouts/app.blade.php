@@ -6,7 +6,8 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
         @vite('resources/css/app.css')
-
+        @vite(['resources/js/app.js'])
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
         <title>{{ config('app.name', 'FisioActiva') }}</title>

@@ -2,129 +2,137 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\usuarios;
-use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use App\Models\Genero;
+use App\Models\Rol;
+use App\Models\Estado;
 
 class UsuariosController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index(Request $request)
     {
-        $usuarios = usuarios::all();
+        $search = $request->input('search');
+    
+        $usuarios = User::when($search, function ($query, $search) {
+            return $query->where('name', 'LIKE', "%$search%");
+        })->get();
+    
         return view('usuarios.index', compact('usuarios'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        return view('usuarios.create');
+        $generos = Genero::all();
+        $roles = Rol::all();
+        $estados = Estado::all();
+    
+        return view('usuarios.create', compact('generos', 'roles', 'estados'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
+{
+    $request->validate([
+        'name' => 'required|string|max:50',
+        'apellido' => 'required|string|max:50',
+        'edad' => 'nullable|integer|min:1|max:110',
+        'direccion' => 'nullable|string|max:255',
+        'latitud' => 'nullable|numeric',
+        'longitud' => 'nullable|numeric',
+        'telefono' => 'nullable|string|max:12',
+        'email' => 'required|string|email|max:255|unique:users,email',
+        'password' => 'required|string|min:3',
+        'id_genero' => 'nullable|exists:genero,id',
+        'id_rol' => 'nullable|exists:rol,id',
+        'id_estado' => 'nullable|exists:estado,id',
+    ]);
+
+    User::create([
+        'name' => $request->name,
+        'apellido' => $request->apellido,
+        'edad' => $request->edad,
+        'direccion' => $request->direccion,
+        'latitud' => $request->latitud,
+        'longitud' => $request->longitud,
+        'telefono' => $request->telefono,
+        'email' => $request->email,
+        'password' => Hash::make($request->password),
+        'id_genero' => $request->id_genero,
+        'id_rol' => $request->id_rol,
+        'id_estado' => $request->id_estado,
+    ]);
+
+    return redirect()->route('usuarios.index')
+    ->with('success', 'Usuario creado correctamente');
+
+
+}
+
+
+
+    public function show($id)
     {
-        $request->validate(([
-            'nombre' => 'required|string|max:50',
-            'apellido' => 'required|string|max:50',
-            'edad' => 'nullable|integer|min:1|max:110',
-            'genero' => 'nullable|in:Masculino,Femenino',
-            'direccion' => 'nullable|string|max:50',
-            'latitud' => 'nullable|numeric',
-            'longitud' => 'nullable|numeric',
-            'telefono' => 'nullable|string|max:12',
-            'correo' => 'required|string|email|max:25|unique:usuarios,correo',
-            'contrasena' => 'required|string|min:3',
-            'rol' => 'nullable|in:Administrador,Cliente',
-            'estado' => 'nullable|in:Activo,Desactivado',
-        ]));
-
-        usuarios::create([
-            'nombre' => $request->nombre,
-            'apellido' => $request->apellido,
-            'edad' => $request->edad,
-            'genero' => $request->genero,
-            'direccion' => $request->direccion,
-            'latitud' => $request->latitud,
-            'longitud' => $request->longitud,
-            'telefono' => $request->telefono,
-            'correo' => $request->correo,
-            'contrasena' => Hash::make($request->contrasena),
-            'rol' => $request->rol ?? 'Cliente',
-            'estado' => $request->estado ?? 'Activo',
-        ]);
-
-        return redirect()->route('usuarios.index')->with('success', 'Usuario creado exitosamente');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(usuarios $usuarios)
-    {
+        $usuarios = User::findOrFail($id);
         return view('usuarios.show', compact('usuarios'));
+ 
+
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(usuarios $usuarios)
-    {
-        return view('usuarios.edit', compact('usuarios'));
-    }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, usuarios $usuarios)
+    public function edit($id)
     {
-        $request->validate(([
-            'nombre' => 'required|string|max:50',
+        $usuario = User::findOrFail($id); // O el modelo que estés usando
+        $generos = Genero::all(); // Asegúrate de tener estos modelos importados
+        $roles = Rol::all();
+        $estados = Estado::all();
+        
+        return view('usuarios.edit', compact('usuario', 'generos', 'roles', 'estados'));
+    }
+    public function update(Request $request,  $id)
+    {
+        $usuario = User::findOrFail($id);
+
+        $request->validate([
+            'name' => 'required|string|max:50',
             'apellido' => 'required|string|max:50',
             'edad' => 'nullable|integer|min:1|max:110',
-            'genero' => 'nullable|in:Masculino,Femenino',
-            'direccion' => 'nullable|string|max:50',
+            'direccion' => 'nullable|string|max:255',
             'latitud' => 'nullable|numeric',
             'longitud' => 'nullable|numeric',
             'telefono' => 'nullable|string|max:12',
-            'correo' => 'required|string|email|max:255|unique:usuarios,correo,' . $usuarios->idusuario . ',idusuario',
-            'contrasena' => 'required|string|min:3',
-            'rol' => 'nullable|in:Administrador,Cliente',
-            'estado' => 'nullable|in:Activo,Desactivado',
-        ]));
-
-        $usuarios->update([
-            'nombre' => $request->nombre,
+            'email' => 'required|string|email|max:255|unique:users,email,' . $usuario->id,
+            'password' => 'nullable|string|min:3',
+            'id_genero' => 'nullable|exists:genero,id',
+            'id_rol' => 'nullable|exists:rol,id',
+            'id_estado' => 'nullable|exists:estado,id',
+        ]);
+    
+        $usuario->update([
+            'name' => $request->name,
             'apellido' => $request->apellido,
             'edad' => $request->edad,
-            'genero' => $request->genero,
             'direccion' => $request->direccion,
             'latitud' => $request->latitud,
             'longitud' => $request->longitud,
             'telefono' => $request->telefono,
-            'correo' => $request->correo,
-            'contrasena' => $request->contrasena ? Hash::make($request->contrasena) : $usuarios->contrasena,
-            'rol' => $request->rol ?? 'Cliente',
-            'estado' => $request->estado ?? 'Activo',
+            'email' => $request->email,
+            'password' => $request->filled('password') ? Hash::make($request->password) : $usuario->password,
+            'id_genero' => $request->id_genero,
+            'id_rol' => $request->id_rol,
+            'id_estado' => $request->id_estado,
         ]);
-
+    
         return redirect()->route('usuarios.index')->with('success', 'Usuario actualizado exitosamente');
-
     }
+    
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(usuarios $usuarios)
+    public function destroy($id)
     {
-        $usuarios->delete();
+        $user = User::findOrFail($id);
+        
+        // Eliminar el usuario
+        $user->delete();
         return redirect()->route('usuarios.index')->with('success', 'Usuario eliminado exitosamente');
     }
 }

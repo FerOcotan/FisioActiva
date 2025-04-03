@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\cita;
-use App\Models\expediente;
+use App\Models\Estado;
 use App\Models\usuarios;
-use App\Http\Controllers\Controller;
+use App\Models\Modalidad;
+use App\Models\expediente;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Models\User;
 
 class CitaController extends Controller
 {
@@ -24,9 +27,12 @@ class CitaController extends Controller
      */
     public function create()
     {
-
-        $expedientes = expediente::all(); // Obtener expedientes para seleccionar
-        return view('cita.create', compact('expedientes'));    }
+        $expedientes = expediente::all(); // Obtener expedientes
+        $citas = Cita::with('usuario')->get();
+        $estados = Estado::all(); // Obtener los estados
+        $modalidades = Modalidad::all(); // Obtener las modalidades
+        return view('cita.create', compact('expedientes', 'estados', 'modalidades','citas'));
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -36,23 +42,27 @@ class CitaController extends Controller
         $request->validate([
             'numeroexpediente' => 'required|exists:expedientes,numeroexpediente',
             'fechahora' => 'required|date',
-            'modalidad' => 'required|in:Local,Visita',
+            'id_modalidad' => 'required|exists:modalidad,id',
             'cargo' => 'nullable|numeric',
-            'estado' => 'required|in:Pendiente,Finalizada,Cancelada',
+            'id_estado' => 'required|exists:estado,id',  
         ]);
-
+    
         cita::create($request->all());
-
-        return redirect()->route('cita.index')->with('success', 'Cita creada correctamente.');    }
+    
+        return redirect()->route('cita.index')->with('success', 'Cita creada correctamente.');
+    }
 
     /**
      * Display the specified resource.
      */
     public function show($id)
     {
-        $citas = cita::with('usuario')->findOrFail($id);
-        return view('cita.show', compact('citas'));
-    
+        $citas = cita::findOrFail($id);
+        $expedientes = expediente::all();
+        $usuarios = User::all();
+        $estados = Estado::all(); // Obtener los estados
+        $modalidades = Modalidad::all(); // Obtener las modalidades
+        return view('cita.show', compact('citas', 'expedientes', 'usuarios', 'estados', 'modalidades'));
     }
 
     /**
@@ -62,8 +72,10 @@ class CitaController extends Controller
     {
         $citas = cita::findOrFail($id);
         $expedientes = expediente::all();
-        $usuarios = usuarios::all();
-        return view('cita.edit', compact('citas', 'expedientes', 'usuarios'));
+        $usuarios = User::all();
+        $estados = Estado::all(); // Obtener los estados
+        $modalidades = Modalidad::all(); // Obtener las modalidades
+        return view('cita.edit', compact('citas', 'expedientes', 'usuarios', 'estados', 'modalidades'));
     }
 
     /**
@@ -74,17 +86,16 @@ class CitaController extends Controller
         $request->validate([
             'numeroexpediente' => 'required|exists:expedientes,numeroexpediente',
             'fechahora' => 'required|date',
-            'modalidad' => 'required|in:Local,Visita',
+            'id_modalidad' => 'required|exists:modalidad,id',
             'cargo' => 'nullable|numeric',
-            'estado' => 'required|in:Pendiente,Finalizada,Cancelada',
-        ]);  
-
-        $citas = cita::findOrFail($id);
-        $citas->update($request->all());
-
-        return redirect()->route('cita.index')->with('success', 'Expediente actualizado correctamente.');
+            'id_estado' => 'required|exists:estado,id',  
+        ]);
+    
+        $cita = cita::findOrFail($id);
+        $cita->update($request->all());
+    
+        return redirect()->route('cita.index')->with('success', 'Cita actualizada correctamente.');
     }
-
     /**
      * Remove the specified resource from storage.
      */
@@ -95,6 +106,4 @@ class CitaController extends Controller
 
         return redirect()->route('cita.index')->with('success', 'Expediente eliminado correctamente.');
     }
-
-        
 }
