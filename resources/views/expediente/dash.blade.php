@@ -1,8 +1,9 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard Expedientes') }}
-        </h2>
+        <div class="text-center space-y-0.5">
+            <h2 class="text-3xl font-light text-gray-800 tracking-tighter">{{ __('Buscar') }}</h2>
+            <p class="text-[0.7rem] text-gray-400 tracking-[0.3em] font-extralight">Expediente</p>
+        </div>
     </x-slot>
 
     <div class="py-12">
@@ -18,7 +19,7 @@
                                 class="flex-1 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
                                 required>
                             
-                            <button type="submit" class="px-6 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition duration-200">
+                            <button type="submit" class="px-6 bg-[#05487d] text-white font-bold rounded-lg hover:bg-blue-700 transition duration-200">
                                 Buscar
                             </button>
 
@@ -32,7 +33,7 @@
                     <!-- Mensajes de estado -->
                     <div class="mb-6 text-center">
                         @if(!request()->has('search'))
-                            <p class="text-lg font-medium text-gray-700">Ingresa un nombre para buscar un expediente.</p>
+                            <p class="text-lg font-light text-gray-400">Ingresa un nombre para buscar un expediente.</p>
                         @elseif($expedientes->isEmpty())
                             <p class="text-red-600 font-medium">No se encontró ningún expediente para "{{ request('search') }}".</p>
                         @endif
@@ -47,7 +48,7 @@
                                         Expediente #{{ $expediente->numeroexpediente }}
                                     </h3>
                                     <span class="px-3 py-1 text-sm font-semibold rounded-full 
-                                        {{ $expediente->estado->titulo == 'Activo' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
+                                        {{ $expediente->estado->titulo == 'Abierto' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
                                         {{ $expediente->estado->titulo }}
                                     </span>
                                 </div>

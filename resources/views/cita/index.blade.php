@@ -1,8 +1,12 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Listado de Citas') }}
-        </h2>
+        <div class="text-center space-y-2">
+            <h2 class="text-3xl font-normal text-gray-800">{{ __('CITAS') }}</h2>
+            <div class="flex justify-center space-x-1">
+                <span class="w-8 h-px bg-gray-300"></span>
+                <span class="w-8 h-px bg-gray-400"></span>
+            </div>
+        </div>
     </x-slot>
 
     <div class="py-12">
@@ -65,8 +69,8 @@
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                         <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
-                                            {{ $cita->estado->titulo == 'Activo' ? 'bg-green-100 text-green-800' : 
-                                               ($cita->estado->titulo == 'Inactivo' ? 'bg-red-100 text-red-800' : 
+                                            {{ $cita->estado->titulo == 'Pendiente' ? 'bg-green-100 text-green-800' : 
+                                               ($cita->estado->titulo == 'Finalizada' ? 'bg-red-100 text-red-800' : 
                                                'bg-yellow-100 text-yellow-800') }}">
                                             {{ $cita->estado->titulo }}
                                         </span>

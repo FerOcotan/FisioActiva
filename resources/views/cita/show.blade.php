@@ -1,8 +1,9 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Detalles de Cita') }}
-        </h2>
+        <div class="text-center space-y-1">
+            <h2 class="text-3xl font-light    text-gray-400 tracking-tight font-sans">{{ __('Detalles') }}</h2>
+            <p class="text-xs text-gray-400 font-light tracking-[0.2em] uppercase">CITA</p>
+        </div>
     </x-slot>
 
     <div class="py-8">
@@ -73,7 +74,7 @@
                                 Volver
                             </a>
                             <a href="{{ route('cita.edit', $citas) }}" 
-                               class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition duration-200 flex items-center gap-2">
+                               class="px-6 py-2 bg-[#05487d] hover:bg-blue-700 text-white rounded-lg transition duration-200 flex items-center gap-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                     <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
                                 </svg>

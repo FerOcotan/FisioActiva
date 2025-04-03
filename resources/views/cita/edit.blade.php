@@ -1,8 +1,9 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Editar Cita') }}
-        </h2>
+        <div class="text-center space-y-1">
+            <h2 class="text-3xl font-medium text-gray-800">{{ __('EDITAR') }}</h2>
+            <p class="text-sm text-gray-500 font-light tracking-widest"> Cita</p>
+        </div>
     </x-slot>
 
     <div class="py-8">
@@ -79,7 +80,7 @@
                                 Cancelar
                             </a>
                             <button type="submit" 
-                                    class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition duration-200 flex items-center gap-2">
+                                    class="px-6 py-2 bg-[#05487d] hover:bg-blue-700 text-white rounded-lg transition duration-200 flex items-center gap-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
                                 </svg>

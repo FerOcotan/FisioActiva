@@ -24,7 +24,7 @@
                         <label>Ingresos:</label>
                         <input type="text" name="ingresos" class="border p-2 w-full mb-3" required>
 
-                        <button type="submit" class="bg-blue-500 text-white px-4 py-2">Guardar</button>
+                        <button type="submit" class="bg-[#05487d] text-white px-4 py-2">Guardar</button>
                     </form>
                 </div>
             </div>

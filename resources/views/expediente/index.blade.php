@@ -1,17 +1,20 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Lista de Expedientes') }}
-        </h2>
+        <div class="text-center space-y-2">
+            <h2 class="text-3xl font-normal text-gray-800">{{ __('EXPEDIENTES') }}</h2>
+            <div class="flex justify-center space-x-1">
+                <span class="w-8 h-px bg-gray-300"></span>
+                <span class="w-8 h-px bg-gray-400"></span>
+            </div>
+        </div>
     </x-slot>
-
     <div class="py-8">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <!-- Header with button and search -->
                     <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
-                        <a href="{{ route('expediente.create') }}" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition duration-200 flex items-center gap-2">
+                        <a href="{{ route('expediente.create') }}" class="bg-[#05487d] hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition duration-200 flex items-center gap-2">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd" />
                             </svg>
@@ -42,7 +45,7 @@
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ \Carbon\Carbon::parse($expediente->fechacreacion)->format('d/m/Y') }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                             <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
-                                                {{ $expediente->estado->titulo == 'Activo' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
+                                                {{ $expediente->estado->titulo == 'Abierto' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
                                                 {{ $expediente->estado->titulo }}
                                             </span>
                                         </td>

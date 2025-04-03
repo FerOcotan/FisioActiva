@@ -1,8 +1,9 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Editar Usuario') }}
-        </h2>
+        <div class="text-center space-y-1">
+            <h2 class="text-3xl font-medium text-gray-800">{{ __('EDITAR') }}</h2>
+            <p class="text-sm text-gray-500 font-light tracking-widest"> Información Paciente</p>
+        </div>
     </x-slot>
 
     <div class="py-12">
@@ -111,7 +112,7 @@
                             <a href="{{ route('usuarios.index') }}" class="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600 transition duration-300">
                                 Cancelar
                             </a>
-                            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300">
+                            <button type="submit" class="bg-[#05487d] text-white px-4 py-2 rounded-md hover:bg-[#05487d] transition duration-300">
                                 Actualizar Usuario
                             </button>
                         </div>

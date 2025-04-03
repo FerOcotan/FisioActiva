@@ -28,7 +28,7 @@ class="absolute top-1/2 right-[-15px] -translate-y-1/2 bg-white text-blue rounde
         <!-- Foto de usuario - Cambia tamaño según estado del sidebar -->
         <img class="rounded-full object-cover border-2 border-[#05487d] transition-all duration-300"
              :class="open ? 'w-20 h-20' : 'w-12 h-12'"
-             src="{{ Auth::user()->profile_photo_url ?? asset('build/assets/images/default-user.png') }}"
+             src=""
              alt="Foto de usuario">
              
         <!-- Ícono de lápiz - Cambia tamaño según estado del sidebar -->

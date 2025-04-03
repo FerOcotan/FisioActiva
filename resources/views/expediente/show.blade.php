@@ -1,9 +1,11 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Detalles del Expediente') }}
-        </h2>
+        <div class="text-center space-y-1">
+            <h2 class="text-3xl font-light    text-gray-400 tracking-tight font-sans">{{ __('Detalles') }}</h2>
+            <p class="text-xs text-gray-400 font-light tracking-[0.2em] uppercase">Expediente</p>
+        </div>
     </x-slot>
+
 
     <div class="py-8">
         <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
@@ -17,7 +19,7 @@
                         </div>
                         <div class="flex space-x-2">
                             <a href="{{ route('expediente.edit', $expedientes) }}" 
-                               class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition duration-200 flex items-center gap-2">
+                               class="px-4 py-2 bg-[#05487d] hover:bg-blue-700 text-white rounded-lg transition duration-200 flex items-center gap-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                     <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
                                 </svg>
@@ -57,10 +59,10 @@
 
                             <!-- Estado -->
                             <div class="bg-white p-4 rounded-lg shadow-xs border-l-4 
-                                {{ $expedientes->estado->titulo == 'Activo' ? 'border-green-500' : 'border-gray-500' }}">
+                                {{ $expedientes->estado->titulo == 'Abierto' ? 'border-green-500' : 'border-gray-500' }}">
                                 <h4 class="text-xs font-medium text-gray-500 uppercase tracking-wider mb-1">Estado</h4>
                                 <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium 
-                                    {{ $expedientes->estado->titulo == 'Activo' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800' }}">
+                                    {{ $expedientes->estado->titulo == 'Abierto' ? 'bg-green-100 text-green-800' : 'bg-red-200 text-gray-800' }}">
                                     {{ $expedientes->estado->titulo }}
                                 </span>
                             </div>
