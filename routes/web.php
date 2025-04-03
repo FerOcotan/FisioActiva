@@ -1,12 +1,13 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ExpedienteController;
 use App\Http\Controllers\CitaController;
-use App\Http\Controllers\EconomicoController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UsuariosController;
+use App\Http\Controllers\EconomicoController;
+use App\Http\Controllers\ExpedienteController;
 use App\Http\Controllers\DashboardpacienteController;
 
 
@@ -100,6 +101,17 @@ Route::middleware(['auth', 'role:2'])->group(function () {
     Route::put('/dashboardpaciente/{dashboardpaciente}', [DashboardpacienteController::class, 'update'])->name('dashboardpaciente.update');
     Route::delete('/dashboardpaciente/{dashboardpaciente}', [DashboardpacienteController::class, 'destroy'])->name('dashboardpaciente.destroy');
 
+});
+
+
+Route::get('/ingresos-por-cliente', function () {
+    $result = DB::select("CALL ingresos_por_cliente()");
+    return response()->json($result);
+});
+
+Route::get('/ingresos-mensuales', function () {
+    $result = DB::select("CALL ingresos_mensuales()");
+    return response()->json($result);
 });
 
 
