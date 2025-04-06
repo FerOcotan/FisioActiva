@@ -2,8 +2,11 @@
 
 namespace App\Models;
 
+use App\Models\Estado;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class expediente extends Model
 {
@@ -43,5 +46,10 @@ class expediente extends Model
     {
         return $this->belongsTo(Estado::class, 'id_estado');
     }
+    public function citas(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Cita::class, 'numeroexpediente');
+    }
+    
     
 }

@@ -48,7 +48,7 @@
                                 <p class="text-lg font-semibold">
                                     {{ $expedientes->usuario ? $expedientes->usuario->nombre . ' ' . $expedientes->usuario->apellido : 'No asignado' }}
                                 </p>
-                                <p class="text-sm text-gray-500">{{ $expedientes->numcitas }} citas registradas</p>
+                                <p class="text-sm text-gray-500">{{ $expedientes->numcitas }} citas finalizadas</p>
                             </div>
 
                             <!-- Fisioterapeuta -->

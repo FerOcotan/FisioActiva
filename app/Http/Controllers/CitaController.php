@@ -33,7 +33,7 @@ class CitaController extends Controller
         // Obtener todas las citas activas
         $citas = Cita::where('id_estado', 5)
                         ->with('expediente.user')
-                        ->orderBy('fechahora', 'desc')->get();
+                        ->orderBy('fechahora', 'asc')->get();
         
         // Contar todas las citas en la base de datos
         //$totalCitas = Cita::count();

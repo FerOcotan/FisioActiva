@@ -3,9 +3,11 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class User extends Authenticatable
 {
@@ -70,4 +72,31 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Estado::class, 'id_estado');
     }
+    
+
+
+
+
+    public function citas(): HasManyThrough
+    {
+        return $this->hasManyThrough(
+            Cita::class,          // Modelo final
+            Expediente::class,     // Modelo intermedio
+            'id_usuario',          // FK en expedientes (modelo intermedio)
+            'numeroexpediente',    // FK en citas (modelo final)
+            'id',                  // PK en users (modelo local)
+            'numeroexpediente'     // PK en expedientes (modelo intermedio)
+        );
+    }
+
+    public function expediente(): HasOne
+{
+    return $this->hasOne(Expediente::class, 'id_usuario', 'id'); 
+}
+
+
+
+
+
+
 }
