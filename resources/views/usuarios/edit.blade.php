@@ -56,7 +56,8 @@
                         <!-- Dirección y coordenadas -->
                         <div class="mb-4">
                             <label class="block text-sm font-medium text-gray-700">Dirección:</label>
-                            <input type="text" name="direccion" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" 
+                            <input type="text" id="direccion"
+                            name="direccion" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" 
                                    value="{{ old('direccion', $usuario->direccion) }}">
                         </div>
 
@@ -64,13 +65,24 @@
                             <div>
                                 <label class="block text-sm font-medium text-gray-700">Latitud:</label>
                                 <input type="text" name="latitud" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" 
-                                       value="{{ old('latitud', $usuario->latitud) }}">
+                                       readonly id="latitud"
+                                value="{{ old('latitud', $usuario->latitud) }}">
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700">Longitud:</label>
-                                <input type="text" name="longitud" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" 
+                                <input readonly id="longitud"
+                                type="text" name="longitud" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" 
                                        value="{{ old('longitud', $usuario->longitud) }}">
                             </div>
+                        </div>
+
+                          <!-- Mapa con altura fija y bordes redondeados -->
+                          <div class="h-80 w-full rounded-lg overflow-hidden border border-gray-300">
+                            <x-mapa 
+                            latInputId="latitud" 
+                            lngInputId="longitud"
+                            direccionInputId="direccion" 
+                        />
                         </div>
 
                         <!-- Dropdowns -->

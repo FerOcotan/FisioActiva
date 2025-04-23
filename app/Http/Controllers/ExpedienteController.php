@@ -38,7 +38,7 @@ class ExpedienteController extends Controller
      */
     public function create()
     {
-        $estados = Estado::all();
+        $estados = Estado::whereIn('id', [3, 4])->get();
         $usuarios = User::all();
         return view('expediente.create', compact('estados', 'usuarios'));
     }
@@ -108,7 +108,7 @@ class ExpedienteController extends Controller
     public function edit($id)
     {
         $expedientes = expediente::findOrFail($id); // 
-        $estados = Estado::all();
+        $estados = Estado::whereIn('id', [3, 4])->get();
         return view('expediente.edit', compact('expedientes', 'estados'));
     }
     /**

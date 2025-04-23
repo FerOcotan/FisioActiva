@@ -26,8 +26,7 @@ class UsuariosController extends Controller
     {
         $generos = Genero::all();
         $roles = Rol::all();
-        $estados = Estado::all();
-    
+        $estados = Estado::whereIn('id', [1, 2])->get();
         return view('usuarios.create', compact('generos', 'roles', 'estados'));
     }
 
@@ -85,7 +84,7 @@ class UsuariosController extends Controller
         $usuario = User::findOrFail($id); // O el modelo que estés usando
         $generos = Genero::all(); // Asegúrate de tener estos modelos importados
         $roles = Rol::all();
-        $estados = Estado::all();
+        $estados = Estado::whereIn('id', [1, 2])->get();
         
         return view('usuarios.edit', compact('usuario', 'generos', 'roles', 'estados'));
     }

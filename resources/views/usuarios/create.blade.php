@@ -1,8 +1,9 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Crear Usuario') }}
-        </h2>
+        <div class="text-center space-y-1">
+            <h2 class="text-3xl font-medium text-gray-800">{{ __('CREAR PACIENTE') }}</h2>
+           
+        </div>
     </x-slot>
 
 
@@ -13,32 +14,35 @@
                 <div class="p-6 text-gray-900">
                     <form action="{{ route('usuarios.store') }}" method="POST" class="space-y-6">
                         @csrf
-
-                        <!-- Grid de 2 columnas para pantallas medianas/grandes -->
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <!-- Columna 1 -->
-                            <div class="space-y-4">
+                        <!-- Primera sección: Datos personales y ubicación -->
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                            <!-- Columna 1: Datos personales -->
+                            <div class="space-y-4 lg:col-span-1">
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700 mb-1">Nombre:</label>
                                     <input type="text" name="name" value="{{ old('name') }}" 
+                                           placeholder="Ingrese el nombre"
                                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200" required>
                                 </div>
-
+    
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700 mb-1">Apellido:</label>
                                     <input type="text" name="apellido" value="{{ old('apellido') }}" 
+                                           placeholder="Ingrese el apellido"
                                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200" required>
                                 </div>
-
+    
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700 mb-1">Edad:</label>
                                     <input type="number" name="edad" value="{{ old('edad') }}" 
+                                           placeholder="Ingrese la edad"
                                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200" required>
                                 </div>
-
+    
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700 mb-1">Género:</label>
                                     <select name="id_genero" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200">
+                                        <option value="" disabled selected>Seleccione el género</option>
                                         @foreach ($generos as $genero)
                                             <option value="{{ $genero->id }}" {{ old('id_genero') == $genero->id ? 'selected' : '' }}>
                                                 {{ $genero->nombre }}
@@ -46,73 +50,101 @@
                                         @endforeach
                                     </select>
                                 </div>
-
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">Dirección:</label>
-                                    <input type="text" name="direccion" value="{{ old('direccion') }}" 
-                                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200" required>
+                            </div>
+    
+                            <!-- Columna 2: Ubicación y mapa -->
+                            <div class="space-y-4 lg:col-span-2">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">Dirección:</label>
+                                        <input type="text" name="direccion" id="direccion" value="{{ old('direccion') }}" 
+                                               placeholder="Ingrese la dirección o seleccione en el mapa"
+                                               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200" required>
+                                    </div>
+                                    
+                                    <div class="grid grid-cols-2 gap-4">
+                                        <div>
+                                            <label class="block text-sm font-medium text-gray-700 mb-1">Latitud:</label>
+                                            <input type="number" step="any" name="latitud" id="latitud" 
+                                                    readonly
+                                                   value="{{ old('latitud') }}" placeholder="Ej: 13.7942"
+                                                   class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200" required>
+                                        </div>
+                                        
+                                        <div>
+                                            <label class="block text-sm font-medium text-gray-700 mb-1">Longitud:</label>
+                                            <input type="number" step="any" name="longitud" id="longitud" 
+                                            READONLY    
+                                                   value="{{ old('longitud') }}" placeholder="Ej: -88.8965"
+                                                   class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200" required>
+                                        </div>
+                                    </div>
+                                </div>
+    
+                                <!-- Mapa con altura fija y bordes redondeados -->
+                                <div class="h-80 w-full rounded-lg overflow-hidden border border-gray-300">
+                                    <x-mapa 
+                                    latInputId="latitud" 
+                                    lngInputId="longitud"
+                                    direccionInputId="direccion" 
+                                />
                                 </div>
                             </div>
-
-                            <!-- Columna 2 -->
+                        </div>
+    
+                        <!-- Segunda sección: Contacto y credenciales -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div class="space-y-4">
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">Latitud:</label>
-                                    <input type="number" step="any" name="latitud" value="{{ old('latitud') }}" 
-                                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200" required>
-                                </div>
-
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">Longitud:</label>
-                                    <input type="number" step="any" name="longitud" value="{{ old('longitud') }}" 
-                                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200" required>
-                                </div>
-
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700 mb-1">Teléfono:</label>
                                     <input type="text" name="telefono" value="{{ old('telefono') }}" 
+                                           placeholder="Ingrese el teléfono"
+                                           maxlength="8" oninput="this.value = this.value.replace(/[^0-9]/g, '')"
                                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200" required>
                                 </div>
-
+    
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700 mb-1">Correo:</label>
                                     <input type="email" name="email" value="{{ old('email') }}" 
+                                           placeholder="Ingrese el correo"
                                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200" required>
                                 </div>
-
+                            </div>
+    
+                            <div class="space-y-4">
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700 mb-1">Contraseña:</label>
                                     <input type="password" name="password" 
+                                           placeholder="Ingrese la contraseña"
                                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200" required>
+                                </div>
+    
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">Rol:</label>
+                                        <select name="id_rol" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200">
+                                            @foreach ($roles as $rol)
+                                                <option value="{{ $rol->id }}" {{ old('id_rol') == $rol->id ? 'selected' : '' }}>
+                                                    {{ $rol->titulo }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+    
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">Estado:</label>
+                                        <select name="id_estado" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200">
+                                            @foreach ($estados as $estado)
+                                                <option value="{{ $estado->id }}" {{ old('id_estado') == $estado->id ? 'selected' : '' }}>
+                                                    {{ $estado->titulo }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Selectores de Rol y Estado (full width) -->
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Rol:</label>
-                                <select name="id_rol" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200">
-                                    @foreach ($roles as $rol)
-                                        <option value="{{ $rol->id }}" {{ old('id_rol') == $rol->id ? 'selected' : '' }}>
-                                            {{ $rol->titulo }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
-
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Estado:</label>
-                                <select name="id_estado" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200">
-                                    @foreach ($estados as $estado)
-                                        <option value="{{ $estado->id }}" {{ old('id_estado') == $estado->id ? 'selected' : '' }}>
-                                            {{ $estado->titulo }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-
+    
                         <!-- Botones de acción -->
                         <div class="flex justify-end space-x-4 pt-6">
                             <a href="{{ route('usuarios.index') }}" class="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 bg-white hover:bg-gray-50 transition duration-200 flex items-center gap-2">
@@ -157,6 +189,8 @@
         </div>
     </div>
 @endif
+
+
 
 
 </x-app-layout>
