@@ -40,11 +40,7 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <!-- Columna 1 -->
                             <div class="space-y-4">
-                                <div class="bg-white p-4 rounded-lg shadow-sm">
-                                    <h4 class="text-sm font-medium text-gray-500 mb-1">ID</h4>
-                                    <p class="text-lg font-semibold">{{ $usuarios->id }}</p>
-                                </div>
-
+                              
                                 <div class="bg-white p-4 rounded-lg shadow-sm">
                                     <h4 class="text-sm font-medium text-gray-500 mb-1">Nombre completo</h4>
                                     <p class="text-lg font-semibold">{{ $usuarios->nombre }} {{ $usuarios->apellido }}</p>
@@ -61,20 +57,7 @@
                                 </div>
                             </div>
 
-                            <!-- Columna 2 -->
-                            <div class="space-y-4">
-                                <div class="bg-white p-4 rounded-lg shadow-sm">
-                                    <h4 class="text-sm font-medium text-gray-500 mb-1">Dirección</h4>
-                                    <p class="text-lg font-semibold">{{ $usuarios->direccion ?? 'No especificado' }}</p>
-                                </div>
-
-                                <div class="bg-white p-4 rounded-lg shadow-sm">
-                                    <h4 class="text-sm font-medium text-gray-500 mb-1">Coordenadas</h4>
-                                    <p class="text-sm">
-                                        <span class="font-semibold">Lat:</span> {{ $usuarios->latitud ?? 'N/A' }}<br>
-                                        <span class="font-semibold">Lon:</span> {{ $usuarios->longitud ?? 'N/A' }}
-                                    </p>
-                                </div>
+                           
 
                                 <div class="bg-white p-4 rounded-lg shadow-sm">
                                     <h4 class="text-sm font-medium text-gray-500 mb-1">Teléfono</h4>
@@ -108,6 +91,29 @@
                                 </span>
                             </div>
                         </div>
+                    </div>
+
+                     <!-- Columna 2 -->
+                     <div class="space-y-4">
+                        <div class="bg-white p-4 rounded-lg shadow-sm">
+                            <h4 class="text-sm font-medium text-gray-500 mb-1">Dirección</h4>
+                            <p class="text-lg font-semibold">{{ $usuarios->direccion ?? 'No especificado' }}</p>
+                        </div>
+
+                        <!-- Reemplaza la sección de coordenadas con esto: -->
+                    <div class="bg-white p-4 rounded-lg shadow-sm">
+                        <h4 class="text-sm font-medium text-gray-500 mb-1">Ubicación</h4>
+                        <div class="h-64 w-full rounded-lg overflow-hidden border border-gray-300 mt-2">
+                            <x-mapashow  
+                                readonly
+                                initialLat="{{ $usuarios->latitud }}"
+                                initialLng="{{ $usuarios->longitud }}"
+                            />
+                        </div>
+                        <p class="text-sm mt-2">
+                            <span class="font-semibold">Lat:</span> {{ $usuarios->latitud ?? 'N/A' }} | 
+                            <span class="font-semibold">Lon:</span> {{ $usuarios->longitud ?? 'N/A' }}
+                        </p>
                     </div>
 
                     <!-- Botón de volver -->
