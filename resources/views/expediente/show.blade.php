@@ -25,6 +25,7 @@
                                 </svg>
                                 Editar
                             </a>
+                            {{-- 
                             <form action="{{ route('expediente.destroy', $expedientes) }}" method="POST">
                                 @csrf @method('DELETE')
                                 <button type="submit" 
@@ -36,6 +37,7 @@
                                     Eliminar
                                 </button>
                             </form>
+                            --}}
                         </div>
                     </div>
 

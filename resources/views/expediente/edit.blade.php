@@ -1,11 +1,10 @@
 <x-app-layout>
     <x-slot name="header">
         <div class="text-center space-y-1">
-            <h2 class="text-3xl font-medium text-gray-800">{{ __('EDITAR') }}</h2>
-            <p class="text-sm text-gray-500 font-light tracking-widest"> EXPEDIENTE</p>
+            <h2 class="text-3xl font-medium text-gray-800">{{ __('EXPEDIENTE') }}</h2>
+            <p class="text-sm text-gray-500 font-light tracking-widest"> LLENAR/EDITAR</p>
         </div>
     </x-slot>
-
 
     <div class="py-8">
         <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
@@ -30,21 +29,58 @@
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700 mb-1">Diagnóstico:</label>
                                     <input type="text" name="diagnostico" 
-                                                value="{{ old('diagnostico', $expedientes->diagnostico) }}"
-                                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200">
+                                           value="{{ old('diagnostico', $expedientes->diagnostico) }}"
+                                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
+                                           placeholder="Ingrese el diagnóstico del paciente"
+                                        
+                                           maxlength="255">
+                                    @error('diagnostico')
+                                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                    @enderror
                                 </div>
 
-                                @foreach (['fechacreacion', 'numcitas', 'fechaevaluacion'] as $field)
-                                    <div>
-                                        <label class="block text-sm font-medium text-gray-700 mb-1">
-                                            {{ ucfirst(str_replace('_', ' ', $field)) }}
-                                        </label>
-                                        <input type="{{ $field == 'numcitas' ? 'number' : 'date' }}" 
-                                               name="{{ $field }}" 
-                                               value="{{ old($field, $expedientes->$field) }}" 
-                                               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200">
-                                    </div>
-                                @endforeach
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Fecha de Creación</label>
+                                    <input type="date" 
+                                           name="fechacreacion" 
+                                           value="{{ old('fechacreacion', $expedientes->fechacreacion) }}" 
+                                           readonly
+                                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
+                                        
+                                           >
+                                    @error('fechacreacion')
+                                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                    @enderror
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Número de Citas</label>
+                                    <input type="number" 
+                                           name="numcitas" 
+                                           readonly
+                                           value="{{ old('numcitas', $expedientes->numcitas) }}" 
+                                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
+                                           placeholder="Ej: 5"
+                                           min="0"
+                                         
+                                           >
+                                    @error('numcitas')
+                                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                    @enderror
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Fecha de Evaluación</label>
+                                    <input type="date" 
+                                           name="fechaevaluacion" 
+                                           value="{{ old('fechaevaluacion', $expedientes->fechaevaluacion) }}" 
+                                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
+                                         
+                                             >
+                                    @error('fechaevaluacion')
+                                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                    @enderror
+                                </div>
                             </div>
 
                             <!-- Columna 2 -->
@@ -54,46 +90,150 @@
                                     <input type="text" 
                                            name="nombrefisioterapeuta" 
                                            value="{{ old('nombrefisioterapeuta', $expedientes->nombrefisioterapeuta) }}" 
-                                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200">
+                                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
+                                           placeholder="Nombre completo del fisioterapeuta"
+                                        
+                                           maxlength="255">
+                                    @error('nombrefisioterapeuta')
+                                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                    @enderror
                                 </div>
 
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700 mb-1">Estado</label>
-                                    <select name="id_estado" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200">
+                                    <select name="id_estado" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200" >
+                                        <option value="">Seleccione un estado</option>
                                         @foreach ($estados as $estado)
                                             <option value="{{ $estado->id }}" {{ old('id_estado', $expedientes->id_estado) == $estado->id ? 'selected' : '' }}>
                                                 {{ $estado->titulo }}
                                             </option>
                                         @endforeach
                                     </select>
+                                    @error('id_estado')
+                                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
 
                         <!-- Sección de textareas principales -->
                         <div class="space-y-4">
-                            @foreach (['historiaclinica', 'observacion', 'notasevolutivas'] as $field)
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">
-                                        {{ ucfirst(str_replace('_', ' ', $field)) }}
-                                    </label>
-                                    <textarea name="{{ $field }}" rows="3" 
-                                              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200">{{ old($field, $expedientes->$field) }}</textarea>
-                                </div>
-                            @endforeach
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Historia Clínica</label>
+                                <textarea name="historiaclinica" rows="3" 
+                                          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
+                                          placeholder="Describa la historia clínica del paciente"
+                                        
+                                          >{{ old('historiaclinica', $expedientes->historiaclinica) }}</textarea>
+                                @error('historiaclinica')
+                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Observación</label>
+                                <textarea name="observacion" rows="3" 
+                                          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
+                                          placeholder="Ingrese observaciones relevantes">{{ old('observacion', $expedientes->observacion) }}</textarea>
+                                @error('observacion')
+                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Notas Evolutivas</label>
+                                <textarea name="notasevolutivas" rows="3" 
+                                          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
+                                          placeholder="Registre las notas evolutivas del tratamiento"
+                                        
+                                          >{{ old('notasevolutivas', $expedientes->notasevolutivas) }}</textarea>
+                                @error('notasevolutivas')
+                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
                         </div>
 
                         <!-- Campos de evaluación en grid de 2 columnas -->
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            @foreach (['palpacion', 'sensibilidad', 'arcosdemovimiento', 'fuerzamuscular', 'perimetria', 'longitudmiembrosinf', 'marcha', 'postura'] as $field)
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">
-                                        {{ ucfirst(str_replace('_', ' ', $field)) }}
-                                    </label>
-                                    <textarea name="{{ $field }}" rows="2" 
-                                              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200">{{ old($field, $expedientes->$field) }}</textarea>
-                                </div>
-                            @endforeach
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Palpación</label>
+                                <textarea name="palpacion" rows="2" 
+                                          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
+                                          placeholder="Resultados de la palpación">{{ old('palpacion', $expedientes->palpacion) }}</textarea>
+                                @error('palpacion')
+                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Sensibilidad</label>
+                                <textarea name="sensibilidad" rows="2" 
+                                          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
+                                          placeholder="Evaluación de sensibilidad">{{ old('sensibilidad', $expedientes->sensibilidad) }}</textarea>
+                                @error('sensibilidad')
+                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Arcos de Movimiento</label>
+                                <textarea name="arcosdemovimiento" rows="2" 
+                                          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
+                                          placeholder="Rangos de movimiento">{{ old('arcosdemovimiento', $expedientes->arcosdemovimiento) }}</textarea>
+                                @error('arcosdemovimiento')
+                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Fuerza Muscular</label>
+                                <textarea name="fuerzamuscular" rows="2" 
+                                          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
+                                          placeholder="Evaluación de fuerza muscular">{{ old('fuerzamuscular', $expedientes->fuerzamuscular) }}</textarea>
+                                @error('fuerzamuscular')
+                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Perimetría</label>
+                                <textarea name="perimetria" rows="2" 
+                                          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
+                                          placeholder="Medidas perimétricas">{{ old('perimetria', $expedientes->perimetria) }}</textarea>
+                                @error('perimetria')
+                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Longitud Miembros Inferiores</label>
+                                <textarea name="longitudmiembrosinf" rows="2" 
+                                          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
+                                          placeholder="Medidas de longitud">{{ old('longitudmiembrosinf', $expedientes->longitudmiembrosinf) }}</textarea>
+                                @error('longitudmiembrosinf')
+                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Marcha</label>
+                                <textarea name="marcha" rows="2" 
+                                          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
+                                          placeholder="Evaluación de la marcha">{{ old('marcha', $expedientes->marcha) }}</textarea>
+                                @error('marcha')
+                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Postura</label>
+                                <textarea name="postura" rows="2" 
+                                          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
+                                          placeholder="Evaluación postural">{{ old('postura', $expedientes->postura) }}</textarea>
+                                @error('postura')
+                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
                         </div>
 
                         <!-- Botones de acción -->
@@ -118,28 +258,4 @@
             </div>
         </div>
     </div>
-
-    @if ($errors->any())
-        <div class="max-w-4xl mx-auto sm:px-6 lg:px-8 pb-6">
-            <div class="bg-red-50 border-l-4 border-red-500 p-4">
-                <div class="flex">
-                    <div class="flex-shrink-0">
-                        <svg class="h-5 w-5 text-red-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
-                        </svg>
-                    </div>
-                    <div class="ml-3">
-                        <h3 class="text-sm font-medium text-red-800">Hubo {{ $errors->count() }} errores con tu envío</h3>
-                        <div class="mt-2 text-sm text-red-700">
-                            <ul class="list-disc pl-5 space-y-1">
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    @endif
 </x-app-layout>
