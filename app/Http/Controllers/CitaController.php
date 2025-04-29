@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\cita;
 use App\Models\Estado;
-use App\Models\usuarios;
+use App\Models\usuario;
 use App\Models\Modalidad;
 use App\Models\expediente;
 use Illuminate\Http\Request;
@@ -17,10 +17,21 @@ class CitaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $citas = cita::all();
+        //$citas = cita::all();
+        //return view('cita.index', compact('citas'));
+
+        $search = $request->input('search');
+
+        $citas = Cita::when($search, function ($query, $search) {
+            return $query->whereHas('expediente', function ($q) use ($search) {
+                $q->where('numeroexpediente', 'LIKE', "%$search%");
+            });
+        })->get();
+
         return view('cita.index', compact('citas'));
+
     }
 
     public function dashboard()
