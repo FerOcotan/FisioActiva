@@ -47,7 +47,19 @@ class CitaController extends Controller
                                 ->whereDate('fechahora', $hoy)
                                 ->count();
 
-        return view('dashboard', compact('citas', 'totalCitas', 'totalCitasHoy'));
+                                 // Obtener la próxima cita activa (la más cercana en el futuro)
+    $proximaCita = Cita::where('id_estado', 5)
+    ->where('fechahora', '>', now())
+    ->with('expediente.user')
+    ->orderBy('fechahora', 'asc')
+    ->first();
+
+     // Citas completadas hoy (asumiendo que el estado 6 es "completada")
+     $citasHoyCompletadas = Cita::where('id_estado', 6)
+     ->whereDate('fechahora', $hoy)
+     ->count();
+
+        return view('dashboard', compact('citas', 'totalCitas', 'totalCitasHoy', 'proximaCita', 'citasHoyCompletadas'));
     }
 
     /**
