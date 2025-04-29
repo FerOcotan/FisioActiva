@@ -22,20 +22,27 @@
                                     <label class="block text-sm font-medium text-gray-700 mb-1">Nombre:</label>
                                     <input type="text" name="name" value="{{ old('name') }}" 
                                            placeholder="Ingrese el nombre"
+                                           pattern="[A-Za-zÁÉÍÓÚáéíóúñÑ\s]+"
+                                           title="Solo letras y espacios permitidos"
                                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200" required>
                                 </div>
-    
+                                
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700 mb-1">Apellido:</label>
                                     <input type="text" name="apellido" value="{{ old('apellido') }}" 
                                            placeholder="Ingrese el apellido"
+                                           pattern="[A-Za-zÁÉÍÓÚáéíóúñÑ\s]+"
+                                           title="Solo letras y espacios permitidos"
                                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200" required>
                                 </div>
-    
+                                
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700 mb-1">Edad:</label>
                                     <input type="number" name="edad" value="{{ old('edad') }}" 
                                            placeholder="Ingrese la edad"
+                                           min="1" max="120"
+                                           maxlength="3"
+                                           oninput="this.value=this.value.slice(0,this.maxLength)"
                                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200" required>
                                 </div>
     
