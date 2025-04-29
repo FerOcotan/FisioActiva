@@ -4,7 +4,6 @@
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 {{ __('Mi Panel de Paciente') }}
             </h2>
-            
         </div>
     </x-slot>
 
@@ -22,6 +21,7 @@
                         <h3 class="text-xl font-bold text-gray-800">Información Personal</h3>
                     </div>
                     
+                    <!-- Sección de información en dos columnas -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
                         <div class="space-y-3">
                             <div class="flex items-start">
@@ -52,74 +52,30 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
 
-            <!-- Tarjeta de Expediente Médico -->
-            @if(Auth::user()->expediente)
-            <div class="bg-white overflow-hidden shadow-lg sm:rounded-xl">
-                <div class="p-6">
-                    <div class="flex items-center mb-4">
-                        <div class="bg-green-100 p-3 rounded-full mr-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-                            </svg>
-                        </div>
-                        <h3 class="text-xl font-bold text-gray-800">Expediente Médico</h3>
+                    <!-- Dirección -->
+                    <div class="mt-6">
+                        <h4 class="text-sm font-medium text-gray-500 mb-1">Dirección</h4>
+                        <p class="text-lg font-semibold">{{ Auth::user()->direccion ?? 'No especificado' }}</p>
                     </div>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
-                        <div class="space-y-3">
-                            <div class="flex items-start">
-                                <span class="text-gray-500 w-36 flex-shrink-0">N° Expediente:</span>
-                                <span class="font-medium">{{ Auth::user()->expediente->numeroexpediente }}</span>
-                            </div>
-                            <div class="flex items-start">
-                                <span class="text-gray-500 w-36 flex-shrink-0">Diagnóstico:</span>
-                                <span class="font-medium">{{ Auth::user()->expediente->diagnostico }}</span>
-                            </div>
-                            <div class="flex items-start">
-                                <span class="text-gray-500 w-36 flex-shrink-0">Historia Clínica:</span>
-                                <span class="font-medium">{{ Str::limit(Auth::user()->expediente->historiaclinica, 100) }}</span>
-                            </div>
-                        </div>
-                        <div class="space-y-3">
-                            <div class="flex items-start">
-                                <span class="text-gray-500 w-36 flex-shrink-0">Fecha Evaluación:</span>
-                                <span class="font-medium">{{ Auth::user()->expediente->fechaevaluacion }}</span>
-                            </div>
-                            <div class="flex items-start">
-                                <span class="text-gray-500 w-36 flex-shrink-0">Fisioterapeuta:</span>
-                                <span class="font-medium">{{ Auth::user()->expediente->nombrefisioterapeuta }}</span>
-                            </div>
-                            <div class="flex items-start">
-                                <span class="text-gray-500 w-36 flex-shrink-0">Notas Evolutivas:</span>
-                                <span class="font-medium">{{ Str::limit(Auth::user()->expediente->notasevolutivas, 100) }}</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-              
-                </div>
-            </div>
-            @else
-            <div class="bg-white overflow-hidden shadow-lg sm:rounded-xl">
-                <div class="p-6">
-                    <div class="flex items-center justify-center py-8">
-                        <div class="text-center">
-                            <div class="bg-yellow-100 p-3 rounded-full inline-block mb-3">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                                </svg>
-                            </div>
-                            <h4 class="text-lg font-medium text-gray-800">No tienes expediente médico</h4>
-                            <p class="text-gray-500 mt-1">Contacta al administrador para crear tu expediente</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            @endif
 
+                    <!-- Mapa -->
+                    <div class="mt-6">
+                        <h4 class="text-sm font-medium text-gray-500 mb-1">Ubicación</h4>
+                        <div class="h-64 w-full rounded-lg overflow-hidden border border-gray-300 mt-2">
+                            <x-mapashow  
+                                readonly
+                                initialLat="{{ Auth::user()->latitud }}"
+                                initialLng="{{ Auth::user()->longitud }}"
+                            />
+                        </div>
+                        <p class="text-sm mt-2">
+                            <span class="font-semibold">Lat:</span> {{ Auth::user()->latitud ?? 'N/A' }} | 
+                            <span class="font-semibold">Lon:</span> {{ Auth::user()->longitud ?? 'N/A' }}
+                        </p>
+                    </div>
+                </div>
+            </div>
             <!-- Tarjeta de Citas -->
             <div class="bg-white overflow-hidden shadow-lg sm:rounded-xl">
                 <div class="p-6">
@@ -132,7 +88,6 @@
                             </div>
                             <h3 class="text-xl font-bold text-gray-800">Mis Citas</h3>
                         </div>
-                      
                     </div>
 
                     @if(Auth::user()->citas && Auth::user()->citas->count() > 0)
@@ -143,15 +98,28 @@
                                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Fecha y Hora</th>
                                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Modalidad</th>
                                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Estado</th>
-                                
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
                                 @foreach(Auth::user()->citas->sortByDesc('fechahora') as $cita)
                                 <tr class="hover:bg-gray-50 transition duration-150">
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="font-medium">{{ $cita->fechahora }}</div>
-                                        <div class="text-sm text-gray-500">{{ $cita->fechahora }}</div>
+                                        <div class="flex flex-col">
+                                            <span class="font-medium">
+                                                {{ \Carbon\Carbon::parse($cita->fechahora)->isoFormat('dddd, D [de] MMMM [de] YYYY') }}
+                                            </span>
+                                            <div class="flex items-center mt-1">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                </svg>
+                                                <span class="text-sm text-gray-500">
+                                                    {{ \Carbon\Carbon::parse($cita->fechahora)->format('h:i A') }}
+                                                </span>
+                                            </div>
+                                            <span class="text-xs mt-1 {{ $cita->fechahora < now() ? 'text-red-500' : 'text-green-500' }}">
+                                                {{ $cita->fechahora < now() ? 'Pasada' : 'Próxima' }}
+                                            </span>
+                                        </div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="flex items-center">
@@ -184,7 +152,6 @@
                                             {{ $cita->estado->titulo }}
                                         </span>
                                     </td>
-                                   
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -198,7 +165,6 @@
                             </svg>
                         </div>
                         <h4 class="text-lg font-medium text-gray-700">No tienes citas programadas</h4>
-                       
                     </div>
                     @endif
                 </div>
