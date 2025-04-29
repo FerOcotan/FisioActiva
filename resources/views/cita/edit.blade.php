@@ -14,6 +14,10 @@
                         @csrf
                         @method('PUT')
 
+                        @php
+                        $valor = old('fechahora', date('Y-m-d\TH:i', strtotime($citas->fechahora)));
+                        @endphp
+
                         <!-- Grid de 2 columnas -->
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <!-- Columna 1 -->
@@ -45,15 +49,13 @@
                             <!-- Columna 2 -->
                             <div class="space-y-4">
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">Fecha y Hora</label>
-                                    <input type="datetime-local" name="fechahora" value="{{ \Carbon\Carbon::parse($citas->fechahora)->format('Y-m-d\TH:i') }}" 
-                                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200" required>
+                                    <x-fecha-hora name="fechahora" id="fechahora" :value="$valor" />
                                 </div>
 
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700 mb-1">Cargo ($)</label>
                                     <input type="number" step="0.01" name="cargo" value="{{ $citas->cargo }}" 
-                                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200">
+                                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200" required>
                                 </div>
                             </div>
                         </div>
