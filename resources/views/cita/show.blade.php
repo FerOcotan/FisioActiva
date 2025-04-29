@@ -33,10 +33,28 @@
                                 </div>
 
                                 <div class="bg-white p-4 rounded-lg shadow-sm">
-                                    <h4 class="text-sm font-medium text-gray-500 mb-1">Fecha y Hora</h4>
-                                    <p class="text-lg font-semibold">
-                                        {{ \Carbon\Carbon::parse($citas->fechahora)->format('d/m/Y H:i') }}
-                                    </p>
+                                    <div class="flex flex-col">
+                                        <!-- Fecha principal -->
+                                        <span class="text-lg font-semibold text-gray-900">
+                                            {{ \Carbon\Carbon::parse($citas->fechahora)->isoFormat('D [de] MMMM [de] YYYY') }}
+                                        </span>
+                                        
+                                        <!-- Hora con icono -->
+                                        <div class="flex items-center mt-1">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                            </svg>
+                                            <span class="text-sm text-gray-500">
+                                                {{ \Carbon\Carbon::parse($citas->fechahora)->isoFormat('h:mm a') }}
+                                            </span>
+                                        </div>
+                                        
+                                        <!-- Indicador relativo -->
+                                        <span class="text-xs mt-1 {{ \Carbon\Carbon::parse($citas->fechahora)->isPast() ? 'text-black' : 'text-green-500' }}">
+                                            {{ \Carbon\Carbon::parse($citas->fechahora)->isPast() ? 'Pasada' : 'Próximamente' }}
+                                            ({{ \Carbon\Carbon::parse($citas->fechahora)->diffForHumans() }})
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
 
@@ -55,8 +73,8 @@
                                 <div class="bg-white p-4 rounded-lg shadow-sm">
                                     <h4 class="text-sm font-medium text-gray-500 mb-1">Estado</h4>
                                     <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full 
-                                          {{ $citas->estado->titulo == 'Confirmada' ? 'bg-green-100 text-green-800' : 
-                                             ($citas->estado->titulo == 'Cancelada' ? 'bg-red-100 text-red-800' : 
+                                          {{ $citas->estado->titulo == 'Pendiente' ? 'bg-green-100 text-green-800' : 
+                                             ($citas->estado->titulo == 'Finalizada' ? 'bg-red-100 text-red-800' : 
                                              'bg-yellow-100 text-yellow-800') }}">
                                         {{ $citas->estado->titulo }}
                                     </span>
@@ -80,6 +98,7 @@
                                 </svg>
                                 Editar
                             </a>
+                            {{-- 
                             <form action="{{ route('cita.destroy', $citas) }}" method="POST" class="inline-block">
                                 @csrf @method('DELETE')
                                 <button type="button" onclick="confirmDelete(this)" 
@@ -90,6 +109,7 @@
                                     Eliminar
                                 </button>
                             </form>
+                            --}}
                         </div>
                     </div>
                 </div>

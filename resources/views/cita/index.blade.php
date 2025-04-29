@@ -59,8 +59,29 @@
                                         {{ $cita->expediente->numeroexpediente }} - 
                                         {{ $cita->expediente->user->name ?? 'Sin usuario' }}
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                        {{ \Carbon\Carbon::parse($cita->fechahora)->format('d/m/Y H:i') }}
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="flex flex-col">
+                                            <!-- Fecha principal -->
+                                            <span class="text-sm font-medium text-gray-900">
+                                                {{ \Carbon\Carbon::parse($cita->fechahora)->isoFormat('D [de] MMMM [de] YYYY') }}
+                                            </span>
+                                            
+                                            <!-- Hora con icono -->
+                                            <div class="flex items-center mt-1">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                </svg>
+                                                <span class="text-xs text-gray-500">
+                                                    {{ \Carbon\Carbon::parse($cita->fechahora)->isoFormat('h:mm a') }}
+                                                </span>
+                                            </div>
+                                            
+                                            <!-- Indicador relativo -->
+                                            <span class="text-xs mt-1 {{ \Carbon\Carbon::parse($cita->fechahora)->isPast() ? 'text-gray-400' : 'text-green-500' }}">
+                                                {{ \Carbon\Carbon::parse($cita->fechahora)->isPast() ? 'Pasada' : 'Próximamente' }}
+                                                ({{ \Carbon\Carbon::parse($cita->fechahora)->diffForHumans() }})
+                                            </span>
+                                        </div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                         <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
@@ -89,6 +110,7 @@
                                                 </svg>
                                             </a>
                                       
+                                            {{-- 
                                             <form action="{{ route('cita.destroy', $cita) }}" method="POST" class="inline-block">
                                                 @csrf
                                                 @method('DELETE')
@@ -98,6 +120,7 @@
                                                     </svg>
                                                 </button>
                                             </form>
+                                            --}}
                                         </div>
                                     </td>
                                 </tr>
