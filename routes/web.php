@@ -103,6 +103,15 @@ Route::middleware(['auth', 'role:2'])->group(function () {
 
 });
 
+Route::middleware(['auth', 'role:2'])->group(function () 
+{
+
+    Route::get('/faq', function () 
+    {
+        return view('faq');
+    })->name('faq');
+
+});
 
 Route::get('/ingresos-por-cliente', function () {
     $result = DB::select("CALL ingresos_por_cliente()");
