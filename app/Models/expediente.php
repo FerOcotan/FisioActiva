@@ -14,7 +14,7 @@ class expediente extends Model
 
     protected $table = 'expedientes';
     protected $primaryKey = 'numeroexpediente';
-    protected $perPage = 20;
+    protected $perPage = 8;
     public $timestamps = false;
 
     protected $fillable = [

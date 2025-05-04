@@ -126,7 +126,11 @@
                                 </tr>
                                 @endforeach
                             </tbody>
-                        </table>
+                        </table>   
+                    </div>
+                    <!-- Enlaces de paginación -->
+                    <div class="mt-4">
+                        {{ $citas->links() }}
                     </div>
 
                   

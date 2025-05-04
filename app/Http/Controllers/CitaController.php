@@ -28,7 +28,7 @@ class CitaController extends Controller
             return $query->whereHas('expediente', function ($q) use ($search) {
                 $q->where('numeroexpediente', 'LIKE', "%$search%");
             });
-        })->get();
+        })->paginate(8);
 
         return view('cita.index', compact('citas'));
 

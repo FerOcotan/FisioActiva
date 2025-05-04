@@ -128,6 +128,10 @@
                             </tbody>
                         </table>
                     </div>
+                    <!-- Enlaces de paginación -->
+                    <div class="mt-4">
+                        {{ $usuarios->links() }}
+                    </div>
 
              
                 </div>

@@ -11,7 +11,7 @@ class usuarios extends Model
 
     protected $table = 'usuarios';
     protected $primaryKey = 'idusuario';
-    protected $perPage = 20;
+    protected $perPage = 8;
 
     protected $fillable = [
         'nombre',

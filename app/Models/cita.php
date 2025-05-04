@@ -13,7 +13,7 @@ class cita extends Model
     protected $table = 'citas';
     protected $primaryKey = 'numerocita';
     public $timestamps = true;
-    protected $perPage = 20;
+    protected $perPage = 8;
 
     protected $fillable =
     [

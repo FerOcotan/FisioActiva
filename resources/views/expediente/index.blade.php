@@ -72,6 +72,10 @@
                             </tbody>
                         </table>
                     </div>
+                      <!-- Enlaces de paginación -->
+                      <div class="mt-4">
+                        {{ $expedientes->links() }}
+                    </div>
 
                    
                 </div>
