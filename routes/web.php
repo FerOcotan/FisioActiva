@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -123,6 +124,17 @@ Route::get('/ingresos-mensuales', function () {
     return response()->json($result);
 });
 
+Route::get('/ingresos-por-cliente-filtrado', function (Request $request) {
+    $nombre = $request->input('nombre');
+    $result = DB::select("CALL ingresos_por_clientefiltrado(?)", [$nombre]);
+    return response()->json($result);
+});
+
+Route::get('/ingresos-mensuales-filtrados', function (Request $request) {
+    $fecha = $request->input('fecha');
+    $result = DB::select("CALL ingresos_mensualesfiltrados(?)", [$fecha]);
+    return response()->json($result);
+});
 
 
 require __DIR__.'/auth.php';
