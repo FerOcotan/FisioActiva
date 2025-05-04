@@ -127,17 +127,42 @@
                                 @endforeach
                             </tbody>
                         </table>
-                    </div>
-                    <!-- Enlaces de paginación -->
-                    <div class="mt-4">
-                        {{ $usuarios->links() }}
-                    </div>
-
-             
+                    </div>       
                 </div>
             </div>
         </div>
     </div>
+
+        <!-- Enlaces de paginación personalizados -->
+    @if ($usuarios->hasPages())
+        <div class="mt-4 flex items-center justify-center gap-2">
+
+            {{-- Botón Anterior --}}
+            @if ($usuarios->onFirstPage())
+                <span class="px-4 py-2 bg-gray-200 text-gray-500 rounded cursor-not-allowed">Anterior</span>
+            @else
+                <a href="{{ $usuarios->previousPageUrl() }}" class="px-4 py-2 bg-white text-black border rounded hover:bg-gray-100">Anterior</a>
+            @endif
+
+            {{-- Números de página --}}
+            @foreach ($usuarios->getUrlRange(1, $usuarios->lastPage()) as $page => $url)
+                @if ($page == $usuarios->currentPage())
+                    <span class="px-4 py-2 bg-white text-black font-bold border border-black rounded">{{ $page }}</span>
+                @else
+                    <a href="{{ $url }}" class="px-4 py-2 bg-white text-black border rounded hover:bg-gray-100">{{ $page }}</a>
+                @endif
+            @endforeach
+
+            {{-- Botón Siguiente --}}
+            @if ($usuarios->hasMorePages())
+                <a href="{{ $usuarios->nextPageUrl() }}" class="px-4 py-2 bg-white text-black border rounded hover:bg-gray-100">Siguiente</a>
+            @else
+                <span class="px-4 py-2 bg-gray-200 text-gray-500 rounded cursor-not-allowed">Siguiente</span>
+            @endif
+
+        </div>
+    @endif
+
     
     @if(session('success'))
     <script>
