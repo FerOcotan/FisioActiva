@@ -13,7 +13,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
   </head>
   <!-- Se agrega el fondo en el body -->
-  <body class="font-sans text-gray-900 antialiased" style="background-image: url('{{ asset('build/assets/images/fondodvg.svg') }}'); background-size: cover; background-position: center; background-attachment: fixed;">
+  <body class="font-sans text-gray-900 antialiased" style="background-image: url('{{ asset('images/fondodvg.svg') }}'); background-size: cover; background-position: center; background-attachment: fixed;">
     <!-- Contenedor principal para centrar todo y ocupar toda la pantalla -->
     <div class="flex justify-center items-center min-h-screen bg-black bg-opacity-50"> <!-- Añadido bg-opacity para que se vea el fondo -->
         <!-- Contenedor de dos columnas (formulario y imagen) -->
@@ -36,7 +36,7 @@
 
             <!-- Columna de la imagen -->
             <div class="w-1/2">
-                <img src="{{ asset('build/assets/images/loginimage.png') }}" alt="Imagen descriptiva" class="w-full h-full object-cover">
+                <img src="{{ asset('images/loginimage.png') }}" alt="Imagen descriptiva" class="w-full h-full object-cover">
             </div>
         </div>
     </div>

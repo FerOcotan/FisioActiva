@@ -7,5 +7,12 @@ export default defineConfig({
             input: ['resources/css/app.css', 'resources/js/app.js'],
             refresh: true,
         }),
+
+        
     ],
+    build: {
+        // Copiar imágenes de resources a public
+        assetsDir: 'images',
+        manifest: true,
+    }
 });
