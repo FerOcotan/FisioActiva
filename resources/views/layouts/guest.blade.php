@@ -19,7 +19,7 @@
         <!-- Contenedor de dos columnas (formulario y imagen) -->
         <div class="w-full sm:w-10/12 md:w-8/12 lg:w-1/2 flex rounded-lg shadow-lg overflow-hidden">
             <!-- Columna del formulario con fondo -->
-            <div class="w-1/2 bg-cover bg-center" style="background-image: url('{{ asset('build/assets/images/fondo.png') }}');">
+            <div class="w-1/2 bg-cover bg-center" style="background-image: url('{{ asset('images/fondo.png') }}');">
                 <div class="w-full h-full flex flex-col justify-center items-center text-white p-6">
                     <!-- Logo -->
                     <div class="flex justify-center mb-6">
