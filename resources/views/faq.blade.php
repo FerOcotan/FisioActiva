@@ -43,7 +43,7 @@
                 <div class="mb-6">
                     <h3 class="font-semibold">¿Cómo usar mi FisioActiva?</h3>
                     <p class="text-gray-700">
-                        Puedes descargar el <a href="{{ asset('manuales/ManualUsuario.pdf') }}" 
+                        Puedes descargar el <a href="{{ asset('manuales/ManualVistaUsuario.pdf') }}" 
                             class="text-blue-600 underline hover:text-blue-800" target="_blank" download>
                             Manual del Usuario
                         </a>.
