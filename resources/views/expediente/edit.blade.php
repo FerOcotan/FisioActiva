@@ -33,7 +33,7 @@
                                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
                                            placeholder="Ingrese el diagnóstico del paciente"
                                         
-                                           maxlength="255">
+                                           maxlength="255" required>
                                     @error('diagnostico')
                                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                     @enderror
@@ -57,11 +57,12 @@
                                     <label class="block text-sm font-medium text-gray-700 mb-1">Número de Citas</label>
                                     <input type="number" 
                                            name="numcitas" 
-                                           readonly
                                            value="{{ old('numcitas', $expedientes->numcitas) }}" 
                                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
                                            placeholder="Ej: 5"
                                            min="0"
+                                           maxlength="255" required
+
                                          
                                            >
                                     @error('numcitas')
@@ -76,7 +77,7 @@
                                            value="{{ old('fechaevaluacion', $expedientes->fechaevaluacion) }}" 
                                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
                                          
-                                             >
+                                             required>
                                     @error('fechaevaluacion')
                                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                     @enderror
@@ -124,7 +125,7 @@
                                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
                                           placeholder="Describa la historia clínica del paciente"
                                         
-                                          >{{ old('historiaclinica', $expedientes->historiaclinica) }}</textarea>
+                                          required>{{ old('historiaclinica', $expedientes->historiaclinica) }}</textarea>
                                 @error('historiaclinica')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
@@ -134,7 +135,7 @@
                                 <label class="block text-sm font-medium text-gray-700 mb-1">Observación</label>
                                 <textarea name="observacion" rows="3" 
                                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
-                                          placeholder="Ingrese observaciones relevantes">{{ old('observacion', $expedientes->observacion) }}</textarea>
+                                          placeholder="Ingrese observaciones relevantes" required>{{ old('observacion', $expedientes->observacion) }}</textarea>
                                 @error('observacion')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
@@ -144,7 +145,7 @@
                                 <label class="block text-sm font-medium text-gray-700 mb-1">Notas Evolutivas</label>
                                 <textarea name="notasevolutivas" rows="3" 
                                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
-                                          placeholder="Registre las notas evolutivas del tratamiento"
+                                          placeholder="Registre las notas evolutivas del tratamiento" required
                                         
                                           >{{ old('notasevolutivas', $expedientes->notasevolutivas) }}</textarea>
                                 @error('notasevolutivas')
@@ -159,7 +160,7 @@
                                 <label class="block text-sm font-medium text-gray-700 mb-1">Palpación</label>
                                 <textarea name="palpacion" rows="2" 
                                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
-                                          placeholder="Resultados de la palpación">{{ old('palpacion', $expedientes->palpacion) }}</textarea>
+                                          placeholder="Resultados de la palpación" required>{{ old('palpacion', $expedientes->palpacion) }}</textarea>
                                 @error('palpacion')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
@@ -169,7 +170,7 @@
                                 <label class="block text-sm font-medium text-gray-700 mb-1">Sensibilidad</label>
                                 <textarea name="sensibilidad" rows="2" 
                                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
-                                          placeholder="Evaluación de sensibilidad">{{ old('sensibilidad', $expedientes->sensibilidad) }}</textarea>
+                                          placeholder="Evaluación de sensibilidad" required>{{ old('sensibilidad', $expedientes->sensibilidad) }}</textarea>
                                 @error('sensibilidad')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
@@ -179,7 +180,7 @@
                                 <label class="block text-sm font-medium text-gray-700 mb-1">Arcos de Movimiento</label>
                                 <textarea name="arcosdemovimiento" rows="2" 
                                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
-                                          placeholder="Rangos de movimiento">{{ old('arcosdemovimiento', $expedientes->arcosdemovimiento) }}</textarea>
+                                          placeholder="Rangos de movimiento" required>{{ old('arcosdemovimiento', $expedientes->arcosdemovimiento) }}</textarea>
                                 @error('arcosdemovimiento')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
@@ -189,7 +190,7 @@
                                 <label class="block text-sm font-medium text-gray-700 mb-1">Fuerza Muscular</label>
                                 <textarea name="fuerzamuscular" rows="2" 
                                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
-                                          placeholder="Evaluación de fuerza muscular">{{ old('fuerzamuscular', $expedientes->fuerzamuscular) }}</textarea>
+                                          placeholder="Evaluación de fuerza muscular" required>{{ old('fuerzamuscular', $expedientes->fuerzamuscular) }}</textarea>
                                 @error('fuerzamuscular')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
@@ -199,7 +200,7 @@
                                 <label class="block text-sm font-medium text-gray-700 mb-1">Perimetría</label>
                                 <textarea name="perimetria" rows="2" 
                                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
-                                          placeholder="Medidas perimétricas">{{ old('perimetria', $expedientes->perimetria) }}</textarea>
+                                          placeholder="Medidas perimétricas" required>{{ old('perimetria', $expedientes->perimetria) }}</textarea>
                                 @error('perimetria')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
@@ -209,7 +210,7 @@
                                 <label class="block text-sm font-medium text-gray-700 mb-1">Longitud Miembros Inferiores</label>
                                 <textarea name="longitudmiembrosinf" rows="2" 
                                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
-                                          placeholder="Medidas de longitud">{{ old('longitudmiembrosinf', $expedientes->longitudmiembrosinf) }}</textarea>
+                                          placeholder="Medidas de longitud" required>{{ old('longitudmiembrosinf', $expedientes->longitudmiembrosinf) }}</textarea>
                                 @error('longitudmiembrosinf')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
@@ -219,7 +220,7 @@
                                 <label class="block text-sm font-medium text-gray-700 mb-1">Marcha</label>
                                 <textarea name="marcha" rows="2" 
                                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
-                                          placeholder="Evaluación de la marcha">{{ old('marcha', $expedientes->marcha) }}</textarea>
+                                          placeholder="Evaluación de la marcha" required>{{ old('marcha', $expedientes->marcha) }}</textarea>
                                 @error('marcha')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
@@ -229,7 +230,7 @@
                                 <label class="block text-sm font-medium text-gray-700 mb-1">Postura</label>
                                 <textarea name="postura" rows="2" 
                                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
-                                          placeholder="Evaluación postural">{{ old('postura', $expedientes->postura) }}</textarea>
+                                          placeholder="Evaluación postural" required>{{ old('postura', $expedientes->postura) }}</textarea>
                                 @error('postura')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
