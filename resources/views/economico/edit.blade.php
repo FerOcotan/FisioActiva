@@ -25,7 +25,7 @@
                         <label>Ingresos:</label>
                         <input type="text" name="ingresos" value="{{ $economico->ingresos }}" class="border p-2 w-full mb-3" required>
 
-                        <button type="submit" class="bg-blue-500 text-white px-4 py-2">Actualizar</button>
+                        <button type="submit" class="bg-[#05487d] text-white px-4 py-2">Actualizar</button>
                         <a href="{{ route('economico.index') }}" class="bg-gray-500 text-white px-4 py-2 ml-2">Cancelar</a>
                     </form>
                 </div>

@@ -1,12 +1,14 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ExpedienteController;
 use App\Http\Controllers\CitaController;
-use App\Http\Controllers\EconomicoController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UsuariosController;
+use App\Http\Controllers\EconomicoController;
+use App\Http\Controllers\ExpedienteController;
 use App\Http\Controllers\DashboardpacienteController;
 
 
@@ -17,19 +19,18 @@ Route::get('/', function () {
 
 Route::fallback(function () {
     if (Auth::check()) {
-        // Redirigir según el rol del usuario autenticado
-        return Auth::user()->role === 'administrador'
-            ? redirect()->route('dashboard') 
+        return Auth::user()->id_rol === 1
+            ? redirect()->route('dashboard')
             : redirect()->route('dashboardpaciente.index');
     }
-
-    // Si no está autenticado, redirigir a la página de inicio o login
     return redirect('/');
 });
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified', 'role:administrador'])->name('dashboard');
+})->middleware(['auth', 'verified', 'role:1'])->name('dashboard');
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -37,9 +38,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-
-
-Route::middleware(['auth', 'role:administrador'])->group(function () {
+Route::middleware(['auth', 'role:1'])->group(function () {
     Route::get('/usuarios', [UsuariosController::class, 'index'])->name('usuarios.index');
     Route::get('/usuarios/create', [UsuariosController::class, 'create'])->name('usuarios.create');
     Route::post('/usuarios', [UsuariosController::class, 'store'])->name('usuarios.store');
@@ -51,7 +50,9 @@ Route::middleware(['auth', 'role:administrador'])->group(function () {
 
 
 
-Route::middleware(['auth', 'role:administrador'])->group(function () {
+Route::middleware(['auth', 'role:1'])->group(function () {
+
+    Route::get('/dash-expediente', [ExpedienteController::class, 'dash'])->name('expediente.dash');
 
     Route::get('/expediente', [ExpedienteController::class, 'index'])->name('expediente.index');
     Route::get('/expediente/create', [ExpedienteController::class, 'create'])->name('expediente.create');
@@ -63,8 +64,11 @@ Route::middleware(['auth', 'role:administrador'])->group(function () {
 
 });
 
-Route::middleware(['auth', 'role:administrador'])->group(function () {
+Route::middleware(['auth', 'role:1'])->group(function () {
 
+    //Route::get('/dashboard', [CitaController::class, 'dash'])->name('cita.dash');
+    Route::get('/dashboard', [CitaController::class, 'dashboard'])->name('dashboard');
+    
     Route::get('/cita', [CitaController::class, 'index'])->name('cita.index');
     Route::get('/cita/create', [CitaController::class, 'create'])->name('cita.create');
     Route::post('/cita', [CitaController::class, 'store'])->name('cita.store');
@@ -75,7 +79,7 @@ Route::middleware(['auth', 'role:administrador'])->group(function () {
 
 });
 
-Route::middleware(['auth', 'role:administrador'])->group(function () {
+Route::middleware(['auth', 'role:1'])->group(function () {
 
     Route::get('/economico', [EconomicoController::class, 'index'])->name('economico.index');
     Route::get('/economico/create', [EconomicoController::class, 'create'])->name('economico.create');
@@ -88,7 +92,7 @@ Route::middleware(['auth', 'role:administrador'])->group(function () {
 });
 
 
-Route::middleware(['auth', 'role:cliente'])->group(function () {
+Route::middleware(['auth', 'role:2'])->group(function () {
   
     Route::get('/dashboardpaciente', [DashboardpacienteController::class, 'index'])->name('dashboardpaciente.index');
     Route::get('/dashboardpaciente/create', [DashboardpacienteController::class, 'create'])->name('dashboardpaciente.create');
@@ -100,6 +104,37 @@ Route::middleware(['auth', 'role:cliente'])->group(function () {
 
 });
 
+Route::middleware(['auth', 'role:2'])->group(function () 
+{
+
+    Route::get('/faq', function () 
+    {
+        return view('faq');
+    })->name('faq');
+
+});
+
+Route::get('/ingresos-por-cliente', function () {
+    $result = DB::select("CALL ingresos_por_cliente()");
+    return response()->json($result);
+});
+
+Route::get('/ingresos-mensuales', function () {
+    $result = DB::select("CALL ingresos_mensuales()");
+    return response()->json($result);
+});
+
+Route::get('/ingresos-por-cliente-filtrado', function (Request $request) {
+    $nombre = $request->input('nombre');
+    $result = DB::select("CALL ingresos_por_clientefiltrado(?)", [$nombre]);
+    return response()->json($result);
+});
+
+Route::get('/ingresos-mensuales-filtrados', function (Request $request) {
+    $fecha = $request->input('fecha');
+    $result = DB::select("CALL ingresos_mensualesfiltrados(?)", [$fecha]);
+    return response()->json($result);
+});
 
 
 require __DIR__.'/auth.php';

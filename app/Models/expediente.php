@@ -2,8 +2,11 @@
 
 namespace App\Models;
 
+use App\Models\Estado;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class expediente extends Model
 {
@@ -11,11 +14,11 @@ class expediente extends Model
 
     protected $table = 'expedientes';
     protected $primaryKey = 'numeroexpediente';
-    protected $perPage = 20;
+    protected $perPage = 8;
     public $timestamps = false;
 
     protected $fillable = [
-        'idusuario',
+        'id_usuario',
         'fechacreacion',
         'numcitas',
         'diagnostico',
@@ -32,11 +35,21 @@ class expediente extends Model
         'postura',  
         'nombrefisioterapeuta',
         'notasevolutivas',
-        'estado',
+        'id_estado', // Cambio 
     ];
 
-    public function usuario()
+    public function user()
     {
-        return $this->belongsTo(usuarios::class, 'idusuario', 'idusuario');
+        return $this->belongsTo(User::class, 'id_usuario');
     }
+    public function estado()
+    {
+        return $this->belongsTo(Estado::class, 'id_estado');
+    }
+    public function citas(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Cita::class, 'numeroexpediente');
+    }
+    
+    
 }

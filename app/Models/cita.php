@@ -13,13 +13,15 @@ class cita extends Model
     protected $table = 'citas';
     protected $primaryKey = 'numerocita';
     public $timestamps = true;
-    protected $perPage = 20;
+    protected $perPage = 8;
 
-    protected $fillable = 
+    protected $fillable =
     [
-        'numeroexpediente',  
+        'numeroexpediente',
         'fechahora',
-        'modalidad', 
+        'id_modalidad', // Asegúrate de que está aquí
+        'id_estado',
+        'modalidad',
         'cargo',
         'estado',
     ];
@@ -29,9 +31,17 @@ class cita extends Model
         return $this->belongsTo(expediente::class, 'numeroexpediente', 'numeroexpediente');
     }
 
-    public function usuario()
-{
-    return $this->belongsTo(usuarios::class, 'idusuario'); 
-}
+     public function usuario()
+    {
+        return $this->belongsTo(User::class, 'id_usuario'); // Asegúrate que 'id_usuario' sea la columna correcta
+    }
 
+    public function estado()
+    {
+        return $this->belongsTo(Estado::class, 'id_estado');
+    }
+    public function modalidad()
+    {
+        return $this->belongsTo(Modalidad::class, 'id_modalidad');
+    }
 }

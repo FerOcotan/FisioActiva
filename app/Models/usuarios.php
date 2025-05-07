@@ -11,30 +11,48 @@ class usuarios extends Model
 
     protected $table = 'usuarios';
     protected $primaryKey = 'idusuario';
-    protected $perPage = 20;
-
+    protected $perPage = 8;
 
     protected $fillable = [
         'nombre',
         'apellido',
         'edad',
-        'genero',
+        'id_genero', 
         'direccion',
         'latitud',
         'longitud',
         'telefono',
         'correo',
         'contrasena',
-        'rol',
-        'estado',
+        'id_rol',
+        'id_estado', 
     ];
 
     public $timestamps = true;
-    protected $hiden = [
+
+    // Cambié $hiden a $hidden
+    protected $hidden = [
         'contrasena',
     ];
 
+   
     protected $casts = [
-        'contrsena' => 'hashed',
+        'contrasena' => 'hashed',
     ];
+
+    // Relaciones de claves foráneas
+    public function genero()
+    {
+        return $this->belongsTo(Genero::class, 'id_genero'); 
+    }
+
+    public function estado()
+    {
+        return $this->belongsTo(Estado::class, 'id_estado'); 
+    }
+
+    public function rol()
+    {
+        return $this->belongsTo(Rol::class, 'id_rol'); 
+    }
 }

@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\expediente;
+use App\Models\Estado;
 use App\Models\usuarios;
-use App\Http\Controllers\Controller;
+use App\Models\expediente;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Models\User;
+use Users;
 
 class ExpedienteController extends Controller
 {
@@ -14,26 +17,38 @@ class ExpedienteController extends Controller
      */
     public function index()
     {
-        $expedientes = expediente::all();
+        $expedientes = expediente::paginate(5);
         return view('expediente.index', compact('expedientes'));
     }
 
+    public function dash(Request $request)
+    {
+        $search = $request->input('search');
+    
+        $expedientes = Expediente::with('user')->when($search, function ($query, $search) {
+            return $query->whereHas('user', function ($userQuery) use ($search) {
+                $userQuery->where('name', 'LIKE', "%$search%");
+            });
+        })->get();
+    
+        return view('expediente.dash', compact('expedientes'));
+    }
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        $usuarios = usuarios::all();
-        return view('expediente.create', compact('usuarios'));
+        $estados = Estado::whereIn('id', [3, 4])->get();
+        $usuarios = User::all();
+        return view('expediente.create', compact('estados', 'usuarios'));
     }
-
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
         $request->validate([
-            'idusuario' => 'required|exists:usuarios,idusuario',
+            'id_usuario' => 'required|exists:users,id',
             'fechacreacion' => 'required|date',
             'numcitas' => 'nullable|integer',
             'diagnostico' => 'nullable|string',
@@ -50,10 +65,29 @@ class ExpedienteController extends Controller
             'postura' => 'nullable|string',
             'nombrefisioterapeuta' => 'required|string|max:50',
             'notasevolutivas' => 'nullable|string',
-            'estado' => 'required|in:Abierto,Cerrado',
+            'id_estado' => 'required|exists:estado,id'
         ]);
 
-        expediente::create($request->all());
+        expediente::create([
+            'id_usuario' => $request->id_usuario,
+            'fechacreacion' => $request->fechacreacion,
+            'numcitas' => $request->numcitas,
+            'diagnostico' => $request->diagnostico,
+            'fechaevaluacion' => $request->fechaevaluacion,
+            'historiaclinica' => $request->historiaclinica,
+            'observacion' => $request->observacion,
+            'palpacion' => $request->palpacion,
+            'sensibilidad' => $request->sensibilidad,
+            'arcosdemovimiento' => $request->arcosdemovimiento,
+            'fuerzamuscular' => $request->fuerzamuscular,
+            'perimetria' => $request->perimetria,
+            'longitudmiembrosinf' => $request->longitudmiembrosinf,
+            'marcha' => $request->marcha,
+            'postura' => $request->postura,
+            'nombrefisioterapeuta' => $request->nombrefisioterapeuta,
+            'notasevolutivas' => $request->notasevolutivas,
+            'id_estado' => $request->id_estado,
+        ]);
 
         return redirect()->route('expediente.index')->with('success', 'Expediente creado exitosamente.');
     }
@@ -63,9 +97,9 @@ class ExpedienteController extends Controller
      */
     public function show($id)
     {
-        $expedientes = expediente::with('usuario')->findOrFail($id);
-        return view('expediente.show', compact('expedientes'));
-
+        $estados = Estado::all();
+        $expedientes = expediente::with('user')->findOrFail($id);
+        return view('expediente.show', compact('expedientes', 'estados'));
     }
 
     /**
@@ -73,35 +107,34 @@ class ExpedienteController extends Controller
      */
     public function edit($id)
     {
-        $expedientes = expediente::findOrFail($id);
-        $usuarios = usuarios::all();
-        return view('expediente.edit', compact('expedientes', 'usuarios'));
+        $expedientes = expediente::findOrFail($id); // 
+        $estados = Estado::whereIn('id', [3, 4])->get();
+        return view('expediente.edit', compact('expedientes', 'estados'));
     }
-
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, $id)
     {
         $request->validate([
-            //'idusuario' => 'required|exists:usuarios,idusuario',
+            //'id_usuario' => 'required|exists:usuarios,id',
             'fechacreacion' => 'required|date',
-            'numcitas' => 'nullable|integer',
-            'diagnostico' => 'nullable|string',
-            'fechaevaluacion' => 'nullable|date',
-            'historiaclinica' => 'nullable|string',
-            'observacion' => 'nullable|string',
-            'palpacion' => 'nullable|string',
-            'sensibilidad' => 'nullable|string',
-            'arcosdemovimiento' => 'nullable|string',
-            'fuerzamuscular' => 'nullable|string',
-            'perimetria' => 'nullable|string',
-            'longitudmiembrosinf' => 'nullable|string',
-            'marcha' => 'nullable|string',
-            'postura' => 'nullable|string',
+            'numcitas' => 'required|nullable|integer',
+            'diagnostico' => 'required|nullable|string',
+            'fechaevaluacion' => 'required|nullable|date',
+            'historiaclinica' => 'required|nullable|string',
+            'observacion' => 'required|nullable|string',
+            'palpacion' => 'required|nullable|string',
+            'sensibilidad' => 'required|nullable|string',
+            'arcosdemovimiento' => 'required|nullable|string',
+            'fuerzamuscular' => 'required|nullable|string',
+            'perimetria' => 'required|nullable|string',
+            'longitudmiembrosinf' => 'required|nullable|string',
+            'marcha' => 'required|nullable|string',
+            'postura' => 'required|nullable|string',
             'nombrefisioterapeuta' => 'required|string|max:50',
-            'notasevolutivas' => 'nullable|string',
-            'estado' => 'required|in:Abierto,Cerrado',
+            'notasevolutivas' => 'required|nullable|string',
+            'id_estado' => 'required|exists:estado,id'
         ]);
 
         $expedientes = expediente::findOrFail($id);
