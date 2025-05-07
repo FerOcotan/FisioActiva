@@ -6,9 +6,17 @@ x-data="{
   currentRoute: window.location.href
 }"
 x-init="
-  setTimeout(() => loaded = true, 400);
+  setTimeout(() => {
+    loaded = true;
+    setTimeout(() => {
+      if (window.map) {
+        window.map.invalidateSize();
+      }
+    }, 100); // Espera un poco a que sea visible
+  }, 400);
   $watch('open', val => localStorage.setItem('sidebarOpen', JSON.stringify(val)));
 "
+
 x-cloak
 class="relative flex h-screen bg-white"
 >
