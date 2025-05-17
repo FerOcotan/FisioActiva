@@ -8,7 +8,7 @@
                 <div class="mb-6">
                     <h3 class="font-semibold">¿Cómo puedo agendar una cita?</h3>
                     <p class="text-gray-700">Para agendar una cita, comunicate con la clinica
-                        FisioActiva al numero 2222-2222 o al correo fisioactiva@gmail.com
+                        FisioActiva llama al +503 7789 452 o al whatsapp +503 7789 452.
                          y selecciona una fecha disponible y hora.</p>
                 </div>
     

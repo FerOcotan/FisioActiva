@@ -19,18 +19,27 @@ Route::get('/', function () {
 
 Route::fallback(function () {
     if (Auth::check()) {
-        return Auth::user()->id_rol === 1
-            ? redirect()->route('dashboard')
-            : redirect()->route('dashboardpaciente.index');
+        $rol = Auth::user()->id_rol;
+
+        if ($rol === 1) {
+            return redirect()->route('dashboard');
+        } elseif ($rol === 2) {
+            return redirect()->route('dashboardpaciente.index');
+        } else {
+            Auth::logout();
+            return redirect('/')->withErrors('Rol desconocido.');
+        }
     }
+
     return redirect('/');
 });
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified', 'role:1'])->name('dashboard');
-
-
+Route::get('/dashboardpaciente', function () {
+    return view('dashboardpaciente');
+})->middleware(['auth', 'verified', 'role:2'])->name('dashboardpaciente.index');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
