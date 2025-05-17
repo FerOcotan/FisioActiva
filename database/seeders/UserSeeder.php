@@ -20,10 +20,10 @@ class UserSeeder extends Seeder
         // Insertar usuarios específicos
         DB::table('users')->insert([
             [
-                'name' => 'gustavo',
+                'name' => 'Carlos Gustavo',
                 'email' => 'gustavo@example.com',
                 'password' => Hash::make('password'),  // Cambia 'password' a una contraseña segura
-                'apellido' => 'hidalgo',
+                'apellido' => 'Hidalgo',
                 'edad' => 30,
                 'direccion' => substr($faker->address, 0, 20),  // Limitar la longitud de la dirección a 100 caracteres
                 'latitud' => $faker->latitude,
@@ -36,10 +36,10 @@ class UserSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'name' => 'fernan morales',
+                'name' => 'Melvin Fernando',
                 'email' => 'fernanocotan@gmail.com',
                 'password' => Hash::make('password'),
-                'apellido' => 'morales',
+                'apellido' => 'Ocotan Morales',
                 'edad' => 21,
             'direccion' => substr($faker->address, 0, 20),  // Limitar la longitud de la dirección a 100 caracteres
                 'latitud' => $faker->latitude,
@@ -52,10 +52,10 @@ class UserSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'name' => 'angel',
+                'name' => 'Angel Roberto',
                 'email' => 'angel@example.com',
                 'password' => Hash::make('password'),
-                'apellido' => 'meza',
+                'apellido' => 'Meza Guardado',
                 'edad' => 25,
                 'direccion' => substr($faker->address, 0, 20),  // Limitar la longitud de la dirección a 100 caracteres
                 'latitud' => $faker->latitude,
@@ -67,26 +67,24 @@ class UserSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
-        ]);
-
-        // Insertar usuarios random
-        for ($i = 0; $i < 10; $i++) {
-            DB::table('users')->insert([
-                'name' => $faker->firstName,
-                'email' => $faker->unique()->safeEmail,
-                'password' => Hash::make('password'), // Cambia 'password' a una contraseña segura
-                'apellido' => $faker->lastName,
-                'edad' => $faker->numberBetween(18, 60),
+              [
+                'name' => 'Xiomara Isabel',
+                'email' => 'xiomaram768@gmail.com',
+                'password' => Hash::make('bukele123'),
+                'apellido' => 'Meza Guardado',
+                'edad' => 24,
                 'direccion' => substr($faker->address, 0, 20),  // Limitar la longitud de la dirección a 100 caracteres
                 'latitud' => $faker->latitude,
                 'longitud' => $faker->longitude,
                 'telefono' => $faker->numerify('###-###'),
-                'id_genero' => $faker->randomElement([1, 2]),  // Aleatorio entre 1 o 2
-                'id_rol' => 2,     // Rol 2 para usuarios aleatorios
+                'id_genero' => 2,  // Asumiendo que 1 es el id del género
+                'id_rol' => 1,     // Rol 1
                 'id_estado' => 1,  // Asumiendo que 1 es el id del estado
                 'created_at' => now(),
                 'updated_at' => now(),
-            ]);
-        }
+            ],
+        ]);
+
+      
     }
 }

@@ -4,7 +4,7 @@
         <br>
         Por favor, ponte en contacto con la administradora para recuperar el acceso.
         <br>
-        📞 <strong>Teléfono: +503 7789 4527</strong>
+        📞 <strong>Teléfono: +503 7755-9527</strong>
         <br>
         ✉️ También puedes escribirle por WhatsApp para una atención más rápida.
     </div>
