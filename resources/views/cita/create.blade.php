@@ -111,6 +111,8 @@
         </div>
     @endif
 </x-app-layout>
+@stack('scripts')
+
 
 @if(session('success'))
     <script>

@@ -1,56 +1,59 @@
-
 <div
-x-data="{
-  open: JSON.parse(localStorage.getItem('sidebarOpen')) || false,
-  loaded: false,
-  currentRoute: window.location.href
-}"
-x-init="
-  setTimeout(() => {
-    loaded = true;
+  x-data="{
+    open: JSON.parse(localStorage.getItem('sidebarOpen')) || false,
+    loaded: false,
+    currentRoute: window.location.href
+  }"
+  x-init="
     setTimeout(() => {
-      if (window.map) {
-        window.map.invalidateSize();
-      }
-    }, 100); // Espera un poco a que sea visible
-  }, 400);
-  $watch('open', val => localStorage.setItem('sidebarOpen', JSON.stringify(val)));
-"
-
-x-cloak
-class="relative flex h-screen bg-white"
+      loaded = true;
+      setTimeout(() => {
+        if (window.map) {
+          window.map.invalidateSize();
+        }
+      }, 100);
+    }, 400);
+    $watch('open', val => localStorage.setItem('sidebarOpen', JSON.stringify(val)));
+  "
+  x-cloak
+  class="relative flex h-screen bg-white overflow-hidden"
 >
-{{-- Loader full-screen --}}
-<div
-  x-show="!loaded"
-  class="absolute inset-0 flex items-center justify-center bg-white z-50"
->
-  <svg class="animate-spin h-8 w-8 text-[#05487d]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
-  </svg>
-</div>
 
-{{-- Sidebar + Contenido --}}
-<div x-show="loaded" x-transition.opacity.duration.200ms class="flex-1 flex">
-  
-  {{-- Sidebar --}}
-  <aside :class="open ? 'w-60' : 'w-20'" class="bg-white h-screen transition-all duration-300 ease-in-out shadow-lg border-r border-gray-200 relative">
-    {{-- Toggle button --}}
-    <div class="flex justify-end p-3">
+  <!-- Loader full-screen -->
+  <div x-show="!loaded" class="absolute inset-0 flex items-center justify-center bg-white z-50">
+    <svg class="animate-spin h-8 w-8 text-[#05487d]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+      <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+      <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+    </svg>
+  </div>
+
+  <!-- Sidebar -->
+<aside
+  :class="open
+    ? 'block translate-x-0 w-60'                             /* abierto: móvil y desktop ancho completo */
+    : 'hidden -translate-x-full w-0 sm:translate-x-0 sm:w-20' /* cerrado: móvil oculto; desktop sin translate + mini-ancho */
+  "
+  class="fixed sm:block sm:relative z-40 transform top-0 left-0 h-full
+         bg-white border-r border-gray-200 shadow-lg
+         transition-all duration-300 ease-in-out"
+>
+    <!-- Logo - Solo visible en móvil -->
+    <div class="sm:hidden flex items-center justify-center py-4 border-b border-gray-200">
+      <img src="{{ asset('images/logofondo.png') }}" alt="Logo" class="h-20 w-auto">
+    </div>
+
+    <!-- Botón toggle solo en pantallas grandes -->
+
       <button
         @click="open = !open"
-        class="absolute top-1/2 -translate-y-1/2 right-[-15px]
-               bg-white text-[#05487d] rounded-full p-2 shadow-md border-2 border-[#05487d]
-               hover:bg-blue-100 hover:text-[#05487d] transition-colors duration-200"
+        class="absolute top-1/2 -translate-y-1/2 right-[-15px] bg-white text-[#05487d] rounded-full p-2 shadow-md border-2 border-[#05487d] hover:bg-blue-100 hover:text-[#05487d] transition-colors duration-200"
         :title="open ? 'Contraer menú' : 'Expandir menú'"
       >
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                :d="open ? 'M15 19l-7-7 7-7' : 'M9 5l7 7-7 7'" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" :d="open ? 'M15 19l-7-7 7-7' : 'M9 5l7 7-7 7'" />
         </svg>
       </button>
-    </div>
+  
 
     {{-- Usuario --}}
     <div class="flex flex-col items-center justify-center py-2">
@@ -76,45 +79,54 @@ class="relative flex h-screen bg-white"
       </span>
     </div>
 
-{{-- Menú --}}
-<nav class="mt-6 px-2 space-y-2">
-@if(Auth::user()->id_rol != 1)
-  <x-sidebar-item route="dashboardpaciente.index" label="Inicio"         icon="M3 12l2-2m0 0l7-7 7 7m-2 2v7a2 2 0 01-2 2H9a2 2 0 01-2-2v-7m0 0L3 12" />
-  <x-sidebar-item route="faq" label="Q&A" icon="M8.228 9c.549-.631 1.254-1 2.022-1 1.657 0 3 1.343 3 3 0 1.5-1.5 2.25-1.5 3h-1.5m0 4h.01" />
-@endif
+    {{-- Menú --}}
+    <nav class="mt-6 px-2 space-y-2">
+      @if(Auth::user()->id_rol != 1)
+        <x-sidebar-item route="dashboardpaciente.index" label="Inicio" icon="M3 12l2-2m0 0l7-7 7 7m-2 2v7a2 2 0 01-2 2H9a2 2 0 01-2-2v-7m0 0L3 12" />
+        <x-sidebar-item route="faq" label="Q&A" icon="M8.228 9c.549-.631 1.254-1 2.022-1 1.657 0 3 1.343 3 3 0 1.5-1.5 2.25-1.5 3h-1.5m0 4h.01" />
+      @endif
 
-@if(Auth::user()->id_rol === 1)
-  <x-sidebar-item route="dashboard" label="Inicio"
-    icon="M3 12l2-2m0 0l7-7 7 7m-2 2v7a2 2 0 01-2 2H9a2 2 0 01-2-2v-7m0 0L3 12" />
-  <x-sidebar-item route="cita.index" label="Citas"
-    icon="M6.75 2.994v2.25M17.25 2.994v2.25M3.75 18h16.5M4.5 6.75h15a1.5 1.5 0 011.5 1.5v11.25a1.5 1.5 0 01-1.5 1.5h-15A1.5 1.5 0 013 19.5V8.25a1.5 1.5 0 011.5-1.5z" />
-  <x-sidebar-item route="usuarios.index" label="Pacientes"
-    icon="M15 12a3 3 0 100-6 3 3 0 000 6zM9 12a3 3 0 100-6 3 3 0 000 6zM3 20a6 6 0 0112 0M15 20a6 6 0 0112 0" />
-  <x-sidebar-item route="expediente.dash" label="Expedientes"
-    icon="M9 12h6m-6 4h6m-6-8h6M4 6h16M4 6a2 2 0 012-2h12a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V6z" />
-    <x-sidebar-item route="economico.index" label="Finanzas" icon="M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+      @if(Auth::user()->id_rol === 1)
+        <x-sidebar-item route="dashboard" label="Inicio" icon="M3 12l2-2m0 0l7-7 7 7m-2 2v7a2 2 0 01-2 2H9a2 2 0 01-2-2v-7m0 0L3 12" />
+        <x-sidebar-item route="cita.index" label="Citas" icon="M6.75 2.994v2.25M17.25 2.994v2.25M3.75 18h16.5M4.5 6.75h15a1.5 1.5 0 011.5 1.5v11.25a1.5 1.5 0 011.5 1.5h-15A1.5 1.5 0 013 19.5V8.25a1.5 1.5 0 011.5-1.5z" />
+        <x-sidebar-item route="usuarios.index" label="Pacientes" icon="M15 12a3 3 0 100-6 3 3 0 000 6zM9 12a3 3 0 100-6 3 3 0 000 6zM3 20a6 6 0 0112 0M15 20a6 6 0 0112 0" />
+        <x-sidebar-item route="expediente.dash" label="Expedientes" icon="M9 12h6m-6 4h6m-6-8h6M4 6h16M4 6a2 2 0 012-2h12a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V6z" />
+        <x-sidebar-item route="economico.index" label="Finanzas" icon="M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+      @endif
 
-
-
-@endif
-
-{{-- Botón Cerrar Sesión --}}
-<div class="mt-8 p-5" x-show="open">
-  <form method="POST" action="{{ route('logout') }}">
-    @csrf
-    <button type="submit" class="flex items-center justify-center w-full p-3 rounded-lg transition-all duration-200 group">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 group-hover:text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-      </svg>
-      <span class="ml-3 whitespace-nowrap group-hover:text-red-600">Cerrar Sesión</span>
-    </button>
-  </form>
-</div>
-</nav>
-
-
-
+      {{-- Botón Cerrar Sesión --}}
+      <div class="mt-8 p-5" x-show="open">
+        <form method="POST" action="{{ route('logout') }}">
+          @csrf
+          <button type="submit" class="flex items-center justify-center w-full p-3 rounded-lg transition-all duration-200 group">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 group-hover:text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+            </svg>
+            <span class="ml-3 whitespace-nowrap group-hover:text-red-600">Cerrar Sesión</span>
+          </button>
+        </form>
+      </div>
+    </nav>
   </aside>
+
+  <!-- Botón hamburguesa para mobile (ahora en el lado derecho) -->
+  <button
+    @click="open = true"
+    class="sm:hidden fixed top-4 right-4 z-40 bg-white p-2 rounded-full shadow-md border border-gray-300"
+    :aria-expanded="open"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[#05487d]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+    </svg>
+  </button>
+
+  <!-- Overlay para cerrar el menú en mobile -->
+  <div
+    x-show="open"
+    x-transition.opacity
+    class="fixed inset-0 bg-black bg-opacity-30 z-30 sm:hidden"
+    @click="open = false"
+  ></div>
 
   {{-- Contenido principal --}}
   <main class="flex-1 overflow-y-auto p-6 bg-white">
@@ -127,5 +139,3 @@ class="relative flex h-screen bg-white"
     {{ $slot }}
   </main>
 </div>
-</div>
-

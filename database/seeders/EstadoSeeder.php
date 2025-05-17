@@ -14,8 +14,14 @@ class EstadoSeeder extends Seeder
     public function run(): void
     {
         DB::table('estado')->insert([
-            ['titulo' => 'Activo', 'descripcion' => null],
-            ['titulo' => 'Inactivo', 'descripcion' => null],
+            ['titulo' => 'Activo', 'descripcion' => 'Usuario Activo'],
+            ['titulo' => 'Inactivo', 'descripcion' => 'Usuario Inactivo'],
+            ['titulo' => 'Abierto', 'descripcion' => 'Expediente abierto'],
+            ['titulo' => 'Cerrado', 'descripcion' => 'Expediente cerrado'],
+            ['titulo' => 'Pendiente', 'descripcion' => 'Cita pendiente'],
+            ['titulo' => 'Finalizada', 'descripcion' => 'Cita finalizada'],
+            ['titulo' => 'Cancelada', 'descripcion' => 'Cita cancelada'],
+            
         ]);
     }
 }
