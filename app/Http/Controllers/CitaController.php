@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\cita;
+use App\Models\Cita;
 use App\Models\Estado;
-use App\Models\usuario;
+use App\Models\Usuario;
 use App\Models\Modalidad;
-use App\Models\expediente;
+use App\Models\Expediente;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\User;

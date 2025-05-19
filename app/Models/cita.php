@@ -4,9 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Estado;
+use App\Models\User;
+use App\Models\Modalidad;
+use App\Models\Expediente;
 
-
-class cita extends Model
+class Cita extends Model
 {
     use HasFactory;
 
@@ -28,7 +31,7 @@ class cita extends Model
 
     public function expediente()
     {
-        return $this->belongsTo(expediente::class, 'numeroexpediente', 'numeroexpediente');
+        return $this->belongsTo(Expediente::class, 'numeroexpediente', 'numeroexpediente');
     }
 
      public function usuario()

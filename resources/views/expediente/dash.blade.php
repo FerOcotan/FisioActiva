@@ -14,7 +14,7 @@
                     <!-- Buscador mejorado -->
                     <form method="GET" action="{{ route('expediente.dash') }}" class="mb-6">
                         <div class="flex gap-2">
-                            <input type="text" name="search" placeholder="Buscar por nombre o apellido..." 
+                            <input type="text" name="search" placeholder="Buscar por nombre..." 
                                 value="{{ request('search') }}"
                                 class="flex-1 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
                                 required>

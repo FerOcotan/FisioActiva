@@ -26,7 +26,7 @@
                     <!-- Search form -->
                     <form method="GET" action="{{ route('cita.index') }}" class="mb-6">
                         <div class="flex gap-2 w-full">
-                            <input type="text" name="search" placeholder="Buscar por número de cita o expediente..." 
+                            <input type="text" name="search" placeholder="Buscar por número de expediente..." 
                                    value="{{ request('search') }}" 
                                    class="flex-grow border border-gray-300 focus:border-green-600 focus:ring-1 focus:ring-green-600 rounded-lg px-4 py-2 transition duration-200 outline-none">
                             <button type="submit" class="bg-lime-600 hover:bg-lime-700 text-white px-6 py-2 rounded-lg transition duration-200 flex items-center gap-2 whitespace-nowrap">
